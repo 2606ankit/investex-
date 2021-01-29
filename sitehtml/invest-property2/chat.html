@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MEHUL</title> 
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">  
+    <link rel="stylesheet" href="css/libs/swiper.min.css">
+    <link rel="stylesheet" href="css/libs/dropzone.css">
+    <link rel="stylesheet" href="css/libs/material-components-web.min.css">   
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="css/skins/blue.css">  
+    <link rel="stylesheet" href="css/responsive.css"> 
+	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"> 
+  
+
+
+
+</head>
+<body class="mdc-beatle--background"> 
+   <!------- <div class="spinner-wrapper" id="preloader">
+        <div class="spinner-container">
+            <div class="spinner-outer">
+                <div class="spinner">
+                    <div class="left mask">
+                        <div class="plane"></div>  
+                    </div>            
+                    <div class="top mask">
+                        <div class="plane"></div>
+                    </div>
+                    <div class="right mask">
+                        <div class="plane"></div>  
+                    </div>            
+                    <div class="triangle">
+                        <div class="triangle-plane"></div> 
+                    </div>
+                    <div class="top-left mask">
+                        <div class="plane"></div>
+                    </div>
+                    <div class="top-right mask">
+                        <div class="plane"></div>
+                    </div>            
+                </div>
+                <p class="spinner-text">INVESTEX</p> 
+            </div>
+        </div>
+    </div> ---------->
+     
+    <aside class="mdc-drawer mdc-drawer--modal sidenav">
+        <div class="row end-xs middle-xs py-1 px-3">
+            <button id="sidenav-close" class="mdc-icon-button material-icons warn-color">close</button> 
+        </div>
+        <hr class="mdc-list-divider m-0">
+        <div class="mdc-drawer__content"> 
+            <div class="vertical-menu">   
+             <div>
+                        <a href="index.html" class="mdc-button">
+                            <span class="mdc-button__ripple"></span>
+                            <span class="mdc-button__label">בית</span> 
+                        </a> 
+                    </div>  
+					 <div>
+                        <a href="#" class="mdc-button">
+                            <span class="mdc-button__ripple"></span>
+                            <span class="mdc-button__label">אינדקס משקיעים</span> 
+                        </a> 
+                    </div> 
+					 <div>
+                        <a href="#" class="mdc-button">
+                            <span class="mdc-button__ripple"></span>
+                            <span class="mdc-button__label">לוח עסקאות</span> 
+                        </a> 
+                    </div> 
+					
+			
+			</div>  
+        </div>
+        <hr class="mdc-list-divider m-0">
+        <div class="row center-xs middle-xs py-3">
+            <a href="https://www.facebook.com/" target="blank" class="social-icon">
+                <svg class="material-icons mat-icon-xlg primary-color" viewBox="0 0 24 24">
+                    <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M18,5H15.5A3.5,3.5 0 0,0 12,8.5V11H10V14H12V21H15V14H18V11H15V9A1,1 0 0,1 16,8H18V5Z" />
+                </svg>
+            </a>
+            <a href="https://twitter.com/" target="blank" class="social-icon">
+                <svg class="material-icons mat-icon-xlg primary-color" viewBox="0 0 24 24">
+                    <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M17.71,9.33C18.19,8.93 18.75,8.45 19,7.92C18.59,8.13 18.1,8.26 17.56,8.33C18.06,7.97 18.47,7.5 18.68,6.86C18.16,7.14 17.63,7.38 16.97,7.5C15.42,5.63 11.71,7.15 12.37,9.95C9.76,9.79 8.17,8.61 6.85,7.16C6.1,8.38 6.75,10.23 7.64,10.74C7.18,10.71 6.83,10.57 6.5,10.41C6.54,11.95 7.39,12.69 8.58,13.09C8.22,13.16 7.82,13.18 7.44,13.12C7.81,14.19 8.58,14.86 9.9,15C9,15.76 7.34,16.29 6,16.08C7.15,16.81 8.46,17.39 10.28,17.31C14.69,17.11 17.64,13.95 17.71,9.33Z" />
+                </svg> 
+            </a>
+            <a href="https://www.linkedin.com/" target="blank" class="social-icon"> 
+                <svg class="material-icons mat-icon-xlg primary-color" viewBox="0 0 24 24">
+                    <path d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M18.5,18.5V13.2A3.26,3.26 0 0,0 15.24,9.94C14.39,9.94 13.4,10.46 12.92,11.24V10.13H10.13V18.5H12.92V13.57C12.92,12.8 13.54,12.17 14.31,12.17A1.4,1.4 0 0,1 15.71,13.57V18.5H18.5M6.88,8.56A1.68,1.68 0 0,0 8.56,6.88C8.56,5.95 7.81,5.19 6.88,5.19A1.69,1.69 0 0,0 5.19,6.88C5.19,7.81 5.95,8.56 6.88,8.56M8.27,18.5V10.13H5.5V18.5H8.27Z" />
+                </svg>
+            </a>
+          
+        </div>  
+    </aside>
+    <div class="mdc-drawer-scrim sidenav-scrim"></div>  
+    <header class="toolbar-1 has-bg-image">  
+        <div id="top-toolbar" class="mdc-top-app-bar"> 
+            <div class="beatle-container row between-xs middle-xs h-100">
+                <div class="row start-xs middle-xs">  
+                    <button id="sidenav-toggle" class="mdc-button mdc-ripple-surface d-md-none d-lg-none d-xl-none">
+                        <span class="mdc-button__ripple"></span>
+                        <i class="material-icons">menu</i>
+                    </button>
+                    <div class="row start-xs middle-xs fw-500 d-none d-md-flex d-lg-flex d-xl-flex"> 
+                        <span class="d-flex center-xs middle-xs item">
+                            <i class="material-icons mat-icon-sm">call</i>
+                            <span class="px-1">(+100) 123 456 7890</span>
+                        </span>
+                        <span class="v-divider"></span> 
+                        <span class="d-flex center-xs middle-xs item">
+                            <i class="material-icons mat-icon-sm">location_on</i> 
+                            <span class="px-1">2903 Avenue Z, ברוקלין, ניו יורק, ארה"ב</span>
+                        </span>
+                        <span class="v-divider"></span>
+                        <span class="d-flex center-xs middle-xs item">
+                            <i class="material-icons mat-icon-sm">mail</i>  
+                            <span class="px-1">info@investex.com</span>
+                        </span>  
+                    </div>       
+                </div> 
+                <div class="row start-xs middle-xs d-none d-lg-flex d-xl-flex">
+                    <a href="https://www.facebook.com/" target="blank" class="social-icon">
+                        <svg class="material-icons" viewBox="0 0 24 24">
+                            <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M18,5H15.5A3.5,3.5 0 0,0 12,8.5V11H10V14H12V21H15V14H18V11H15V9A1,1 0 0,1 16,8H18V5Z" />
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com/" target="blank" class="social-icon">
+                        <svg class="material-icons" viewBox="0 0 24 24">
+                            <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M17.71,9.33C18.19,8.93 18.75,8.45 19,7.92C18.59,8.13 18.1,8.26 17.56,8.33C18.06,7.97 18.47,7.5 18.68,6.86C18.16,7.14 17.63,7.38 16.97,7.5C15.42,5.63 11.71,7.15 12.37,9.95C9.76,9.79 8.17,8.61 6.85,7.16C6.1,8.38 6.75,10.23 7.64,10.74C7.18,10.71 6.83,10.57 6.5,10.41C6.54,11.95 7.39,12.69 8.58,13.09C8.22,13.16 7.82,13.18 7.44,13.12C7.81,14.19 8.58,14.86 9.9,15C9,15.76 7.34,16.29 6,16.08C7.15,16.81 8.46,17.39 10.28,17.31C14.69,17.11 17.64,13.95 17.71,9.33Z" />
+                        </svg> 
+                    </a>
+                    <a href="https://www.linkedin.com/" target="blank" class="social-icon"> 
+                        <svg class="material-icons" viewBox="0 0 24 24">
+                            <path d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M18.5,18.5V13.2A3.26,3.26 0 0,0 15.24,9.94C14.39,9.94 13.4,10.46 12.92,11.24V10.13H10.13V18.5H12.92V13.57C12.92,12.8 13.54,12.17 14.31,12.17A1.4,1.4 0 0,1 15.71,13.57V18.5H18.5M6.88,8.56A1.68,1.68 0 0,0 8.56,6.88C8.56,5.95 7.81,5.19 6.88,5.19A1.69,1.69 0 0,0 5.19,6.88C5.19,7.81 5.95,8.56 6.88,8.56M8.27,18.5V10.13H5.5V18.5H8.27Z" />
+                        </svg>
+                    </a>
+                  
+                </div>  
+                <div class="row end-xs middle-xs">
+                    
+                     
+                    <div class="mdc-menu-surface--anchor"> 
+                        <button class="mdc-button mdc-ripple-surface"> 
+                            <span class="mdc-button__ripple"></span>
+                            <i class="material-icons mdc-button__icon mx-1">person</i>
+                            <span class="mdc-button__label">account</span>
+                            <i class="material-icons mdc-button__icon m-0">arrow_drop_down</i>
+                        </button> 
+                        <div class="mdc-menu mdc-menu-surface user-menu">
+                            <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+                                <li class="user-info row start-xs middle-xs">                   
+                                    <img src="assets/images/others/user.jpg" alt="user-image" width="50">
+                                    <p class="m-0">Sidharth Jugran <br> <small><i>Sidharth_j</i></small></p>
+                                </li>
+                                <li role="separator" class="mdc-list-divider m-0"></li> 
+                                
+                                
+                                
+                                <li>
+                                    <a href="#" class="mdc-list-item" role="menuitem">
+                                        <i class="material-icons mat-icon-sm text-muted">help</i> 
+                                        <span class="mdc-list-item__text px-3">Help</span>
+                                    </a>
+                                </li>
+                                <li role="separator" class="mdc-list-divider m-0"></li>
+                                <li>
+                                    <a href="#" class="mdc-list-item" role="menuitem">
+                                        <i class="material-icons mat-icon-sm text-muted">power_settings_new</i> 
+                                        <span class="mdc-list-item__text px-3">Sign Out</span>
+                                    </a>
+                                </li> 
+                            </ul>
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+        </div>  
+        <div id="main-toolbar" class="mdc-elevation--z2">
+            <div class="beatle-container row between-xs middle-xs h-100"> 
+                <a class="logo" href="index.html"> 
+                   <img src="assets/images/logo.png">
+                </a>  
+                <div class="horizontal-menu d-none d-md-flex d-lg-flex d-xl-flex">   
+                    <div>
+                        <a href="index.html" class="mdc-button">
+                            <span class="mdc-button__ripple"></span>
+                            <span class="mdc-button__label">בית</span> 
+                        </a> 
+                    </div>  
+					 <div>
+                        <a href="#" class="mdc-button">
+                            <span class="mdc-button__ripple"></span>
+                            <span class="mdc-button__label">אינדקס משקיעים</span> 
+                        </a> 
+                    </div> 
+					 <div>
+                        <a href="#" class="mdc-button">
+                            <span class="mdc-button__ripple"></span>
+                            <span class="mdc-button__label">לוח עסקאות</span> 
+                        </a> 
+                    </div> 
+					
+				
+				
+				</div> 
+                <div class="row middle-xs"> 
+				
+					<div class="mdc-menu-surface--anchor"> 
+                         <a href="investor-Join.html" class="mdc-button mdc-ripple-surface mdc-ripple-upgraded" style="--mdc-ripple-fg-size:75px; --mdc-ripple-fg-scale:1.88088; --mdc-ripple-fg-translate-start:62.8875px, -17.1px; --mdc-ripple-fg-translate-end:25.5125px, -19.5px;"> 
+                            <span class="mdc-button__ripple"></span>
+                            <i class="material-icons mdc-button__icon mx-1">person</i>
+                            <span class="mdc-button__label col_fff">הצטרפות</span>
+                            
+                        </a> 
+                       
+                    </div>
+                    <div class="mdc-menu-surface--anchor"> 
+                        <a href="login.html" class="mdc-button mdc-ripple-surface mdc-ripple-upgraded" style="--mdc-ripple-fg-size:75px; --mdc-ripple-fg-scale:1.88088; --mdc-ripple-fg-translate-start:62.8875px, -17.1px; --mdc-ripple-fg-translate-end:25.5125px, -19.5px;"> 
+                            <span class="mdc-button__ripple"></span>
+                            <i class="material-icons mdc-button__icon mx-1">person</i>
+                            <span class="mdc-button__label col_fff">כניסה</span>
+                            
+                        </a> 
+                       
+                    </div> 
+					 
+                    <a href="dealer-Join.html" class="mdc-button mdc-button--raised d-none d-sm-flex d-md-flex d-lg-flex d-xl-flex">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__label">פרסם עסקה</span> 
+                    </a> 
+                </div>  
+            </div>
+        </div> 
+    </header>  
+  
+
+	<main> 
+        <div class="header-image-wrapper">
+            <div class="bg" style="background-image: url('assets/images/carousel/slide-3.jpg');"></div>
+            <div class="mask"></div>            
+             <br><br>
+        </div>  
+         
+     
+	   
+	   
+	   <div class="container">
+<br>
+<div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          
+          <div class="inbox_chat">
+            <div class="chat_list active_chat">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="assets/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="assets/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="assets/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="assets/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="assets/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="assets/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat_list">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="assets/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                  <p>Test, which is a new approach to have all solutions 
+                    astrology under one roof.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mesgs">
+          <div class="msg_history">
+            <div class="incoming_msg">
+              <div class="incoming_msg_img"> <img src="assets/images/user-profile.png" alt="sunil"> </div>
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>Test which is a new approach to have all
+                    solutions</p>
+                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
+              </div>
+            </div>
+            <div class="outgoing_msg">
+              <div class="sent_msg">
+                <p>Test which is a new approach to have all
+                  solutions</p>
+                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+            </div>
+            <div class="incoming_msg">
+              <div class="incoming_msg_img"> <img src="assets/images/user-profile.png" alt="sunil"> </div>
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>Test, which is a new approach to have</p>
+                  <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
+              </div>
+            </div>
+            <div class="outgoing_msg">
+              <div class="sent_msg">
+                <p>Apollo University, Delhi, India Test</p>
+                <span class="time_date"> 11:01 AM    |    Today</span> </div>
+            </div>
+            <div class="incoming_msg">
+              <div class="incoming_msg_img"> <img src="assets/images/user-profile.png" alt="sunil"> </div>
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>We work directly with our designers and suppliers,
+                    and sell direct to you, which means quality, exclusive
+                    products, at a price anyone can afford.</p>
+                  <span class="time_date"> 11:01 AM    |    Today</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="type_msg">
+            <div class="input_msg_write">
+              <input type="text" class="write_msg" placeholder="Type a message" />
+              <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+   
+      
+    </div></div>
+	
+	
+	
+	<style>
+	.container{max-width:1170px; margin:auto;}
+img{ max-width:100%;}
+.inbox_people {
+  background: #f8f8f8 none repeat scroll 0 0;
+  float: left;
+  overflow: hidden;
+  width: 40%; border-right:1px solid #c4c4c4;
+}
+.inbox_msg {
+  border: 1px solid #c4c4c4;
+  clear: both;
+  overflow: hidden;
+}
+.top_spac{ margin: 20px 0 0;}
+
+
+.recent_heading {float: left; width:40%;}
+.srch_bar {
+  display: inline-block;
+  text-align: right;
+  width: 60%; padding:
+}
+.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+
+.recent_heading h4 {
+  color: #05728f;
+  font-size: 21px;
+  margin: auto;
+}
+.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+.srch_bar .input-group-addon button {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  padding: 0;
+  color: #707070;
+  font-size: 18px;
+}
+.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
+
+.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
+.chat_ib h5 span{ font-size:13px; float:right;}
+.chat_ib p{ font-size:14px; color:#989898; margin:auto}
+.chat_img {
+    float: right;
+    width: 11%;
+    margin-top: 11px;
+}
+.chat_ib {
+    float: left;
+    padding: 0px 15px 0px 0px;
+    width: 88%;
+}
+
+.chat_people{ overflow:hidden; clear:both;}
+.chat_list {
+  border-bottom: 1px solid #c4c4c4;
+  margin: 0;
+  padding: 18px 16px 10px;
+}
+.inbox_chat { height: 550px; overflow-y: scroll;}
+
+.active_chat{ background:#ebebeb;}
+
+.incoming_msg_img {
+  display: inline-block;
+  width: 6%;
+}
+.received_msg {
+  display: inline-block;
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 92%;
+ }
+ .received_withd_msg p {
+  background: #ebebeb none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #646464;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+}
+.time_date {
+  color: #747474;
+  display: block;
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+.received_withd_msg { width: 57%;}
+.mesgs {
+  float: left;
+  padding: 30px 15px 0 25px;
+  width: 60%;
+}
+
+ .sent_msg p {
+  background: #05728f none repeat scroll 0 0;
+  border-radius: 3px;
+  font-size: 14px;
+  margin: 0; color:#fff;
+  padding: 5px 10px 5px 12px;
+  width:100%;
+}
+.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+.sent_msg {
+    float: left;
+    width: 100%;
+}
+.outgoing_msg {
+    float: left;
+}
+input.write_msg {
+    padding-right: 56px;
+}
+.input_msg_write input {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: #4c4c4c;
+  font-size: 15px;
+  min-height: 48px;
+  width: 100%;
+}
+
+.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+.msg_send_btn {
+  background: #05728f none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  height: 33px;
+  position: absolute;
+  right: 0;
+  top: 11px;
+  width: 33px;
+}
+.messaging { padding: 0 0 50px 0;}
+.msg_history {
+  height: 516px;
+  overflow-y: auto;
+}
+	</style>
+   
+
+	   
+	   
+	   
+	   
+	   
+	   
+    </main> 
+   
+
+   
+   
+   <footer>  
+        <div class="px-3">
+            <div class="beatle-container"> 
+               
+                <div class="py-5 content"> 
+                    <div class="row between-xs"> 
+                        <div class="col-xs-12 col-sm-5 col-md-4 p-0"> 
+                            <a class="logo" href="index.html"> 
+                            <img src="assets/images/logo.png">
+                            </a>  
+                            <p class="mt-5 mb-3 desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum perspiciatis cupiditate numquam odio explicabo accusantium deserunt incidunt.</p>
+                            <p class="row middle-xs mt-2">
+                                <i class="material-icons primary-color">location_on</i>
+                                <span class="mx-2">2903 Avenue Z, ברוקלין, ניו יורק, ארה"ב</span>
+                            </p>
+                            <p class="row middle-xs mt-1">
+                                <i class="material-icons primary-color">call</i> 
+                                <span class="mx-2">(+100) 123 456 7890</span>
+                            </p>
+                            <p class="row middle-xs mt-1"> 
+                                <i class="material-icons primary-color">mail_outline</i> 
+                                <span class="mx-2">info@investex.com</span>
+                            </p>
+                            <p class="row middle-xs mt-1"> 
+                                <i class="material-icons primary-color">schedule</i> 
+                                <span class="mx-2">Mon - Sun / 9:00AM - 8:00PM</span>
+                            </p> 
+                            <div class="row start-xs middle-xs desc">
+                                <a href="https://www.facebook.com/" target="blank" class="social-icon">
+                                    <svg class="material-icons mat-icon-lg" viewBox="0 0 24 24">
+                                        <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M18,5H15.5A3.5,3.5 0 0,0 12,8.5V11H10V14H12V21H15V14H18V11H15V9A1,1 0 0,1 16,8H18V5Z" />
+                                    </svg>
+                                </a>
+                                <a href="https://twitter.com/" target="blank" class="social-icon">
+                                    <svg class="material-icons mat-icon-lg" viewBox="0 0 24 24">
+                                        <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M17.71,9.33C18.19,8.93 18.75,8.45 19,7.92C18.59,8.13 18.1,8.26 17.56,8.33C18.06,7.97 18.47,7.5 18.68,6.86C18.16,7.14 17.63,7.38 16.97,7.5C15.42,5.63 11.71,7.15 12.37,9.95C9.76,9.79 8.17,8.61 6.85,7.16C6.1,8.38 6.75,10.23 7.64,10.74C7.18,10.71 6.83,10.57 6.5,10.41C6.54,11.95 7.39,12.69 8.58,13.09C8.22,13.16 7.82,13.18 7.44,13.12C7.81,14.19 8.58,14.86 9.9,15C9,15.76 7.34,16.29 6,16.08C7.15,16.81 8.46,17.39 10.28,17.31C14.69,17.11 17.64,13.95 17.71,9.33Z" />
+                                    </svg> 
+                                </a>
+                                <a href="https://www.linkedin.com/" target="blank" class="social-icon"> 
+                                    <svg class="material-icons mat-icon-lg" viewBox="0 0 24 24">
+                                        <path d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M18.5,18.5V13.2A3.26,3.26 0 0,0 15.24,9.94C14.39,9.94 13.4,10.46 12.92,11.24V10.13H10.13V18.5H12.92V13.57C12.92,12.8 13.54,12.17 14.31,12.17A1.4,1.4 0 0,1 15.71,13.57V18.5H18.5M6.88,8.56A1.68,1.68 0 0,0 8.56,6.88C8.56,5.95 7.81,5.19 6.88,5.19A1.69,1.69 0 0,0 5.19,6.88C5.19,7.81 5.95,8.56 6.88,8.56M8.27,18.5V10.13H5.5V18.5H8.27Z" />
+                                    </svg>
+                                </a>
+                                
+                            </div>  
+                        </div> 
+                        <div class="col-xs-12 col-sm-5 col-md-3 p-0 feedback"> 
+                            <h2 class="uppercase">Feedback</h2>
+                            <p class="desc">We want your feedback about everything</p>
+                            <form action="#" class="feedback-form pt-2">  
+                                <div class="mdc-text-field mdc-text-field--outlined w-100">
+                                    <input id="feedback-email" class="mdc-text-field__input" placeholder="Email is required">
+                                    <div class="mdc-notched-outline">
+                                    <div class="mdc-notched-outline__leading"></div>
+                                    <div class="mdc-notched-outline__notch">
+                                        <label for="feedback-email" class="mdc-floating-label">Email</label>
+                                    </div>
+                                    <div class="mdc-notched-outline__trailing"></div>
+                                    </div>
+                                </div> 
+                                <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea w-100 mt-4">
+                                    <textarea id="feedback-message" class="mdc-text-field__input" rows="5" placeholder="Message is required"></textarea>
+                                    <div class="mdc-notched-outline mdc-notched-outline--upgraded">
+                                        <div class="mdc-notched-outline__leading"></div>
+                                        <div class="mdc-notched-outline__notch">
+                                            <label for="feedback-message" class="mdc-floating-label">Message for us</label>
+                                        </div>
+                                        <div class="mdc-notched-outline__trailing"></div>
+                                    </div>
+                                </div> 
+                                <div class="w-100 text-center mt-4">
+                                    <button type="submit" class="mdc-button mdc-button--raised">
+                                        <span class="mdc-button__ripple"></span>
+                                        <span class="mdc-button__label">Submit</span> 
+                                    </button> 
+                                </div> 
+                            </form> 
+                        </div> 
+                        <div class="col-xs-12 col-md-4 p-0 location"> 
+                            <h2 class="uppercase mb-3">Our location</h2>
+                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.9630148536544!2d72.53238101491995!3d23.061817484933268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e8359bb691c61%3A0xd93f6912bf24f968!2sAngel%20Arcade!5e0!3m2!1sen!2sin!4v1610110341920!5m2!1sen!2sin" 
+							  height="320" frameborder="0" style="border:0;" style="width:100%;"
+							  allowfullscreen="" aria-hidden="false" tabindex="0">
+							  </iframe>
+                        </div>
+                    </div>  
+                </div> 
+                <div class="row between-xs middle-xs copyright">
+                    <p>Copyright © 2021 All Rights Reserved</p>
+                    <p>Designed & Developed by 
+                        <a class="mdc-button" href="#" target="_blank"> 
+                            Copyright © 2021, All Rights Reserved. Created By BeatleBuddy
+                        </a>
+                    </p>
+                </div> 
+            </div>
+        </div>      
+    </footer> 
+   
+ 
+
+<div id="back-to-top"><i class="material-icons">arrow_upward</i></div> 
+    <script src="js/libs/jquery.min.js"></script> 
+    <script src="js/libs/material-components-web.min.js"></script> 
+    <script src="js/libs/swiper.min.js"></script>  
+    <script src="js/libs/dropzone.js"></script>  
+    <script src="js/scripts.js"></script>    
+
+<script>
+$(document).ready(function() {
+
+    
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+    
+    $(".upload-button").on('click', function() {
+       $(".file-upload").click();
+    });
+});
+</script>
+</body>
+
+</html>
