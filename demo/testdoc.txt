@@ -1,5 +1,4 @@
-1- git add .
-2- git commit -m "28-jan-2021"
+
 3- git pull origin dev
 
 4- git add .
