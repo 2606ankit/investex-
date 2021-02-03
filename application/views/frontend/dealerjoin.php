@@ -1,7 +1,28 @@
 <?php 
 	$this->load->view('layout/frontend/header');
 ?>
-
+<style>
+    .errorTxt{
+  min-height: 20px;
+  text-align: left;
+  font-size: 12px;
+  color:#900;
+}
+pan.arrow {
+    margin-left: 6px;
+    height:17px;
+    background: url('http://i45.tinypic.com/f9ifz6.png') no-repeat left center;
+}
+label.error {
+    height:17px; 
+    color:#900;
+    margin-left:9px;
+    margin-top: 30px !important; 
+    width: 100% !important;
+    padding:1px 5px 0px 5px;
+    font-size:small;
+}
+</style>
    <main>  
 
 	<div class="header-image-wrapper">
@@ -22,29 +43,25 @@
                             <h1 class="uppercase"> במקום התחבר עם לינקדין יהיה התחבר עם גוגל</h1>
                            
                         </div>
-                        <form action="javascript:void(0);">  
-								
-								
-		
-		
-		 <div class="text-center py-3">
-							
-                                <a href="javascript:void(0);" class="mdc-fab mdc-fab--mini primary facebook_bg">
-                                    <span class="mdc-fab__ripple"></span>
-                                    <svg class="material-icons mat-icon-md" viewBox="0 0 24 24">
-                                        <path d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z" />
-                                    </svg>Connect with Facebook 
-                                </a>
-                             
+                        <form action="<?php echo SITE_URL?>dealerjoin" method="post" name="dealer_join" id="dealer_join"> 
 
- 								
-                                <a href="javascript:void(0);" class="mdc-fab mdc-fab--mini primary google_bg">
-                                    <span class="mdc-fab__ripple"></span>
-                                    <svg class="material-icons mat-icon-md" viewBox="0 0 24 24">
-                                        <path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z" />
-                                    </svg>Connect with Google
-                                </a>   
-                            </div> 
+		                       <div class="text-center py-3">
+							     <a href="javascript:void(0);" class="mdc-fab mdc-fab--mini primary facebook_bg">
+                                        <span class="mdc-fab__ripple"></span>
+                                        <svg class="material-icons mat-icon-md" viewBox="0 0 24 24">
+                                            <path d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z" />
+                                        </svg>Connect with Facebook 
+                                    </a>
+                                 
+
+     								
+                                    <a href="javascript:void(0);" class="mdc-fab mdc-fab--mini primary google_bg">
+                                        <span class="mdc-fab__ripple"></span>
+                                        <svg class="material-icons mat-icon-md" viewBox="0 0 24 24">
+                                            <path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z" />
+                                        </svg>Connect with Google
+                                    </a>   
+                                </div> 
 							
 						
 						
@@ -55,22 +72,23 @@
                                 <div class="divider p-relative w-100"></div>
                             </div>  
                                
-                        
+                         <div class="errorTxt"></div>
 						
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                               
-                                <input class="mdc-text-field__input">
+                                <input class="mdc-text-field__input" type="text" name="dealer_firstname" id="dealer_fullname">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
-                                        <label class="mdc-floating-label">Full Name</label>
+                                        <label class="mdc-floating-label">First Name</label>
                                     </div>
                                     <div class="mdc-notched-outline__trailing"></div>
                                 </div>
                             </div>  
+
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
-                                <input class="mdc-text-field__input">
+                                <input class="mdc-text-field__input" type="text" name="dealer_lastname" id="dealer_lastname">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
@@ -82,7 +100,7 @@
 							
 							<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
-                                <input class="mdc-text-field__input">
+                                <input class="mdc-text-field__input" type="text" id="dealer_miles" name="dealer_miles">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
@@ -92,9 +110,21 @@
                                 </div>
                             </div>  
 							
+                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
+                             
+                                <input class="mdc-text-field__input" type="email" id="dealer_email" name="dealer_email">
+                                <div class="mdc-notched-outline" >
+                                    <div class="mdc-notched-outline__leading"></div>
+                                    <div class="mdc-notched-outline__notch">
+                                        <label class="mdc-floating-label">Email</label>
+                                    </div>
+                                    <div class="mdc-notched-outline__trailing"></div>
+                                </div>
+                            </div>
+
 							<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
-                                <input class="mdc-text-field__input">
+                                <input class="mdc-text-field__input" type="text" id="dealer_phone" name="dealer_phone">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
@@ -106,7 +136,7 @@
 							
 							<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
-                                <input class="mdc-text-field__input">
+                                <input class="mdc-text-field__input" type="text" id="dealer_username" name="dealer_username">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
@@ -118,11 +148,22 @@
 							
 							<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
-                                <input class="mdc-text-field__input" type="password">
+                                <input class="mdc-text-field__input" type="password" name="dealer_password" id="dealer_password">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
                                         <label class="mdc-floating-label">Choose Password</label>
+                                    </div>
+                                    <div class="mdc-notched-outline__trailing"></div>
+                                </div>
+                            </div> 
+                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
+                             
+                                <input class="mdc-text-field__input" type="password" name="dealer_repassword" id="dealer_repassword">
+                                <div class="mdc-notched-outline">
+                                    <div class="mdc-notched-outline__leading"></div>
+                                    <div class="mdc-notched-outline__notch">
+                                        <label class="mdc-floating-label">Re-Enter Password</label>
                                     </div>
                                     <div class="mdc-notched-outline__trailing"></div>
                                 </div>
@@ -149,10 +190,11 @@
                             </div>
 							
                             <div class="text-center mt-5"> 
-                                <a href="dealer-registration.html" class="mdc-button mdc-button--raised bg-accent" type="submit">
+                                <button type="submit" class="mdc-button mdc-button--raised bg-accent" type="submit">
                                     <span class="mdc-button__ripple"></span>
                                     <span class="mdc-button__label">הצטרפות >></span> 
-                                </a>
+
+                                 </button>
                             </div>  
                           
 						

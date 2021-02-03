@@ -12,7 +12,7 @@
                 <div class="mt-4 w100per">
 				<div class="col-md-12">
 				<h3 class="font_weight_400 mr_r_45">מחפש משקיע?</h3>
-                    <a href="#" class="mdc-button mdc-button--raised  cust_btn _bg_blu">
+                    <a href="<?php echo SITE_URL?>dealerjoin" class="mdc-button mdc-button--raised  cust_btn _bg_blu">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">
 						<img src="https://cdn.xplace.com/images/rocket_white.svg" class="rocket icon" alt="rocket icon"> פרסום עסקת נדל”ן<span>(חינם) »</span>	</span> 
@@ -20,7 +20,7 @@
 					</div>
 					<div class="col-md-12 mt-4">
 							<h3 class="font_weight_400 mr_r_45">מחפש עסקת נדל"ן?</h3>
-		                    <a href="#" class="mdc-button mdc-button--raised  cust_btn _bg_yellow">
+		                    <a href="<?php echo SITE_URL?>investorJoin" class="mdc-button mdc-button--raised  cust_btn _bg_yellow">
 		                        <span class="mdc-button__ripple"></span>
 		                        <span class="mdc-button__label">הירשם כמשקיע<span>(חינם) »</span></span> 
 		                    </a>  
