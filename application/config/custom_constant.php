@@ -1,5 +1,4 @@
 <?php 
-	
 	define ('FRONTEND_URL','http://localhost/investex/');
 	define ('SITE_URL','http://localhost/investex/index.php/user/');
 	define ('ASSETS_URL','http://localhost/investex/assets/');
