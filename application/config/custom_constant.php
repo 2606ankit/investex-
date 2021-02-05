@@ -1,7 +1,14 @@
 <?php 
-	define ('FRONTEND_URL','http://localhost/investex/');
-	define ('SITE_URL','http://localhost/investex/index.php/user/');
-	define ('ASSETS_URL','http://localhost/investex/assets/');
+	/*	****************************************************************************************
+		 link for live server (uncomment when site will be site and comment local path site url)
+	 ****************************************************************************************    */	 
+	//define ('SERVER_URL','work.beatlebuddy.com/investex/');
+
+	define ('SERVER_URL','http://localhost/investex/');
+	
+	define ('FRONTEND_URL',SERVER_URL);
+	define ('SITE_URL',SERVER_URL.'index.php/user/');
+	define ('ASSETS_URL',SERVER_URL.'assets/');
 	define ('TODAY_DATE',date("Y-m-d H:i:s"));
 	define ('SITE_TITLE','Investex');
 	define ('ADMIN_EMAIL','ankit@beatleanalytics.com');
@@ -15,6 +22,15 @@
 	// User Status 
 	define("ACTIVE",1);
 	define("INACTIVE",2); 
+
+	// property status
+	define("Open_For_Investement",3);
+	define("Close_for_Investment",4);
+	define("DRAFTS",5); 
+	define("STATUS_DELETE",6);
+
+
+
 
 	// user insert type
 	define("FACEBOOK",1);

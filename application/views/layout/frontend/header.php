@@ -19,7 +19,7 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
    
-    
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"> 
 
 </head>
 
@@ -166,9 +166,19 @@
                                     </li>
                                     <li role="separator" class="mdc-list-divider m-0"></li> 
                                     <li>
-                                        <a href="#" class="mdc-list-item" role="menuitem">
-                                            <i class="material-icons mat-icon-sm text-muted">help</i> 
-                                            <span class="mdc-list-item__text px-3">Help</span>
+                                        <?php 
+                                            if ($this->session->userdata('usertype') == DEALER)
+                                            {
+                                                $dashboard = 'dealerdashboard';
+                                            }
+                                            elseif ($this->session->userdata('usertype') == INVESTOR)
+                                            {
+                                                $dashboard = 'invstordashboard';
+                                            }
+                                        ?>
+                                        <a href="<?php echo SITE_URL.$dashboard; ?>" class="mdc-list-item" role="menuitem">
+                                            <i class="material-icons mat-icon-sm text-muted">dashboard</i> 
+                                            <span class="mdc-list-item__text px-3">Dashboard</span>
                                         </a>
                                     </li>
                                     <li role="separator" class="mdc-list-divider m-0"></li>

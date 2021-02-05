@@ -361,3 +361,54 @@
     }
 }
 
+
+
+@media screen and (min-width:0px) and (max-width: 991px) {
+	.cust_btn._bg_blu , a.mdc-button.mdc-button--raised.cust_btn._bg_yellow.mdc-ripple-upgraded {
+    padding: 7px 23px;
+    font-size: 17px;
+}
+img.rocket.icon {
+    display: none;
+}
+.header-image-wrapper .header-image-content.home-page {
+    min-height: 452px;
+}	
+.header-image-wrapper .header-image-content.offset-bottom {
+    padding-bottom: 0px;
+ 
+}
+.header-image-wrapper .header-image-content .title {
+    font-size: 22px;
+}
+.f28 {
+    font-size: 18px;
+}
+iframe {
+    height: 206px;
+}
+table.table.table-hover {
+    width: 100%;
+    overflow-x: scroll;
+    display: block;
+}
+.howto td img {
+    margin: 0 29px;
+}
+a.mdc-button.mdc-button--raised.d-none.d-sm-flex.d-md-flex.d-lg-flex.d-xl-flex.mdc-ripple-upgraded {
+    display: block !important;
+    line-height: 2.5;
+}
+header.toolbar-1.has-bg-image.main-toolbar-fixed .row.middle-xs .mdc-menu-surface--anchor {
+    display: none;
+}
+.mob_non {
+    display: none;
+}
+h2.title.f28 {
+    font-size: 1.5em;
+    font-weight: 100;
+    margin: 0 0 0 0;
+}
+
+}

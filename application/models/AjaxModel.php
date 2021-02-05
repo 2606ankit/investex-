@@ -11,6 +11,7 @@
 							->where("username",$dealer_username)
 							->get();
 			$res = $checkuser->result();
+			return $res;
 		}
 
 		// check user email start here
@@ -21,6 +22,20 @@
 							->where("user_email",$dealer_email)
 							->get();
 			$res = $checkuser->result();
+			return $res;
+		}
+		// end here
+		// checck username for user profile to change password start here
+		public function checkPassword($currentpassword,$loginid)
+		{
+			$data = $this->db->select("*")
+					->from("investex_user")
+					->where("password",md5($currentpassword))
+					->where("id",$loginid)
+					->get();
+					 
+			$res = $data->result();
+					
 		}
 		// end here
 
@@ -98,6 +113,18 @@
 					->get();
 			$res = $data->result();
 			return $res;
+		}
+		// end here
+
+		// delete property start here
+		public function deleteProperty($delid)
+		{
+			$update = array("status"=>STATUS_DELETE);
+			$data = $this->db->where("id",$delid)->update("user_dealer_property",$update);
+			//echo $this->db->last_query(); die;
+			if ($data){
+				return true;
+			}
 		}
 		// end here
 	}

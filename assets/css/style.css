@@ -69,6 +69,42 @@ h3.video_titile , h1.uppercase {
     text-align: center;
 }
 ****************/
+.w360 {
+    width: 360px !important;
+}
+.mdc-menu.mdc-menu-surface.user-menu.w360.mdc-menu-surface--fixed {
+   
+    overflow-y: scroll;
+    height: 272px;
+}
+
+.line_h0 {
+    line-height: 0;
+}
+span.geen_bx {
+    background: green;
+    padding: 4px 15px;
+    border-radius: 53px;
+    color: #fff;
+}
+button.mdc-button.mdc-ripple-surface.mutable.hover.mdc-ripple-upgraded::hover .mdc-menu.mdc-menu-surface.block {
+	
+	display:block !important;
+	visibility:visible  !important;
+	opacity:1  !important;
+	
+}
+a.mach_pro {
+    position: absolute;
+    top: -20px;
+    left: 12px;
+    color: green;
+    font-weight: 500;
+}
+.w60per {
+    position: relative;
+}
+
 
 
 .header-image-wrapper {
@@ -88,7 +124,7 @@ img.rocket.icon {
 }
 
 
-button, div, td, input, submit, textarea, h1, h2, h3, h4, h5, h6 {
+div, td, input, submit, textarea, h1, h2, h3, h4, h5, h6 {
     font-family: 'Rubik', sans-serif !important;
     box-sizing: border-box !important;
     transition: 150ms !important;
@@ -326,9 +362,9 @@ a{
   background: var(--mdc-beatle-error) !important;
   color: #fff !important;
 }
-.border-accent{
-  border-color: var(--mdc-beatle-secondary);        
-} 
+.border-accent {
+    border-color: #8b8b8b;
+}
 .expansion-panel-wrapper .expansion-panel{
   position: relative;
 }
@@ -883,7 +919,7 @@ header.toolbar-2 .horizontal-menu .mdc-button{
   right: 0;
   top: 0;
   bottom: 0;
-  background-image: url('assets/images/others/homepage.jpg');
+  background-image: url('http://localhost/investex/assets/assets/images/others/homepage.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center; 
@@ -4157,26 +4193,458 @@ h2.title.f28 {
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   color: #999;
 }
+a.massage {
+    background: #1976d2;
+    color: #fff;
+    border-radius: 25px;
+    padding: 2px 20px 5px 19px;
+    margin-right: 11px;
+}
+a.massage i.material-icons.primary-color {
+    color: #fff !important;
+    position: relative;
+    top: 6px;
+}
+a.delete_btn i {
+    margin-top: 3px;
+    font-size: 22px;
+}
+
+a.delete_btn {
+    margin-right: 14px;
+}
+
+.pad_15 {
+    padding-right: 15px;
+}
+
+
+.mdc-card.property-item.list-item.column-1.pos_rel {
+    margin-bottom: 10px;
+    background: #dfdfdf;
+}
+
+
+.bg-accent.pricing-header.p-3 {
+    background: #bebebe !important;
+}
+
+
+.bg-accent.pricing-header.p-3 h1 {
+    color: #000;
+}
+
+h2.pricing-title.my-3 {
+    line-height: normal;
+    color: #000;
+    padding: 0 0px !important;
+    margin: 0 0 11px 0px !important;
+}
+
+.dealer-dashboard thead th {
+    background: #1976d2;
+    text-align: center !important;
+    color: #fff;
+    padding: 7px 10px;
+    height: auto;
+}
+.dealer-dashboard tr.mdc-data-table__row {
+    text-align: center;
+    background: #e5e5e5;
+}
+
+td.mdc-data-table__cell.green_col {
+    color: green;
+}
+td.mdc-data-table__cell.red_col {
+    color: red;
+}
+
+.jus_end {
+    -webkit-box-pack: start !important;
+    -ms-flex-pack: justify;
+    justify-content: end;
+}
+.actions.row.middle-xs.jus_end a {
+    margin: 6px 0 0px 12px;
+}
+.mdc-card.property-item.list-item.column-1 {
+    margin-bottom: 17px;
+    background: #f1f1f1;
+    border: 1px solid #c0c0c0;
+}
+.w60per {
+    padding-right: 21px;
+    width: 60%;
+    padding-top:30px;
+}
+.swiper-wrapper.h250 {
+    height: 393px;
+}
+.page-sidenav-content.w90per {
+    width: 90%;
+    margin: 0 auto;
+}
+.singla_view .actions.row.middle-xs.jus_end a {
+    margin: 0px 0 7px 12px;
+}
+a.w100per {
+    width: 67% !important;
+    margin-bottom: 13px;
+}
+
+
+
+/***************alert*************/
+
+/***************end alert**********************/
+
+ .preview-images-zone {
+      width: 100%;
+      border: 1px solid #ddd;
+      min-height: 180px;
+      /* display: flex; */
+      padding: 5px 5px 0px 5px;
+      position: relative;
+      overflow:auto;
+      }
+      
+      .preview-images-zone > .preview-image {
+      height: 90px;
+      width: 90px;
+      position: relative;
+      margin-right: 5px;
+      float: left;
+      margin-bottom: 5px;
+      }
+      .preview-images-zone > .preview-image > .image-zone {
+      width: 100%;
+      height: 100%;
+      }
+      .preview-images-zone > .preview-image > .image-zone > img {
+      width: 100%;
+      height: 100%;
+      }
+      .preview-images-zone > .preview-image > .tools-edit-image {
+      position: absolute;
+      z-index: 100;
+      color: #fff;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10px;
+      display: none;
+      }
+      .preview-images-zone > .preview-image > .image-cancel {
+      font-size: 18px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-weight: bold;
+      margin-right: 10px;
+      cursor: pointer;
+      display: none;
+      z-index: 100;
+      }
+      .preview-image:hover > .image-zone {
+      cursor: move;
+      opacity: .5;
+      }
+      .preview-image:hover > .tools-edit-image,
+      .preview-image:hover > .image-cancel {
+      display: block;
+      }
+      .ui-sortable-helper {
+      width: 90px !important;
+      height: 90px !important;
+      }
+	  a.uplod_pero_img {
+    background: #3e55d7;
+    padding: 7px 23px;
+    /* margin-bottom: 37px !important; */
+    color: #fff;
+    border-radius: 24px;
+}
+
+.mar_0_a {
+    margin: 0 auto;
+}
+.bg_green {
+	background:green !important;
+}
+.bg_yellow {
+	background:#f0b100 !important
+}
+
+.bg_red {
+	background:#c30303 !important
+}
+.summary-footer a, .summary-footer {
+    color: #000 !important;
+    margin-right: 0px !important;
+    padding-right: 0px !important;
+}
+.row.margin_b_10 {
+    margin-bottom: 10px;
+}
+.bg_gre {
+    background: #5e5e5e !important;
+}
+.bg_maru {
+    background: #8f0202 !important;
+}
+.widget-summary.w50p {
+    width: 50%;
+    float: left;
+}
+.widget-summary.w50p {
+    text-align: center;
+}
+.widget-summary.w50p p {
+    margin: 0px;
+}
+.panel-body {
+    display: block;
+    height: 97px;
+}
+.view {
+    background: #1d9f0540;
+    width: 40px;
+    height: 40px;
+    border-radius: 48px;
+    margin: 0 auto;
+    color: #000;
+    line-height: 38px;
+    font-size: 21px;
+    text-align: center;
+    border: 1px solid #008000;
+}
+.like_b {
+    background: #ee04fe40;
+    width: 40px;
+    height: 40px;
+    border-radius: 48px;
+    margin: 0 auto;
+    color: #000;
+    line-height: 38px;
+    font-size: 21px;
+    text-align: center;
+    border: 1px solid #80007c;
+}
+
+
+
+.bg-c-yellow {
+    background: -webkit-gradient(linear, left top, right top, from(#fe9365), to(#feb798));
+    background: linear-gradient(to right, #fe9365, #feb798);
+}
+
+.align-items-end {
+    -ms-flex-align: end!important;
+    align-items: flex-end!important;
+}
+
+.m-b-0 {
+    margin-bottom: 0;
+}
+
+.update-card .card-footer {
+    background-color: transparent;
+    border-top: 1px solid #fff;
+}
+
+.m-b-0 {
+    margin-bottom: 0;
+} */
 
 
 
 
+.panel-featured-primary {
+    border-color: #08c;
+}
+
+.panel-featured-left {
+   
+        border-radius: 8px;
+}
+
+.panel-body {
+       border-left: 0px;
+    border: 1px solid #000;
+    background: #f4f4f4;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    border-radius: 5px;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),0px 1px 1px 0px rgba(0, 0, 0, 0.14),0px 1px 3px 0px rgba(0,0,0,.12)
+}
 
 
+.widget-summary {
+    display: table;
+    width: 100%;
+}
+
+.widget-summary .widget-summary-col.widget-summary-col-icon {
+    width: 1%;
+}
+
+.widget-summary .widget-summary-col {
+    display: table-cell;
+    vertical-align: top;
+    width: 100%;
+}
 
 
+.widget-summary .summary-icon {
+    margin-right: 8px;
+        margin-left: 8px;
+        margin-top: 8px;
+    font-size: 42px;
+    font-size: 4.2rem;
+    width: 60px;
+    height: 60px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    -webkit-border-radius: 55px;
+    border-radius: 55px;
+}
 
 
+.widget-summary .widget-summary-col {
+    display: table-cell;
+    vertical-align: top;
+    width: 100%;
+}
 
 
+.widget-summary .summary {
+        min-height: 47px;
+    word-break: break-all;
+    margin-top: 12px;
+}
 
 
+.widget-summary .summary .title {
+    margin: 0;
+    font-size: 11px;
+    line-height: 22px;
+    color: #000;
+    font-weight: 500;
+}
+.widget-summary-col.widget-summary-col-icon.pa-t-10 {
+    padding-top: 9px;
+}
+
+.widget-summary .summary .info {
+    font-size: 16px;
+    line-height:20px;
+}
+
+.widget-summary .summary .amount {
+    margin-right: .2em;
+    font-size: 21px;
+    font-weight: 600;
+    color: #000;
+    vertical-align: middle;
+}
 
 
+.widget-summary .summary .info span {
+    vertical-align: middle;
+}
+.summary-icon  i
+{
+    font-size: 35px;  
+}
 
+.widget-summary .summary-footer {
+    padding: 8px 8px 8px;
+    border-top: 1px dotted #ddd;
+    text-align: right;
+        font-size: 12px;
+}
 
+.bg-primary {
+    background: #08c;
+}
+img.d-block.py-3 {
+    height: 41px;
+    width: 111px;
+    object-fit: cover;
+}
+td.mdc-data-table__cell {
+    padding: 0 20px;
+}
 
+td.mdc-data-table__cell {
+    padding: 0 0px !important;
+    margin: 0px !important;
+    
+    height: auto;
+}
+img.avatar_bx {
+    width: 100%;
+    height: 189px;
+    border: 1px solid #8f8f8f;
+    padding: 3px;
+    object-fit: cover;
+}
+h1.blu {
+    color: #1976d2;
+}
 
+span.color_yellow {
+    color: #e1a600;
+}
+.search {
+    border: 1px solid #000;
+    padding: 7px 5px;
+    border-radius: 3px;
+    margin-left: 19px;
+    margin-right: 15px;
+}
+a.detail_table {
+    background: #1976d2;
+    padding: 6px 21px !important;
+    line-height: normal !important;
+    height: auto !important;
+    margin: 0px !important;
+    float: left;
+    border-radius: 3px;
+    color: #fff;
+}
+span.act_live_dot {
+    background: #00a900;
+    height: 16px;
+    width: 16px;
+    border-radius: 86px;
+    border: 1px solid #027000;
+    padding: 0px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+td.mdc-data-table__cell.edit_row i {
+    font-size: 18px;
+}
+ 
+.features.mt-3.pa_09 {
+    padding: 0 9px;
+    font-size: 12px;
+}
+.w115 {
+    width: 109px;
+    height: 39px;
+    float: left;
+    margin: 5px 8px;
+}
+.w100 {
+    width: 100%;
+    float: left;
+}
 
 
 

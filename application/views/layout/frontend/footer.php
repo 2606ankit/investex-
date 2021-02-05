@@ -105,6 +105,7 @@
     <script src="<?php echo ASSETS_URL?>js/libs/material-components-web.min.js"></script> 
     <script src="<?php echo ASSETS_URL?>js/libs/swiper.min.js"></script> 
     <script src="<?php echo ASSETS_URL?>js/scripts.js"></script>  
+      <script src="<?php echo ASSETS_URL?>js/libs/dropzone.js"></script>  
 
      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -114,32 +115,37 @@
     <script  src="<?php echo ASSETS_URL?>js/ie10-viewport-bug-workaround.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
      <script  src="<?php echo ASSETS_URL?>js/custom_validation.js"></script>
-        <script>
-$(document).ready(function() {
 
-    
-    var readURL = function(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+      <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css">
 
-            reader.onload = function (e) {
-                $('.profile-pic').attr('src', e.target.result);
+    <!-- Latest compiled JavaScript -->
+     
+    <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
+    <script>
+        $(document).ready(function() {
+            var readURL = function(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.profile-pic').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
-    
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    
 
-    $(".file-upload").on('change', function(){
-        readURL(this);
-    });
-    
-    $(".upload-button").on('click', function() {
-       $(".file-upload").click();
-    });
-});
-</script>
+
+            $(".file-upload").on('change', function(){
+            readURL(this);
+            });
+
+            $(".upload-button").on('click', function() {
+                $(".file-upload").click();
+            });
+        });
+    </script>
 
 
    <style>
@@ -149,7 +155,7 @@ $(document).ready(function() {
     <script>
           $(document).ready(function() {
               document.getElementById('pro-image').addEventListener('change', readImage, false);
-              
+              $(".preview-images-zone").show(500);
               $( ".preview-images-zone" ).sortable();
               
               $(document).on('click', '.image-cancel', function() {
@@ -174,7 +180,7 @@ $(document).ready(function() {
                       
                       picReader.addEventListener('load', function (event) {
                           var picFile = event.target;
-                          var html =  '<div class="preview-image preview-show-' + num + '">' +
+                          var html =  '<div style="padding:5px;border:1px solid #228be6; border-radius:4px;" class="preview-image preview-show-' + num + '">' +
                                       '<div class="image-cancel" data-no="' + num + '">x</div>' +
                                       '<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result + '"></div>' +
                                       '<div class="tools-edit-image"><a href="javascript:void(0)" data-no="' + num + '" class="btn btn-light btn-edit-image">edit</a></div>' +
@@ -186,12 +192,132 @@ $(document).ready(function() {
           
                       picReader.readAsDataURL(file);
                   }
-                  $("#pro-image").val('');
+                 // $("#pro-image").val('');
               } else {
                   console.log('Browser not support');
               }
           }
+          $(document).ready(function() {
+                    var readURL = function(input) {
+                        if (input.files && input.files[0]) {
+                            var reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                $('.profile-pic').attr('src', e.target.result);
+                            }
+                    
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    }
+                    $(".file-upload").on('change', function(){
+                        readURL(this);
+                    });
+                    
+                    $(".upload-button").on('click', function() {
+                       $(".file-upload").click();
+                    });
+                });
       </script>
+
+      <!-- property add google map location -->
+
+    <script>
+    $(function() {
+      // use below if you want to specify the path for leaflet's images
+      //L.Icon.Default.imagePath = '@Url.Content("~/Content/img/leaflet")';
+
+      var curLocation = [0, 0];
+      // use below if you have a model
+      // var curLocation = [@Model.Location.Latitude, @Model.Location.Longitude];
+
+      if (curLocation[0] == 0 && curLocation[1] == 0) {
+        curLocation = [31.0461, 34.8516];
+      }
+
+      var map = L.map('MapLocation1').setView(curLocation, 10);
+
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      map.attributionControl.setPrefix(false);
+
+      var marker = new L.marker(curLocation, {
+        draggable: 'true'
+      });
+
+      marker.on('dragend', function(event) {
+        var position = marker.getLatLng();
+        marker.setLatLng(position, {
+          draggable: 'true'
+        }).bindPopup(position).update();
+        $("#Latitude").val(position.lat);
+        $("#Longitude").val(position.lng).keyup();
+      });
+
+      $("#Latitude, #Longitude").change(function() {
+        var position = [parseInt($("#Latitude").val()), parseInt($("#Longitude").val())];
+        marker.setLatLng(position, {
+          draggable: 'true'
+        }).bindPopup(position).update();
+        map.panTo(position);
+      });
+
+      map.addLayer(marker);
+    })
+    </script>
+
+    <?php 
+        if( $this->router->fetch_method() == 'propertyview'){
+    ?>
+    <script>
+    $(function() {
+      // use below if you want to specify the path for leaflet's images
+      //L.Icon.Default.imagePath = '@Url.Content("~/Content/img/leaflet")';
+
+      var curLocation = [0, 0];
+      // use below if you have a model
+      // var curLocation = [@Model.Location.Latitude, @Model.Location.Longitude];
+
+      if (curLocation[0] == 0 && curLocation[1] == 0) {
+        //curLocation = [<?php echo $propertybyId[0]->property_latitude;?>, <?php echo $propertybyId[0]->property_longtitue;?>];
+        curLocation = [$("#lat").val(),$("#long").val()];
+      }
+
+      var map = L.map('MapLocation2').setView(curLocation, 10);
+
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      map.attributionControl.setPrefix(false);
+
+      var marker = new L.marker(curLocation, {
+        draggable: 'true'
+      });
+        
+       marker.on('dragend', function(event) {
+        var position = marker.getLatLng();
+        marker.setLatLng(position, {
+          draggable: 'false'
+        }).bindPopup(position).update();
+        $("#Latitude").val(position.lat);
+        $("#Longitude").val(position.lng).keyup();
+      }); 
+//map.setOptions({draggable: false});
+
+       $("#Latitude, #Longitude").change(function() {
+        var position = [parseInt($("#Latitude").val()), parseInt($("#Longitude").val())];
+        marker.setLatLng(position, {
+          draggable: 'true'
+        }).bindPopup(position).update();
+        map.panTo(position);
+      }); 
+
+      map.addLayer(marker);
+    })
+    </script>
+<?php } ?>
 </body>
 
 </html>

@@ -69,5 +69,29 @@ class AjaxController extends CI_Controller {
 		 echo $html;
 	}
 	// end here
+
+	// delete property start here
+	public function deleteProperty()
+	{
+		$delid = $_POST['delid'];
+		$data = $this->AjaxModel->deleteProperty($delid);
+		 print_r($data); 
+	}
+	// end here
+
+	// check password to change password user profile
+	public function checkPassword()
+	{
+		$loginid = $this->session->userdata('userid');
+		$currentpassword = $_POST['currentpassword'];
+		$checkpass = $this->AjaxModel->checkPassword($currentpassword,$loginid);
+
+		if (!empty($checkpass)){
+			echo 'true';
+		}else {
+			echo 'false';
+		}
+	}
+	// end here
  }
 ?>

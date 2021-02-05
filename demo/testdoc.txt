@@ -1,9 +1,0 @@
-
-3- git pull origin dev
-
-4- git add .
-5- git commit -m "comment"
-6- git push -u origin dev
- 
-
-this is my text ankit

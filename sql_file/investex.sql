@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 03, 2021 at 12:51 PM
+-- Generation Time: Feb 05, 2021 at 12:16 PM
 -- Server version: 5.7.32-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.7
 
@@ -49983,6 +49983,8 @@ CREATE TABLE `investex_user` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `user_email` varchar(200) NOT NULL,
+  `user_image` varchar(200) NOT NULL,
+  `user_about` text NOT NULL,
   `user_phone` int(11) NOT NULL,
   `user_type` int(11) NOT NULL,
   `outh_uid` varchar(50) NOT NULL,
@@ -49991,6 +49993,7 @@ CREATE TABLE `investex_user` (
   `fb_tokenid` varchar(244) NOT NULL,
   `google_tokenid` varchar(244) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
+  `user_login_status` int(11) NOT NULL,
   `created_by` int(11) NOT NULL,
   `created_date` datetime NOT NULL,
   `updated_date` datetime NOT NULL
@@ -50000,8 +50003,8 @@ CREATE TABLE `investex_user` (
 -- Dumping data for table `investex_user`
 --
 
-INSERT INTO `investex_user` (`id`, `username`, `password`, `first_name`, `last_name`, `user_email`, `user_phone`, `user_type`, `outh_uid`, `gender`, `oauth_provider`, `fb_tokenid`, `google_tokenid`, `status`, `created_by`, `created_date`, `updated_date`) VALUES
-(1, 'ankitsharma', 'e6e061838856bf47e1de730719fb2609', 'ankit', 'sharma', '2606ankit@gmail.com', 2147483647, 2, '', '', '3', '', '', 1, 0, '2021-02-01 16:36:50', '0000-00-00 00:00:00');
+INSERT INTO `investex_user` (`id`, `username`, `password`, `first_name`, `last_name`, `user_email`, `user_image`, `user_about`, `user_phone`, `user_type`, `outh_uid`, `gender`, `oauth_provider`, `fb_tokenid`, `google_tokenid`, `status`, `user_login_status`, `created_by`, `created_date`, `updated_date`) VALUES
+(1, 'ankitsharma', 'e6e061838856bf47e1de730719fb2609', 'ankit', 'sharma', '2606ankit@gmail.com', '1_1612435897_profileImage.jpg', 'sdgs rtbweteyertetretr', 2147483647, 2, '', '', '3', '', '', 1, 0, 0, '2021-02-01 16:36:50', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -91720,11 +91723,12 @@ CREATE TABLE `user_dealer_property` (
   `id` bigint(11) NOT NULL,
   `dealer_id` int(11) NOT NULL,
   `property_name` varchar(100) NOT NULL,
-  `property_title` varchar(255) NOT NULL,
   `property_text` text NOT NULL,
   `property_details` text NOT NULL,
   `property_image` varchar(255) NOT NULL,
-  `property_location` text NOT NULL,
+  `property_address` text NOT NULL,
+  `property_latitude` varchar(100) NOT NULL,
+  `property_longtitue` varchar(100) NOT NULL,
   `property_street` int(11) NOT NULL,
   `property_city` int(11) NOT NULL,
   `property_transaction_type` int(11) NOT NULL,
@@ -91741,9 +91745,8 @@ CREATE TABLE `user_dealer_property` (
 -- Dumping data for table `user_dealer_property`
 --
 
-INSERT INTO `user_dealer_property` (`id`, `dealer_id`, `property_name`, `property_title`, `property_text`, `property_details`, `property_image`, `property_location`, `property_street`, `property_city`, `property_transaction_type`, `property_area`, `property_price`, `property_investment_amount`, `property_estimated_return`, `status`, `created_date`, `updated_date`) VALUES
-(1, 1, 'test', 'test name', 'test', '', '', '', 8144, 268, 1, '', 0, 100000, '3-10', 1, '2021-02-02 19:17:14', '0000-00-00 00:00:00'),
-(2, 1, '', '', '', '', '', '', 0, 0, 0, '', 0, 0, '', 1, '2021-02-02 21:09:15', '0000-00-00 00:00:00');
+INSERT INTO `user_dealer_property` (`id`, `dealer_id`, `property_name`, `property_text`, `property_details`, `property_image`, `property_address`, `property_latitude`, `property_longtitue`, `property_street`, `property_city`, `property_transaction_type`, `property_area`, `property_price`, `property_investment_amount`, `property_estimated_return`, `status`, `created_date`, `updated_date`) VALUES
+(2, 1, 'test', 'testsa sfdasdf adasdfa sdfasfd', 'asdf asdfas dasd afssaf asfd', '1612428144_Screenshot from 2021-01-22 20-36-13.png|1612428144_Screenshot from 2021-01-22 20-36-25.png|1612428144_Screenshot from 2021-01-22 20-36-36.png|1612428144_Screenshot from 2021-01-22 20-36-53.png', '', '31.121145709156316', '34.907684326171875', 15345, 497, 2, '', 2147483647, 400000, '10', 3, '2021-02-04 14:12:24', '2021-02-04 00:00:00');
 
 --
 -- Indexes for dumped tables

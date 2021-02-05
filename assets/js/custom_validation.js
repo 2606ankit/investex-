@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	ajax_url = 'http://localhost/investex/index.php/AjaxController/';
+	base_url = 'http://localhost/investex/index.php/user/';
 	 // Validation for add line manage 
   $("#dealer_join").validate({
 
@@ -171,6 +172,51 @@ $(document).ready(function(){
 	  });
 
 
+  	// profile change password start here
+  	$("#change_pass").validate({
+
+	    rules: {
+	      currentpassword : {
+	        required: true,
+	        remote : {
+   				url:  ajax_url+'checkPassword',
+		        type: "post",
+		      	data: {currentpassword: function() {return $('#currentpassword').val();}}
+	   		}
+	      },
+	      newpass : {
+	        required: true,
+	        minlength : 8,
+	       },
+	      newrepass : {
+	        
+	       equalTo: "#newpass",
+	       },
+	       
+	    },
+	    messages : {
+		   
+		  currentpassword: {
+		    required: "Please enter current password",
+			remote: jQuery.validator.format("password does not match. ")
+		  },
+		  
+		  newpass: {
+		    required: "Password Should not be blank",
+			minlength: "Password Should have minimum 8 digit",
+		  },
+		 
+		  newrepass: {
+		    required: "Repet Password Should not be blank",
+			equalto: "Password does not match",
+		  },
+		},
+		// errorElement: 'div',
+		// errorLabelContainer: '.errorTxt'
+		 
+	  });
+  	// end here
+
  	 // value blank for username and passowrd
  	 $("#username").val('');
  	 $("#user_pass").val('');
@@ -195,6 +241,12 @@ $(document).ready(function(){
  	 	$("#pro_request_amount").val(amount_val);
  	 })
 
+ 	 $(".property_status").click(function(){
+ 	 	var property_status = $(this);
+ 	 	var property_statusval = property_status.attr('data-value');
+ 	 	$("#property_statusval").val(property_statusval);
+ 	 })
+
  	 $(".cityname").click(function(){
  	 	var cityname = $(this);
  	 	var cityname = cityname.attr('data-value');
@@ -213,7 +265,29 @@ $(document).ready(function(){
  	 	 	}
  	 	 })
  	 })
- 	 
-
  	 // end here
+
+ 	 // delete property Start here
+ 	 	$(".deleteproperty").click(function(){
+ 	 		var deleteproperty = $(this);
+ 	 		var delid = deleteproperty.attr('data-id');
+ 	 		var txt;
+			var r = confirm("Are you shure to delete this property!");
+			if (r == true) {
+
+				$.ajax({
+					type : 'POST',
+					url  : ajax_url+'deleteProperty',
+					data : {delid:delid},
+					success : function(res){
+						//alert(res);
+						window.location.href = base_url+'dealerdashboard'; 
+						//window.location(base_url+'dealerdashboard');
+					}
+				})
+
+			} 
+ 	 	})
+
+ 	 //
 })

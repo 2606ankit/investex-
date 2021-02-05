@@ -4,7 +4,7 @@
    	<main>   
 	
 	<div class="header-image-wrapper">
-            <div class="bg" style="background-image: url('assets/images/carousel/slide-3.jpg');"></div>
+            <div class="bg" style="background-image: url('<?php echo ASSETS_URL; ?>assets/images/carousel/slide-3.jpg');"></div>
             <div class="mask"></div>            
             <br> <br>
         </div> 

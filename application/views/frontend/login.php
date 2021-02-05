@@ -1,6 +1,7 @@
 <?php 
 	$this->load->view('layout/frontend/header');
 ?>
+
  <main>  
 
 
@@ -16,10 +17,13 @@
                     <div class="mdc-card p-3 p-relative mw-500px">
                         <div class="column center-xs middle-xs text-center">  
                             <h1 class="uppercase">Sign In</h1>
-                            <!--<a href="dealer-Join.html" class="mdc-button mdc-ripple-surface mdc-ripple-surface--accent accent-color normal w-100">
+
+                            <a href="dealer-Join.html" class="mdc-button mdc-ripple-surface mdc-ripple-surface--accent accent-color normal w-100">
                                 Don't have an account? Sign up now!
-                            </a>  -->
+                            </a>
+
                         </div>
+                        <?php if (!empty($error)){?><div style="padding:5px; font-size: 12px; background-color: #900; color:#FFF;border-radius: 4px;"><?php echo $error; ?></div><?php } ?>
                         <form action="<?php echo SITE_URL;?>login" method="post" name="user_login" id="user_login">  
 	                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
 	                                <i class="material-icons mdc-text-field__icon text-muted">person</i>
@@ -57,8 +61,14 @@
 	                                </div>
 	                                <label for="keep" class="text-muted fw-500">Keep me signed in</label>
 	                            </div> 
-
-	                            <button type="submit" name="submit_btn" id="submit_btn" class="mdc-button mdc-button--raised bg-accent">Login</button>
+                              <div class="text-center mt-2"> 
+                              
+                                <button type="submit" name="submit_btn" id="submit_btn" class="mdc-button mdc-button--raised bg-accent">Sign to My Account for dealer</button>
+                                <br><br>
+                               
+                                <button type="submit" name="submit_btn" id="submit_btn" class="mdc-button mdc-button--raised bg-accent">Sign to My Account for investor</button>
+                            </div>  
+                            
 							</form>
                             <div class="row flex-nowrap between-xs middle-xs mt-3">
                                 <div class="divider p-relative w-100"></div>
