@@ -85,7 +85,7 @@ class AjaxController extends CI_Controller {
 		$loginid = $this->session->userdata('userid');
 		$currentpassword = $_POST['currentpassword'];
 		$checkpass = $this->AjaxModel->checkPassword($currentpassword,$loginid);
-
+		//echo '<pre>'; print_r($checkpass); die;
 		if (!empty($checkpass)){
 			echo 'true';
 		}else {

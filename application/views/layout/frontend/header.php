@@ -195,12 +195,12 @@
                 <?php 
                     }else {
                 ?>
-                    <div class="row end-xs middle-xs">
+                    <!--<div class="row end-xs middle-xs">
                        <div class="mdc-menu-surface--anchor">
                         <a  href="<?php echo SITE_URL?>dealerjoin" style="color:#FFF; padding:5px; border:1px solid #FFF; border-radius:4px;font-family:'Rubik', sans-serif;">Sign up</a> 
                         <a  href="<?php echo SITE_URL?>login" style="color:#FFF; padding:5px; border:1px solid #FFF; border-radius:4px;font-family:'Rubik', sans-serif;">login</a> 
                         </div> 
-                    </div> 
+                    </div> -->
                 <?php }?>
             </div> 
         </div>  
@@ -229,9 +229,12 @@
                         </a> 
                     </div> 
 				</div> 
+                <?php 
+                    if (empty($this->session->userdata('userid'))){
+                ?>
                 <div class="row middle-xs"> 
     				<div class="mdc-menu-surface--anchor"> 
-                         <a href="<?php echo SITE_URL ?>investorJoin" class="mdc-button mdc-ripple-surface mdc-ripple-upgraded" style="--mdc-ripple-fg-size:75px; --mdc-ripple-fg-scale:1.88088; --mdc-ripple-fg-translate-start:62.8875px, -17.1px; --mdc-ripple-fg-translate-end:25.5125px, -19.5px;"> 
+                         <a href="<?php echo SITE_URL ?>join" class="mdc-button mdc-ripple-surface mdc-ripple-upgraded" style="--mdc-ripple-fg-size:75px; --mdc-ripple-fg-scale:1.88088; --mdc-ripple-fg-translate-start:62.8875px, -17.1px; --mdc-ripple-fg-translate-end:25.5125px, -19.5px;"> 
                             <span class="mdc-button__ripple"></span>
                             <i class="material-icons mdc-button__icon mx-1">person</i>
                             <span class="mdc-button__label col_fff">הצטרפות</span>
@@ -239,18 +242,22 @@
                         </a> 
                     </div>
                     <div class="mdc-menu-surface--anchor"> 
-                        <a href="<?php echo SITE_URL ?>dealerjoin" class="mdc-button mdc-ripple-surface mdc-ripple-upgraded" style="--mdc-ripple-fg-size:75px; --mdc-ripple-fg-scale:1.88088; --mdc-ripple-fg-translate-start:62.8875px, -17.1px; --mdc-ripple-fg-translate-end:25.5125px, -19.5px;"> 
+                        <a href="<?php echo SITE_URL ?>login" class="mdc-button mdc-ripple-surface mdc-ripple-upgraded" style="--mdc-ripple-fg-size:75px; --mdc-ripple-fg-scale:1.88088; --mdc-ripple-fg-translate-start:62.8875px, -17.1px; --mdc-ripple-fg-translate-end:25.5125px, -19.5px;"> 
                             <span class="mdc-button__ripple"></span>
                             <i class="material-icons mdc-button__icon mx-1">person</i>
                             <span class="mdc-button__label col_fff">כניסה</span>
                             
                         </a> 
                     </div> 
+                    <?php 
+                        }if ($this->session->userdata('usertype') == DEALER || empty($this->session->userdata('userid'))){
+                    ?>
 					 
                     <a href="<?php echo SITE_URL ?>propertyRegistration" class="mdc-button mdc-button--raised d-none d-sm-flex d-md-flex d-lg-flex d-xl-flex">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">פרסם עסקה</span> 
                     </a> 
+                <?php } ?>
                 </div>  
             </div>
         </div> 

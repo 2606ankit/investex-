@@ -19,6 +19,12 @@
 	define("DEALER",2);
 	define("INVESTOR",3);
 
+	// user login status 
+	define ("LOGIN_STATUS_ACTIVE",1);
+	define ("LOGIN_STATUS_INACTIVE",2);
+
+
+
 	// User Status 
 	define("ACTIVE",1);
 	define("INACTIVE",2); 

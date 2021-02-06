@@ -33,9 +33,9 @@
 					->where("password",md5($currentpassword))
 					->where("id",$loginid)
 					->get();
-					 
+					//echo $this->db->last_query(); die;
 			$res = $data->result();
-					
+			return $res;		
 		}
 		// end here
 

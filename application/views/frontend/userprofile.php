@@ -51,7 +51,7 @@
                                 	if ($userdata['usertype'] == DEALER){
                                 ?>
                                 <li>
-                                    <a href="<?php echo SITE_URL; ?>userprofile" class="mdc-list-item py-1">
+                                    <a href="<?php echo SITE_URL; ?>propertyRegistration" class="mdc-list-item py-1">
                                         <span class="mdc-list-item__graphic material-icons text-muted mx-3">add_circle</span>
                                         <span class="mdc-list-item__text">Submit Property</span>
                                     </a>
@@ -60,7 +60,7 @@
                             		}
                             	?>
                                 <li>
-                                    <a href="login.html" class="mdc-list-item py-1">
+                                    <a href="<?php echo SITE_URL?>signout" class="mdc-list-item py-1">
                                         <span class="mdc-list-item__graphic material-icons text-muted mx-3">power_settings_new</span>
                                         <span class="mdc-list-item__text">Logout</span>
                                     </a>

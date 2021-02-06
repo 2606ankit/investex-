@@ -60,15 +60,16 @@ class User extends CI_Controller {
 		if (empty($loginid)){
 		$data = array('error'=>'');
 		if (!empty($_POST)){
-			$username = $this->input->post("username");
-			$userpass = md5($this->input->post("user_pass"));
-			$usedata 	  = $this->UserModel->userlogin($username,$userpass);
+			$username 		= 	$this->input->post("username");
+			$userpass 		= 	md5($this->input->post("user_pass"));
+			$usedata 	  	= 	$this->UserModel->userlogin($username,$userpass);
 			//print_r($usedata); die;
 
 			if (!empty($this->session->userdata())){
 				 
 				$loginid = $this->session->userdata('userid');
 	 			if(!empty($loginid)){
+	 				
 	 				$usertype = $this->session->userdata('usertype');
 	 				if ($usertype == DEALER){
 	 					redirect(SITE_URL.'dealerdashboard', 'refresh');
@@ -93,9 +94,55 @@ class User extends CI_Controller {
 			redirect(SITE_URL.'index');
 		}
 	}
+	// dealer login start here
+	public function dealerlogin()
+	{
+	 
+		$loginid = $this->session->userdata('userid');
+		if (empty($loginid)){
+		$data = array('error'=>'');
+		if (!empty($_POST)){
+			$username 		= 	$this->input->post("username");
+			$userpass 		= 	md5($this->input->post("user_pass"));
+			$usedata 	  	= 	$this->UserModel->userlogin($username,$userpass);
+			//print_r($usedata); die;
+
+			if (!empty($this->session->userdata())){
+				 
+				$loginid = $this->session->userdata('userid');
+	 			if(!empty($loginid)){
+	 				
+	 				$usertype = $this->session->userdata('usertype');
+	 				if ($usertype == DEALER){
+	 					redirect(SITE_URL.'dealerdashboard', 'refresh');
+	 				}elseif($usertype == INVESTOR) {
+	 					redirect(SITE_URL.'investorDashboard', 'refresh');
+	 				}else{
+	 				//$this->session->set_flashdata('message', '');
+	 					redirect(SITE_URL.'index');
+	 				}
+	 			}
+	 			$data = array('error'=>'');
+			}
+			else {
+				 
+				$data = array ('error'=>'Username or Password does not match');
+			}
+		}
+		
+		$this->load->view('frontend/dealerlogin',$data);
+		}
+		else {
+			redirect(SITE_URL.'index');
+		}
+	 
+	}
+	// end here
 
 	public function signout()
 	{
+		$loginid = $this->session->userdata('userid');
+		$updateslogintatus = $this->db->where("id",$loginid)->update("investex_user",array("user_login_status"=> LOGIN_STATUS_INACTIVE)); 
 		$user_data = $this->session->all_userdata();
         foreach ($user_data as $key => $value) {
             if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
@@ -110,10 +157,31 @@ class User extends CI_Controller {
 	{
 		$this->load->view('frontend/index');
 	}
+
+	// sign up page 
+	public function join()
+	{
+		$this->load->view('frontend/choicesignup');
+	}
+	// end here
 	// change user password start here
 	public function changepassword()
 	{
-		echo '<pre>'; print_r($_POST); die;
+		//echo '<pre>'; print_r($_POST); die;
+		if(!empty($_POST)){
+			$loginid = $this->session->userdata('userid');
+			$newpass = $this->input->post('newpass');
+
+			$updatearr = array("password"=>md5($newpass));
+			$wherecon = array("id"=>$loginid);
+
+			$updatequery = $this->db->where($wherecon)->update("investex_user",$updatearr);
+			if ($updatequery)
+			{
+				redirect(SITE_URL.'userprofile','refresh');
+			}
+
+		}
 	}
 	// end here
 	// user profile edit start here
@@ -257,19 +325,7 @@ class User extends CI_Controller {
 				$pro_price				=	$this->input->post('pro_price');
 				$property_status		=	$this->input->post('property_statusval');
 				$address  = '';
-				//echo '<pre>'; print_r($_POST); die;
-				//get address by latitude and langtitude
-				/*$url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($latitude).','.trim($langtitude).'&sensor=false';
 				 
-			     $json = file_get_contents($url);
-			     $data=json_decode($json);
-			     $status = $data->status;
-			     
-			     if($status=="OK")
-			     {
-			       $address =  $data->results[0]->formatted_address;
-			     }else {$address = '';}*/
-//			    echo '<pre>'; print_r($_POST); die;
 
 				//  ***************************
 				//  Insert property image start here
@@ -332,9 +388,109 @@ class User extends CI_Controller {
 
 			$this->load->view('frontend/property_registration',$data);
 		}else {
-			redirect(SITE_URL.'login');
+			redirect(SITE_URL.'dealerlogin');
 		}
 	}
+	// edit property data here
+	public function editproperty()
+	{
+		$proid = base64_decode($this->uri->segment(3));
+		if (!empty($this->session->userdata('userid'))){
+			$getprodata = $this->UserModel->getpropertybyId($proid);
+
+			$data = array(
+					'getprodata' =>	json_decode($getprodata),
+					'proid'		=>	$proid,
+					'allisrealcountry'	=>	$this->isrealcountry,
+					'transaction_type'	=>	$this->transactionType,
+					);
+			if (!empty($_POST)){
+				$pro_name 				= 	$this->input->post('pro_name');
+				$pro_transaction_type 	= 	$this->input->post('pro_transaction_type');
+				$cityvalue 				= 	$this->input->post('cityvalue');
+				$streetval 				= 	$this->input->post('streetval');
+				$pro_request_amount 	= 	$this->input->post('pro_request_amount');
+				$pro_estimate_return 	= 	$this->input->post('pro_estimate_return');
+				$pro_text 				=	$this->input->post('pro_text');
+				$pro_details			=	$this->input->post('pro_details');
+				$latitude 				=	$this->input->post('Latitude');
+				$langtitude 			=	$this->input->post('Longitude');
+				$pro_price				=	$this->input->post('pro_price');
+				$property_status		=	$this->input->post('property_statusval');
+				$address  = '';
+				 
+
+				//  ***************************
+				//  Insert property image start here
+				// ******************************
+				$targetDir 			= 	FILE_UPLOAD_PATH.'property_image/';
+				$insertimage  		= 	array();
+				$extension 			=	array("jpeg","jpg","png","gif");
+
+			 
+				$error=array();
+				$extension=array("jpeg","jpg","png","gif");
+				if (count($_FILES["uploadimage"]["tmp_name"]) == 0 ){
+					 
+					foreach($_FILES["uploadimage"]["tmp_name"] as $key=>$tmp_name) {
+					    $file_name= time().'_'.$_FILES["uploadimage"]["name"][$key];
+					    $file_tmp=$_FILES["uploadimage"]["tmp_name"][$key];
+					    $ext =pathinfo($file_name,PATHINFO_EXTENSION);
+					  //  $fileName 		= 	'del_'.$dealerid.'_'.time().'_propertyImage.'.$ext; 
+				  		 
+	           			$targetFilePath = 	$targetDir.$file_name; 
+					    if(in_array($ext,$extension)) {
+					        
+			            move_uploaded_file($_FILES["uploadimage"]["tmp_name"][$key],$targetFilePath);
+					            $insertimage[] = $file_name;
+					    }
+					    
+					}
+					$proimage = implode('|',$insertimage);
+				}
+				else {
+					$proimage = $this->input->post('old_image');
+				}
+				//echo $this->input->post('old_image');
+				//echo '<pre>'; print_r($insertimage); die;
+					
+				$insertarr = array(
+
+								'dealer_id'						=>	$this->session->userdata('userid'),
+								'property_name'					=>	$pro_name, 
+								'property_text'					=>	$pro_text,
+								'property_street'				=>	$streetval,
+								'property_city'					=>	$cityvalue,
+								'property_transaction_type'		=>	$pro_transaction_type,
+								'property_investment_amount'	=>	$pro_request_amount,
+								'property_estimated_return'		=>	$pro_estimate_return,
+								'property_latitude'				=>	$latitude,
+								'property_longtitue'			=>	$langtitude,
+								'property_details'				=>	$pro_details,
+								'property_address'				=>	$address,
+								'property_price'				=>	$pro_price,
+								'property_image'				=>	$proimage,
+								'status'						=>	$property_status,
+								'created_date'					=>	TODAY_DATE
+
+							);
+				//echo '<pre>'; print_r($insertarr); die;
+				$insertquery = $this->db->where("id",$proid)->update("user_dealer_property",$insertarr);
+				if ($insertquery){
+					redirect(SITE_URL.'dealerdashboard');
+					$this->session->set_flashdata("success","Property updated successfully");
+				}
+			}
+			$this->load->view('frontend/editproperty',$data);
+
+		}
+		else {
+			redirect(SITE_URL.'dealerdashboard');
+		}
+
+	}
+	// end here
+
 	// Delaer Listing Start here
 	public function dealerproperty()
 	{
@@ -355,17 +511,18 @@ class User extends CI_Controller {
 	// get dealer dashboard start here
 	public function dealerdashboard()
 	{
-		if (!empty($this->user_data)){
+		if (!empty($this->session->userdata('userid'))){
 			$allproperty = json_decode($this->dealerProperty);
 			$getOpenStatuspro = array ();
 			$getOpenStatusInvestement = array();
-		foreach ($allproperty as $key=>$val){
+			
+			foreach ($allproperty as $key=>$val){
 				if ($val->status == Open_For_Investement){
 					$getOpenStatuspro[] = array ('proname'=>$val->property_name);
 					$getOpenStatusInvestement[] = $val->property_investment_amount ;
 				}
 			} 
-
+			//echo '<pre>'; print_r($this->user_data); die;
 			$data = array(
 						'userdata'					=>	 	$this->user_data,
 						'allproperty'				=>	 	$allproperty,
@@ -379,6 +536,7 @@ class User extends CI_Controller {
 		}
 	}
 	// end here
+
 	// get property details view  start here
 	public function propertyview()
 	{
@@ -387,26 +545,19 @@ class User extends CI_Controller {
 		if (!empty($this->user_data)){
 			$proid = base64_decode($this->uri->segment(3));
 			$propertydata = $this->UserModel->getpropertybyId($proid);
-			$cityid 	= $propertydata[0]->property_city;
-			$strid  	= $propertydata[0]->property_street;
-			$dealtype 	= $propertydata[0]->property_transaction_type;
-			
-			$getcitybyid 	= $this->UserModel->getcitybyid($cityid);
-			$getstreetbyid 	= $this->UserModel->getstreetbyid($strid);
-			$getdealtypebyid = $this->UserModel->getDealTypeById($dealtype);
-
-			$created_date = date('d-M-Y',strtotime($propertydata[0]->created_date));
-
-			$data = array(
-						'userdata'		=>	 $this->user_data,
-						'propertybyId'	=>	 $propertydata,
-						'getcitybyid'	=>	 $getcitybyid,
-						'getstreetbyid'	=>	 $getstreetbyid,
-						'created_date'	=>	 $created_date,
-						'getdealtypebyid'	=>	$getdealtypebyid,
-					);
+			 //echo '<pre>'; print_r(); die;
+			if (empty(json_decode($propertydata))){
+				redirect(SITE_URL.'dealerdashboard');
 			 
-			$this->load->view('frontend/propertyview',$data);
+			}
+			else {
+				$data = array(
+						'userdata'		=>	 $this->user_data,
+						'propertybyId'	=>	 json_decode($propertydata),
+					);
+		//	 echo '<pre>'; print_r(json_decode($propertydata)); die;
+				$this->load->view('frontend/propertyview',$data);
+			}
 		}
 		else {
 			redirect(SITE_URL.'login');

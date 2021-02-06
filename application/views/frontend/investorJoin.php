@@ -41,7 +41,7 @@ label.error {
                 <div class="row center-xs middle-xs my-5"> 
                     <div class="join mdc-card p-3 p-relative mw-600px col-md-7">
                         <div class="column center-xs middle-xs text-center">  
-                            <h1 class="uppercase"> במקום התחבר עם לינקדין יהיה התחבר עם גוגל</h1>
+                            <h1 class="uppercase"> Sign up as a Investor</h1>
                            
                         </div>
                         <form action="<?php echo SITE_URL?>dealerjoin" method="post" name="dealer_join" id="dealer_join"> 

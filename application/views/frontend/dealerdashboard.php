@@ -1,5 +1,6 @@
 <?php 
 	$this->load->view('layout/frontend/header');
+   // echo '<pre>'; print_r($userdata); die;
 ?>
 
 <main>   
@@ -17,8 +18,10 @@
                         <a href="#" class="h-0"></a>
                         <div class="mdc-card"> 
                             <div class="row start-xs middle-xs p-3">
-							<span class="act_live_dot"></span>
-                                <img src="<?php echo ASSETS_URL; ?>assets/images/agents/a-2.jpg" alt="user-image" class="avatar_bx">
+							 <?php 
+                             //echo $userdata['userloginstatus'];
+                                if ($userdata['userloginstatus'] == LOGIN_STATUS_ACTIVE){echo '<span class="act_live_dot"></span>';}else { }?>
+                                <img src="<?php echo FRONTEND_URL; ?>profile_image/<?php echo $userdata['userimage']; ?>" alt="user-image" class="avatar_bx">
                                 <div class="text-muted fw-500 mx-3">
 								<h1 class="blu"><?php echo $userdata['fname'].' '.$userdata['lname']?></h1>
 								<p>
@@ -255,7 +258,7 @@
 					                    <div class="summary">
 					                        <h4 class="title">UNDER CONSIDERATION</h4>
 					                        <div class="info">
-					                            <strong class="amount">$ 0</strong>
+					                            <strong class="amount">0</strong>
 					                            
 					                        </div>
 					                    </div>

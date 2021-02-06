@@ -1,5 +1,7 @@
 <?php 
 	$this->load->view('layout/frontend/header');
+	$created_date = date('d-M-Y',strtotime($propertybyId[0]->created_date));
+
 ?>
 <main>
 
@@ -35,12 +37,12 @@
                                 <h2 class="uppercase"><?php echo $propertybyId[0]->property_name; ?></h2>
                                 <p class="row flex-nowrap address mb-0">
                                     <i class="material-icons text-muted">location_on</i>
-                                    <span class="fw-500 text-muted"><?php echo $getcitybyid[0]->name.','.$getstreetbyid[0]->name; ?>, israel</span>
+                                    <span class="fw-500 text-muted"><?php echo $propertybyId[0]->cityname.','.$propertybyId[0]->street_name; ?>, israel</span>
                                 </p>
-								<p class="" style="  margin: 0px;">Flip RealEstate Deal</p>
-								<a href="javascript:;" data-id="<?php echo $propertybyId[0]->id;?>" class="delete_btn deleteproperty"><i class="fa fa-trash" aria-hidden="true"></i></a>
+								<p class="" style="  margin: 0px;"><?php echo $propertybyId[0]->transaction_name_en; ?></p>
+								<a href="javascript:;" data-id="<?php echo $propertybyId[0]->proId;?>" class="delete_btn deleteproperty"><i class="fa fa-trash" aria-hidden="true"></i></a>
 
-								<a href="javascript:;" data-id="<?php echo $propertybyId[0]->id;?>" class="delete_btn"><i class="fa fa-pencil-square" aria-hidden="true"></i> </a>
+								<a href="<?php echo SITE_URL?>editproperty/<?php echo base64_encode($propertybyId[0]->proId);?>" data-id="" class="delete_btn"><i class="fa fa-pencil-square" aria-hidden="true"></i> </a>
 								 
                             </div>
 							
@@ -81,7 +83,8 @@
                                 
                                 <div class="swiper-container">
                                     <div class="swiper-wrapper h250"> 
-                                    	<?php 
+                                    	<?php
+                                    	//echo $propertybyId[0]->property_image; 
                                     		$proimage = explode('|',$propertybyId[0]->property_image);
                                     		foreach($proimage as $k=>$v){
                                     	?>

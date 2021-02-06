@@ -17,9 +17,9 @@
                     <div class="mdc-card p-3 p-relative mw-500px">
                         <div class="column center-xs middle-xs text-center">  
                             <h1 class="uppercase">Sign In</h1>
-
-                            <a href="<?php echo SITE_URL?>join" class="mdc-button mdc-ripple-surface mdc-ripple-surface--accent accent-color normal w-100">
-                                Don't have an account? Sign up now!
+                            
+                            <a href="<?php echo SITE_URL?>dealerjoin" class="mdc-button mdc-ripple-surface mdc-ripple-surface--accent accent-color normal w-100">
+                                Don't have an dealer account? Sign up now!
                             </a>
 
                         </div>
@@ -67,7 +67,7 @@
                             </div>  
                             
 							</form>
-                            <!--<div class="row flex-nowrap between-xs middle-xs mt-3">
+                            <div class="row flex-nowrap between-xs middle-xs mt-3">
                                 <div class="divider p-relative w-100"></div>
                                 <h3 class="text-muted ws-nowrap fw-500 p-2">or Sign in with one click</h3>                       
                                 <div class="divider p-relative w-100"></div>
@@ -91,9 +91,12 @@
                                         <path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z"></path>
                                     </svg>Connect with Google
                                 </a>   
-                                </div>
-							 
-                            </div>  -->   
+                            </div>
+							
+							
+								
+								  
+                            </div>     
                         
                         <div class="row end-xs middle-xs"> 
                             <a href="reset-password.html" class="mdc-button normal mar_0_a">
