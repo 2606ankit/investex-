@@ -1,0 +1,9 @@
+7-feb-2021
+==========
+ALTER TABLE `investex_user` ADD `user_investment_amount` INT(11) NOT NULL AFTER `user_phone`;
+
+
+8-feb-2021
+==========
+
+ALTER TABLE `user_dealer_property` ADD `property_unique_id` VARCHAR(100) NOT NULL AFTER `dealer_id`; 

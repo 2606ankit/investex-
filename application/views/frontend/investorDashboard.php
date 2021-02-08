@@ -1,444 +1,383 @@
 <?php 
-	$this->load->view('layout/frontend/header');
+    $this->load->view('layout/frontend/header');
+   // echo '<pre>'; print_r($matchproperty); die;
+        $this->load->model("UserModel");
 ?>
-
-	<main> 
-        <div class="header-image-wrapper">
-            <div class="bg" style="background-image: url('<?php echo ASSETS_URL; ?>assets/images/carousel/slide-3.jpg');"></div>
+    <main>   
+    
+    <div class="header-image-wrapper">
+            <div class="bg" style="background-image: url('<?php echo ASSETS_URL;?>assets/images/carousel/slide-3.jpg');"></div>
             <div class="mask"></div>            
-            <div class="header-image-content mh-200"> 
-                <p class="desc">Match Your Investment Properties</p> 
-            </div>
-        </div>  
-        <div class="px-3">  
-            <div class="theme-container beatle-container ">  
-                <div class="page-drawer-container mt-3">
-                    <aside class="mdc-drawer mdc-drawer--modal page-sidenav">
+            <br> <br>
+        </div> 
+        
+        
+        <div class="px-3 dealer-dashboard">  
+            <div class="beatle-container-- row between-xs middle-xs h-100">   
+                <div class="page-drawer-container mt-3 col-md-12">
+                    <aside class="mdc-drawer mdc-drawer--modal page-sidenav col-md-2">
                         <a href="#" class="h-0"></a>
-                        <div class="mdc-card">   
-                            <form action="javascript:void(0);" id="filters" class="search-wrapper m-0 o-hidden"> 
-                                <div class="column p-2">  
-                                    <div class="col-xs-12 p-2">
-                                        <div class="mdc-select mdc-select--outlined">
-                                            <div class="mdc-select__anchor">
-                                                <i class="mdc-select__dropdown-icon"></i>
-                                                <div class="mdc-select__selected-text"></div>
-                                                <div class="mdc-notched-outline">
-                                                    <div class="mdc-notched-outline__leading"></div>
-                                                    <div class="mdc-notched-outline__notch">
-                                                        <label class="mdc-floating-label">Property Type</label>
-                                                    </div>
-                                                    <div class="mdc-notched-outline__trailing"></div>
-                                                </div>
-                                            </div>
-                                            <div class="mdc-select__menu mdc-menu mdc-menu-surface">
-                                                <ul class="mdc-list">
-                                                    <li class="mdc-list-item mdc-list-item--selected" data-value=""></li>
-                                                    <li class="mdc-list-item" data-value="1">Office</li>
-                                                    <li class="mdc-list-item" data-value="2">House</li>
-                                                    <li class="mdc-list-item" data-value="3">Apartment</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>   
-                                    
-                                    <div class="row">
-                                        <div class="col-xs-6 p-2">
-                                            <div class="mdc-text-field mdc-text-field--outlined">
-                                                <input class="mdc-text-field__input">
-                                                <div class="mdc-notched-outline">
-                                                <div class="mdc-notched-outline__leading"></div>
-                                                <div class="mdc-notched-outline__notch">
-                                                    <label class="mdc-floating-label">Price From</label>
-                                                </div>
-                                                <div class="mdc-notched-outline__trailing"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6 p-2 to">
-                                            <div class="mdc-text-field mdc-text-field--outlined">
-                                                <input class="mdc-text-field__input">
-                                                <div class="mdc-notched-outline">
-                                                <div class="mdc-notched-outline__leading"></div>
-                                                <div class="mdc-notched-outline__notch">
-                                                    <label class="mdc-floating-label">Price To</label>
-                                                </div>
-                                                <div class="mdc-notched-outline__trailing"></div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </div> 
-                                    <div class="col-xs-12 p-2">
-                                        <div class="mdc-select mdc-select--outlined">
-                                            <div class="mdc-select__anchor">
-                                                <i class="mdc-select__dropdown-icon"></i>
-                                                <div class="mdc-select__selected-text"></div>
-                                                <div class="mdc-notched-outline">
-                                                    <div class="mdc-notched-outline__leading"></div>
-                                                    <div class="mdc-notched-outline__notch">
-                                                        <label class="mdc-floating-label">City</label>
-                                                    </div>
-                                                    <div class="mdc-notched-outline__trailing"></div>
-                                                </div>
-                                            </div>
-                                            <div class="mdc-select__menu mdc-menu mdc-menu-surface">
-                                                <ul class="mdc-list">
-                                                    <li class="mdc-list-item mdc-list-item--selected" data-value=""></li>
-                                                    <li class="mdc-list-item" data-value="1">New York</li>
-                                                    <li class="mdc-list-item" data-value="2">Chicago</li>
-                                                    <li class="mdc-list-item" data-value="3">Los Angeles</li>
-                                                    <li class="mdc-list-item" data-value="4">Seattle</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 p-2">  
-                                        <div class="mdc-text-field mdc-text-field--outlined">
-                                            <input class="mdc-text-field__input">
-                                            <div class="mdc-notched-outline">
-                                                <div class="mdc-notched-outline__leading"></div>
-                                                <div class="mdc-notched-outline__notch">
-                                                    <label class="mdc-floating-label">Zip Code</label>
-                                                </div>
-                                                <div class="mdc-notched-outline__trailing"></div>
-                                            </div>
-                                        </div> 
-                                    </div> 
-                                   
-                                   
-                                    
-                                    
-                                    
-                                   
-                                    
-                                    <div class="col-xs-12 mb-2"> 
-                                        <p class="uppercase m-2 fw-500">Features</p>  
-                                        <div class="features column">
-                                            <div class="mdc-form-field">
-                                                <div class="mdc-checkbox">
-                                                    <input type="checkbox" class="mdc-checkbox__native-control" id="restaurant"/>
-                                                    <div class="mdc-checkbox__background">
-                                                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                                            <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                                                        </svg>
-                                                        <div class="mdc-checkbox__mixedmark"></div>
-                                                    </div>
-                                                    <div class="mdc-checkbox__ripple"></div>
-                                                </div>
-                                                <label for="air-conditioning">restaurant</label>
-                                            </div>    
-                                            <div class="mdc-form-field">
-                                                <div class="mdc-checkbox">
-                                                    <input type="checkbox" class="mdc-checkbox__native-control" id="Spa"/>
-                                                    <div class="mdc-checkbox__background">
-                                                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                                            <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                                                        </svg>
-                                                        <div class="mdc-checkbox__mixedmark"></div>
-                                                    </div>
-                                                    <div class="mdc-checkbox__ripple"></div>
-                                                </div>
-                                                <label for="barbeque">Spa</label>
-                                            </div>
-                                            <div class="mdc-form-field">
-                                                <div class="mdc-checkbox">
-                                                    <input type="checkbox" class="mdc-checkbox__native-control" id="Hotel"/>
-                                                    <div class="mdc-checkbox__background">
-                                                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                                            <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                                                        </svg>
-                                                        <div class="mdc-checkbox__mixedmark"></div>
-                                                    </div>
-                                                    <div class="mdc-checkbox__ripple"></div>
-                                                </div>
-                                                <label for="dryer">Hotel</label>
-                                            </div>
-                                           
-                                           
-                                            
-                                            
-                                            
-                                            <div class="mdc-form-field">
-                                                <div class="mdc-checkbox">
-                                                    <input type="checkbox" class="mdc-checkbox__native-control" id="fireplace"/>
-                                                    <div class="mdc-checkbox__background">
-                                                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                                            <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                                                        </svg>
-                                                        <div class="mdc-checkbox__mixedmark"></div>
-                                                    </div>
-                                                    <div class="mdc-checkbox__ripple"></div>
-                                                </div>
-                                                <label for="fireplace">Fireplace</label>
-                                            </div> 
-                                            <div class="mdc-form-field">
-                                                <div class="mdc-checkbox">
-                                                    <input type="checkbox" class="mdc-checkbox__native-control" id="gym"/>
-                                                    <div class="mdc-checkbox__background">
-                                                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                                                            <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                                                        </svg>
-                                                        <div class="mdc-checkbox__mixedmark"></div>
-                                                    </div>
-                                                    <div class="mdc-checkbox__ripple"></div>
-                                                </div>
-                                                <label for="gym">Gym</label>
-                                            </div>
-                                        </div> 
-                                    </div> 
-                                </div>   
-                                <div class="row around-xs middle-xs p-2 mb-3"> 
-                                    <button class="mdc-button mdc-button--raised bg-warn" type="button" id="clear-filter">
-                                        <span class="mdc-button__ripple"></span>
-                                        <span class="mdc-button__label">Clear</span> 
-                                    </button>
-                                    <button class="mdc-button mdc-button--raised" type="submit">
-                                        <span class="mdc-button__ripple"></span>
-                                        <i class="material-icons mdc-button__icon">search</i>
-                                        <span class="mdc-button__label">Search</span> 
-                                    </button>  
-                                </div>
-                            </form>   
+                        <div class="mdc-card"> 
+                            <div class="row start-xs middle-xs p-3">
+                            <span class="act_live_dot"></span>
+
+                                <img src="<?php echo FRONTEND_URL; ?>profile_image/<?php echo $userdata['userimage']; ?>" alt="user-image" class="avatar_bx">
+                                <div class="text-muted fw-500 mx-3">
+                                <h1 class="blu"><?php echo $userdata['fname'].' '.$userdata['lname']?></h1>
+                                <p>
+                                <span class="color_yellow">investor</span><br>
+                                    <label style="font-size: 12px;"><?php echo $userdata['username'];?></label><br>
+                                    <label style="font-size: 12px;"><?php echo $userdata['useremail']?></label><br>
+                                    <label style="font-size: 12px;"><?php echo $userdata['userphone']?></label><br> 
+                                </p>
+                                </div> 
+                                
+                            </div>
+                            <hr class="mdc-list-divider m-0">
+                            <ul class="mdc-list">
+                             
+                                <li>
+                                    <a href="<?php echo SITE_URL?>investorDashboard" class="mdc-list-item py-1">
+                                        <span class="mdc-list-item__graphic material-icons text-muted mx-3">
+                                            <i class="fa fa-tachometer" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="mdc-list-item__text">Dashboard</span>
+                                    </a>
+                                </li>
+                                 
+                                <li>
+                                    <a href="<?php echo SITE_URL?>userprofile" class="mdc-list-item py-1">
+                                        <span class="mdc-list-item__graphic material-icons text-muted mx-3">person</span>
+                                        <span class="mdc-list-item__text">Profile</span>
+                                    </a>
+                                </li>
+                                
+                               
+                                <li>
+                                    <a href="<?php echo SITE_URL?>proposal" class="mdc-list-item py-1">
+                                        <span class="mdc-list-item__graphic material-icons text-muted mx-3">add_circle</span>
+                                        <span class="mdc-list-item__text">Add</span>
+                                    </a>
+                                </li>
+                                
+                                
+                                <li>
+                                    <a href="<?php echo SITE_URL?>signout" class="mdc-list-item py-1">
+                                        <span class="mdc-list-item__graphic material-icons text-muted mx-3">power_settings_new</span>
+                                        <span class="mdc-list-item__text">Logout</span>
+                                    </a>
+                                </li>
+                            </ul>  
                         </div>
                     </aside>
                     <div class="mdc-drawer-scrim page-sidenav-scrim"></div>  
-                    <div class="page-sidenav-content"> 
-                        <div class="properties-wrapper row mt-0  ">
-						
-						
-						
-                            <div class="row px-2 w-100">  
-                                <div class="row mdc-card between-xs middle-xs w-100 p-2 filter-row mdc-elevation--z1 text-muted"> 
-                                    <button id="page-sidenav-toggle" class="mdc-icon-button material-icons d-md-none d-lg-none d-xl-none"> 
-                                        more_vert 
-                                    </button>  
-                                    <div class="mdc-menu-surface--anchor"> 
-                                        <button class="mdc-button mdc-ripple-surface text-muted mutable"> 
-                                            <span class="mdc-button__ripple"></span>
-                                            <span class="mdc-button__label"><span class="mutable">Sort by Default</span></span>
-                                            <i class="material-icons mdc-button__icon m-0">arrow_drop_down</i>
-                                        </button> 
-                                        <div class="mdc-menu mdc-menu-surface">
-                                            <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
-                                                <li class="mdc-list-item" role="menuitem">
-                                                    <span class="mdc-list-item__text">Sort by Default</span>
-                                                </li>
-                                                <li class="mdc-list-item" role="menuitem">
-                                                    <span class="mdc-list-item__text">Newest</span>
-                                                </li> 
-                                                <li class="mdc-list-item" role="menuitem">
-                                                    <span class="mdc-list-item__text">Oldest</span>
-                                                </li> 
-                                                <li class="mdc-list-item" role="menuitem">
-                                                    <span class="mdc-list-item__text">Popular</span>
-                                                </li> 
-                                                <li class="mdc-list-item" role="menuitem">
-                                                    <span class="mdc-list-item__text">Price (Low to High)</span>
-                                                </li> 
-                                                <li class="mdc-list-item" role="menuitem">
-                                                    <span class="mdc-list-item__text">Price (High to Low)</span>
-                                                </li>
-                                            </ul>
-                                        </div> 
-                                    </div>
-                                    
-                                </div>  
-                            </div> 
+                    <div class="pad_15 col-md-10">
+                        
+                        <div class="mdc-card p-3">
+                        
+                        
                             
-                          
-						 
-							 <div class="row item col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> 
-                                <div class="mdc-card property-item list-item column-1 pos_rel">
-                                  <div class="row property-status">
-                                            <span class="red">Hot Deals</span> 
-                                        </div>
-                                    <div class="property-content-wrapper"> 
-                                        <div class="property-content">
-                                            <div class="content">
-                                                <h1 class="title"><a href="#"> Lorem Ipsum is simply dummy text</a></h1>
-												<p>Lorem Ipsum is simply dummy text of the printing and typesetting 
-												industry. Lorem Ipsum has been the industry's standard dummy text
-												ever since the 1500s, when an unknown printer took a galley of 
-												type and scrambled it to</p>
-                                                <p class="row address flex-nowrap">
-                                                    <i class="material-icons text-muted">location_on</i>
-                                                    <span> 611 W 180th St, New York, NY 10033, USA</span>
-                                                </p>
-												
-                                                <div class="row between-xs middle-xs">
-                                                    <h3 class="primary-color price">
-                                                        <span>$ 1,300,000</span> 
-                                                    </h3> 
-                                                  
-                                                </div>
-                                                <div class="d-none d-md-flex d-lg-flex d-xl-flex">
-                                                    <div class="description mt-3"> 
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat modi dignissimos blanditiis accusamus, magni provident omnis perferendis laudantium illo recusandae ab molestiae repudiandae cum obcaecati nulla adipisci fuga culpa repellat!</p>
-                                                    </div>
-                                                </div>
-                                                   
-                                            </div> 
-                                            <div class="grow"></div>
-                                            <div class="actions row between-xs middle-xs">
-                                                <p class="row date mb-0">
-                                                    <i class="material-icons text-muted">date_range</i>
-                                                    <span class="mx-2">13 Jan, 2021</span>
-                                                </p>
-                                                <a href="chat.html" target="_blank" class="mdc-button mdc-button--outlined mdc-ripple-upgraded">
-                                                    <span class="mdc-button__ripple"></span>
-                                                    <span class="mdc-button__label">Chat</span> 
-                                                </a>  
-                                            </div>
-                                        </div>  
-                                    </div> 
-                                </div>  
-                            </div>
-							<div class="row item col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> 
-                                <div class="mdc-card property-item list-item column-1 pos_rel">
-                                  <div class="row property-status">
-                                            <span class="red">Hot Deals</span> 
-                                        </div>
-                                    <div class="property-content-wrapper"> 
-                                        <div class="property-content">
-                                            <div class="content">
-                                                <h1 class="title"><a href="#"> Lorem Ipsum is simply dummy text</a></h1>
-												<p>Lorem Ipsum is simply dummy text of the printing and typesetting 
-												industry. Lorem Ipsum has been the industry's standard dummy text
-												ever since the 1500s, when an unknown printer took a galley of 
-												type and scrambled it to</p>
-                                                <p class="row address flex-nowrap">
-                                                    <i class="material-icons text-muted">location_on</i>
-                                                    <span> 611 W 180th St, New York, NY 10033, USA</span>
-                                                </p>
-												
-                                                <div class="row between-xs middle-xs">
-                                                    <h3 class="primary-color price">
-                                                        <span>$ 1,300,000</span> 
-                                                    </h3> 
-                                                  
-                                                </div>
-                                                <div class="d-none d-md-flex d-lg-flex d-xl-flex">
-                                                    <div class="description mt-3"> 
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat modi dignissimos blanditiis accusamus, magni provident omnis perferendis laudantium illo recusandae ab molestiae repudiandae cum obcaecati nulla adipisci fuga culpa repellat!</p>
-                                                    </div>
-                                                </div>
-                                                   
-                                            </div> 
-                                            <div class="grow"></div>
-                                            <div class="actions row between-xs middle-xs">
-                                                <p class="row date mb-0">
-                                                    <i class="material-icons text-muted">date_range</i>
-                                                    <span class="mx-2">13 Jan, 2021</span>
-                                                </p>
-                                                <a href="chat.html" target="_blank" class="mdc-button mdc-button--outlined mdc-ripple-upgraded">
-                                                    <span class="mdc-button__ripple"></span>
-                                                    <span class="mdc-button__label">Chat</span> 
-                                                </a>  
-                                            </div>
-                                        </div>  
-                                    </div> 
-                                </div>  
-                            </div>
-							
-						<div class="row item col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> 
-                                <div class="mdc-card property-item list-item column-1 pos_rel">
-                              
-                                    <div class="property-content-wrapper"> 
-                                        <div class="property-content">
-                                            <div class="content">
-                                                <h1 class="title"><a href="#"> Lorem Ipsum is simply dummy text</a></h1>
-												<p>Lorem Ipsum is simply dummy text of the printing and typesetting 
-												industry. Lorem Ipsum has been the industry's standard dummy text
-												ever since the 1500s, when an unknown printer took a galley of 
-												type and scrambled it to</p>
-                                                <p class="row address flex-nowrap">
-                                                    <i class="material-icons text-muted">location_on</i>
-                                                    <span> 611 W 180th St, New York, NY 10033, USA</span>
-                                                </p>
-												
-                                                <div class="row between-xs middle-xs">
-                                                    <h3 class="primary-color price">
-                                                        <span>$ 1,300,000</span> 
-                                                    </h3> 
-                                                  
-                                                </div>
-                                                <div class="d-none d-md-flex d-lg-flex d-xl-flex">
-                                                    <div class="description mt-3"> 
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat modi dignissimos blanditiis accusamus, magni provident omnis perferendis laudantium illo recusandae ab molestiae repudiandae cum obcaecati nulla adipisci fuga culpa repellat!</p>
-                                                    </div>
-                                                </div>
-                                                   
-                                            </div> 
-                                            <div class="grow"></div>
-                                            <div class="actions row between-xs middle-xs">
-                                                <p class="row date mb-0">
-                                                    <i class="material-icons text-muted">date_range</i>
-                                                    <span class="mx-2">13 Jan, 2021</span>
-                                                </p>
-                                                <a href="chat.html" target="_blank" class="mdc-button mdc-button--outlined mdc-ripple-upgraded">
-                                                    <span class="mdc-button__ripple"></span>
-                                                    <span class="mdc-button__label">Chat</span> 
-                                                </a>  
-                                            </div>
-                                        </div>  
-                                    </div> 
-                                </div>  
-                            </div>
-						<div class="row item col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"> 
-                                <div class="mdc-card property-item list-item column-1 pos_rel">
-                              
-                                    <div class="property-content-wrapper"> 
-                                        <div class="property-content">
-                                            <div class="content">
-                                                <h1 class="title"><a href="#"> Lorem Ipsum is simply dummy text</a></h1>
-												<p>Lorem Ipsum is simply dummy text of the printing and typesetting 
-												industry. Lorem Ipsum has been the industry's standard dummy text
-												ever since the 1500s, when an unknown printer took a galley of 
-												type and scrambled it to</p>
-                                                <p class="row address flex-nowrap">
-                                                    <i class="material-icons text-muted">location_on</i>
-                                                    <span> 611 W 180th St, New York, NY 10033, USA</span>
-                                                </p>
-												
-                                                <div class="row between-xs middle-xs">
-                                                    <h3 class="primary-color price">
-                                                        <span>$ 1,300,000</span> 
-                                                    </h3> 
-                                                  
-                                                </div>
-                                                <div class="d-none d-md-flex d-lg-flex d-xl-flex">
-                                                    <div class="description mt-3"> 
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat modi dignissimos blanditiis accusamus, magni provident omnis perferendis laudantium illo recusandae ab molestiae repudiandae cum obcaecati nulla adipisci fuga culpa repellat!</p>
-                                                    </div>
-                                                </div>
-                                                   
-                                            </div> 
-                                            <div class="grow"></div>
-                                            <div class="actions row between-xs middle-xs">
-                                                <p class="row date mb-0">
-                                                    <i class="material-icons text-muted">date_range</i>
-                                                    <span class="mx-2">13 Jan, 2021</span>
-                                                </p>
-                                                <a href="chat.html" target="_blank" class="mdc-button mdc-button--outlined mdc-ripple-upgraded">
-                                                    <span class="mdc-button__ripple"></span>
-                                                    <span class="mdc-button__label">Chat</span> 
-                                                </a>  
-                                            </div>
-                                        </div>  
-                                    </div> 
-                                </div>  
-                            </div>
+                            
+      <div class="col-md-12">
+      
+    
+    <div class="row margin_b_10">                 
+    <div class="col-md-3 col-lg-3 col-xl-3">
+    <section class="panel panel-featured-left panel-featured-primary">
+        <div class="panel-body">
+            <div class="widget-summary">
+                <div class="widget-summary-col widget-summary-col-icon pa-t-10">
+                    <div class="summary-icon bg-primary">
+                       <img src="<?php echo ASSETS_URL?>pro.png">
+                    </div>
+                </div>
+                <div class="widget-summary-col">
+                    <div class="summary">
+                        <h4 class="title">MY PROPOSALS</h4>
+                        <div class="info">
+                            <strong class="amount">0</strong>
+                            
+                        </div>
+                    </div>
+                    <div class="summary-footer">
+                        <a href="<?php echo SITE_URL?>" class="text-muted text-uppercase">(view all)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
 
-					
-						
-						</div> 
+
+ 
+<div class="col-md-3 col-lg-3 col-xl-3">
+    <section class="panel panel-featured-left panel-featured-primary">
+        <div class="panel-body">
+            <div class="widget-summary">
+                <div class="widget-summary-col widget-summary-col-icon pa-t-10">
+                    <div class="summary-icon bg-primary bg_maru">
+                        <img src="<?php echo ASSETS_URL?>use.png">
+                    </div>
+                </div>
+                <div class="widget-summary-col">
+                    <div class="summary">
+                        <h4 class="title">MACHING DEALS</h4>
+                        <div class="info">
+                            <strong class="amount">0</strong>
+                            
+                        </div>
+                    </div>
+                    <div class="summary-footer">
+                        <a href="<?php echo SITE_URL; ?>" class="text-muted text-uppercase">(view all)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+<div class="col-md-3 col-lg-3 col-xl-3">
+    <section class="panel panel-featured-left panel-featured-primary">
+        <div class="panel-body">
+            <div class="widget-summary">
+                <div class="widget-summary-col widget-summary-col-icon pa-t-10">
+                    <div class="summary-icon bg-primary bg_green">
+                        <img src="<?php echo ASSETS_URL?>pro.png">
+                    </div>
+                </div>
+                <div class="widget-summary-col">
+                    <div class="summary">
+                        <h4 class="title">INVESTED PROPETIES</h4>
+                        <div class="info">
+                            <strong class="amount">0</strong>
+                            
+                        </div>
+                    </div>
+                    <div class="summary-footer">
+                        <a href="<?php echo SITE_URL; ?>" class="text-muted text-uppercase">(view all)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    <div class="col-md-3 col-lg-3 col-xl-3">
+    <section class="panel panel-featured-left panel-featured-primary">
+        <div class="panel-body">
+            <div class="widget-summary">
+                <div class="widget-summary-col widget-summary-col-icon pa-t-10">
+                    <div class="summary-icon bg-primary bg_yellow">
+                       <img src="<?php echo ASSETS_URL?>dol.png">
+                    </div>
+                </div>
+                <div class="widget-summary-col">
+                    <div class="summary">
+                        <h4 class="title">UNDER CONSIDERATION</h4>
+                        <div class="info">
+                            <strong class="amount">0</strong>
+                            
+                        </div>
+                    </div>
+                    <div class="summary-footer">
+                        <a href="<?php echo SITE_URL; ?>" class="text-muted text-uppercase">(view all)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    
+    
+    
+
+        </div>
+        
+        <div class="row ">                 
+    <div class="col-md-3 col-lg-3 col-xl-3">
+    <section class="panel panel-featured-left panel-featured-primary">
+        <div class="panel-body">
+            <div class="widget-summary">
+                <div class="widget-summary-col widget-summary-col-icon pa-t-10">
+                    <div class="summary-icon bg-primary bg_red">
+                       <img src="<?php echo ASSETS_URL?>dol.png">
+                    </div>
+                </div>
+                <div class="widget-summary-col">
+                    <div class="summary">
+                        <h4 class="title">MY INVESTMENT</h4>
+                        <div class="info">
+                            <strong class="amount">0 $</strong>
+                            
+                        </div>
+                    </div>
+                    <div class="summary-footer">
+                        <a href="<?php echo SITE_URL?>" class="text-muted text-uppercase">(view all)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    
+    <div class="col-md-3 col-lg-3 col-xl-3">
+    <section class="panel panel-featured-left panel-featured-primary">
+        <div class="panel-body">
+            <div class="widget-summary">
+                <div class="widget-summary-col widget-summary-col-icon pa-t-10">
+                    <div class="summary-icon bg-primary bg_green">
+                       <img src="<?php echo ASSETS_URL?>dol.png">
+                    </div>
+                </div>
+                <div class="widget-summary-col">
+                    <div class="summary">
+                        <h4 class="title">ESTIMATED RETURNS</h4>
+                        <div class="info">
+                            <strong class="amount">0 $</strong>
+                            
+                        </div>
+                    </div>
+                    <div class="summary-footer">
+                        <a href="<?php echo SITE_URL; ?>" class="text-muted text-uppercase">(view all)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    
+    <div class="col-md-3 col-lg-3 col-xl-3">
+    <section class="panel panel-featured-left panel-featured-primary">
+        <div class="panel-body">
+            <div class="widget-summary">
+                <div class="widget-summary-col widget-summary-col-icon pa-t-10">
+                    <div class="summary-icon bg-primary bg-primary">
+                       <img src="<?php echo ASSETS_URL?>done.png">
+                    </div>
+                </div>
+                <div class="widget-summary-col">
+                    <div class="summary">
+                        <h4 class="title">PROJECT COMPLETED</h4>
+                        <div class="info">
+                            <strong class="amount">0</strong>
+                            
+                        </div>
+                    </div>
+                    <div class="summary-footer">
+                        <a href="<?php echo SITE_URL; ?>" class="text-muted text-uppercase">(view all)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+
+<div class="col-md-3 col-lg-3 col-xl-3">
+    <section class="panel panel-featured-left panel-featured-primary">
+        <div class="panel-body">
+            <div class="widget-summary">
+                <div class="widget-summary-col widget-summary-col-icon pa-t-10">
+                    <div class="summary-icon bg-primary bg_gre">
+                       <img src="   msg.png">
+                    </div>
+                </div>
+                <div class="widget-summary-col">
+                    <div class="summary">
+                        <h4 class="title">MESSAGES </h4>
+                        <div class="info">
+                            <strong class="amount">0</strong>
+                            
+                        </div>
+                    </div>
+                    <div class="summary-footer">
+                        <a href="<?php echo SITE_URL; ?>" class="text-muted text-uppercase">(view all)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+  
+        </div>
+        
+        </div>
+        
+                            <div class="row border-0 w-100 mt-3 po_rel">
+                              
+                                 <!--<a href="investor-dashboard-detail.html" class="detail_table">View In Detail</a>-->
+                                <div class="mdc-data-table border-0 w-100 mt-1">
+                                
+                                <table id="proposal-list" class="display nowrap" style="width:100%">
+                                    <thead>
+                                        <tr class="mdc-data-table__header-row">
+                                            <th class="mdc-data-table__header-cell">S.No</th>
+                                            <th class="mdc-data-table__header-cell">Type of transaction</th>
+                                            <th class="mdc-data-table__header-cell">Countries</th>
+                                            <th class="mdc-data-table__header-cell">City</th>
+                                            
+                                            <th class="mdc-data-table__header-cell">Invest Amount</th>
+                                            <th class="mdc-data-table__header-cell">Estimated return</th>
+                                            <th class="mdc-data-table__header-cell">Match Property</th>
+                                           
+                                            <th class="mdc-data-table__header-cell">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="mdc-data-table__content s">
+                                        <?php 
+                                        if (!empty($getproposalByInvestorId)){
+                                            foreach ($getproposalByInvestorId as $key=>$val)
+                                            {
+                                                $cityid = $val->city_id;
+                                                $streetid = $val->street_id;
+                                                $trans_id = $val->trans_id;
+                                                $proamount = $val->proposal_amount_for_investment;
+                                                $return = $val->proposal_estimate_return;
+
+                                                $matchproperty = $this->UserModel->getMatchAllPropertyByInvestorId($cityid,$streetid,$trans_id,$proamount,$return);
+                                                ///echo '<pre>'; print_r($matchproperty); die;
+                                        ?>
+                                       <tr class="mdc-data-table__row">
+                                            <td class="mdc-data-table__cell"><?php echo $key+1;?></td>
+                                            <td class="mdc-data-table__cell"><a href="javscript:;" target="_blank"> <?php echo $val->transaction_name_en; ?> </a>  </td>
+                                            <td class="mdc-data-"><?php echo $val->city_name; ?></td>
+                                            <td class="mdc-data-"><?php echo $val->street_name; ?></td>
+                                            
+                                            <td class="mdc-data-table__cell "><?php echo $val->proposal_amount_for_investment; ?></td>
+                                            <td class="mdc-data-table__cell "> ><?php echo $val->proposal_estimate_return; ?> % ומעלה</td>
+                                            <td class="mdc-data-table__cell "> <a href="<?php echo SITE_URL?>matchproperty/<?php echo base64_encode($val->propId); ?>" target="_blank"> <span class="geen_bx"><?php echo count(json_decode($matchproperty)); ?></span></a></td>
+                                            <td class="mdc-data-table__cell">
+                                                <a href="<?php echo SITE_URL?>editproposal/<?php echo base64_encode($val->propId); ?>" class="mdc-icon-button material-icons primary-color">edit</a>
+                                                <a href="javscript:;" data-id="<?php echo $val->propId; ?>" class="mdc-icon-button material-icons warn-color deleteproposal">delete</a>
+                                                 
+                                            </td>
+                                        </tr>
+                                        <?php 
+                                                }
+                                            }
+                                       ?>
+                                    </tbody>
+                                </table>
+                          
+
+                          </div>
+                                
+                                
+                                
+                                
+                                
+                            
+                            
+                            
+                            
+                        </div> 
+                      
                     </div> 
-                </div> 
+                </div>  
             </div>  
-        </div>  
-         
-       
+        </div> 
     </main> 
+    
 <?php 
-	$this->load->view('layout/frontend/footer');
+    $this->load->view('layout/frontend/footer');
 ?>

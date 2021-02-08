@@ -289,5 +289,27 @@ $(document).ready(function(){
 			} 
  	 	})
 
+ 	 // delete Proposal Start here
+ 	 	$(".deleteproposal").click(function(){
+ 	 		
+ 	 		var deleteproposal = $(this);
+ 	 		var delid = deleteproposal.attr('data-id');
+ 	 		var txt;
+			var r = confirm("Are you shure to delete this proposal !");
+			if (r == true) {
+
+				$.ajax({
+					type : 'POST',
+					url  : ajax_url+'deleteProposal',
+					data : {delid:delid},
+					success : function(res){
+						// alert(res);
+						window.location.href = base_url+'investorDashboard'; 
+						//window.location(base_url+'dealerdashboard');
+					}
+				})
+
+			} 
+ 	 	})	
  	 //
 })

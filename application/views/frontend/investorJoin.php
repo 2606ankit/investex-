@@ -44,7 +44,7 @@ label.error {
                             <h1 class="uppercase"> Sign up as a Investor</h1>
                            
                         </div>
-                        <form action="<?php echo SITE_URL?>dealerjoin" method="post" name="dealer_join" id="dealer_join"> 
+                        <form action="<?php echo SITE_URL?>investorjoin" method="post" name="dealer_join" id="dealer_join"> 
 
                                <div class="text-center py-3">
                                  <a href="javascript:void(0);" class="mdc-fab mdc-fab--mini primary facebook_bg">
@@ -134,6 +134,18 @@ label.error {
                                     <div class="mdc-notched-outline__trailing"></div>
                                 </div>
                             </div>  
+
+                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
+                             
+                                <input class="mdc-text-field__input" type="text" id="dealer_invested_amount" name="dealer_invested_amount" required="required">
+                                <div class="mdc-notched-outline">
+                                    <div class="mdc-notched-outline__leading"></div>
+                                    <div class="mdc-notched-outline__notch">
+                                        <label class="mdc-floating-label">Invested Amount</label>
+                                    </div>
+                                    <div class="mdc-notched-outline__trailing"></div>
+                                </div>
+                            </div>  
                             
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
@@ -172,7 +184,7 @@ label.error {
                             
                            <div class="mdc-form-field mt-3 w-100">
                                 <div class="mdc-checkbox">
-                                    <input type="checkbox" class="mdc-checkbox__native-control" id="keep"/>
+                                    <input type="checkbox" class="mdc-checkbox__native-control" id="keep_me_login" name="keep_me_login" />
                                     <div class="mdc-checkbox__background">
                                         <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
                                             <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>

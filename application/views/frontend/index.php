@@ -56,7 +56,7 @@
 		<div class="projects">
 			<h1 class="section-title f28">עסקאות חדשות</h1>
 
-			<a href="#" target="_blank" class="post_btn f18" >
+			<a href="<?php echo SITE_URL?>propertyRegistration" class="post_btn f18" >
 			מחפש משקיע נדל”ן? פרסם עסקה
 			</a>
 
@@ -126,7 +126,7 @@
 			</a>
 
 			<div>
-			<a href="/join?ipr=true" target="_blank" class="reg_btn" aria-label="הירשם כפרילנסר " 
+			<a href="<?php echo SITE_URL?>investorJoin" class="reg_btn" aria-label="הירשם כפרילנסר " 
 			data-uw-remediation="redirect">הרשם כמשקיע <span> (חינם) >></span></a>
 			</div>
 		</div>
@@ -183,8 +183,8 @@
 				</table>
 			</div>
 			<center>
-				<a href="#" class="round_btn cust_btn">חפש עסקאות נדל”ן</a>
-				<a href="#" class="round_btn cust_btn bg_yellow">פרסם עסקת נדל”ן</a> 
+				<a href="<?php echo SITE_URL?>investorJoin" class="round_btn cust_btn">חפש עסקאות נדל”ן</a>
+				<a href="<?php echo SITE_URL?>propertyRegistration" class="round_btn cust_btn bg_yellow">פרסם עסקת נדל”ן</a> 
 			</center>
 		</div>
 	</div>
@@ -196,7 +196,7 @@
                     <h1 class="section-title f28">כיצד למצוא משקיע לעסק שלך?</h1>   
                     <div class=""> 
 					<center>
-					  <a href="#" class="big_btn mdc-button mdc-button--raised cust_btn _bg_blu mdc-ripple-upgraded">
+					  <a href="<?php echo SITE_URL?>propertyRegistration" class="big_btn mdc-button mdc-button--raised cust_btn _bg_blu mdc-ripple-upgraded">
 					  פרסם עסקת רי</a>
 					  
 					 </center> 

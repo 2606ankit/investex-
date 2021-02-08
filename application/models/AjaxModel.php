@@ -45,14 +45,14 @@
 			$from_email = ADMIN_EMAIL;
 			$data	=	(object) array('insertid'=>$insertid,'useremail'=>$useremail);
 				
-				/*$config['charset']    	= 'utf-8';
+				$config['charset']    	= 'utf-8';
 			    $config['newline']    	= "\r\n";
 			    $config['mailtype'] 	= 'html';  
 			    $config['priority'] 	= '1'; 			   
 			   
 
 
-			     $this->email->initialize($config);*/
+			     $this->email->initialize($config);
 			   	
 			   	$mailmessage = $this->load->view('template/email',$data,TRUE);
 				// echo '<pre>'; print_r($mailmessage); die;
@@ -122,6 +122,17 @@
 			$update = array("status"=>STATUS_DELETE);
 			$data = $this->db->where("id",$delid)->update("user_dealer_property",$update);
 			//echo $this->db->last_query(); die;
+			if ($data){
+				return true;
+			}
+		}
+		// end here
+		// delete proposal start here
+		public function deleteProposal($delid)
+		{
+			$update = array("status"=>STATUS_DELETE);
+			$data = $this->db->where("id",$delid)->update("investex_investor_proposal",$update);
+			
 			if ($data){
 				return true;
 			}

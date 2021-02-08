@@ -30,7 +30,7 @@
 									if ($userdata['usertype'] == DEALER){
 										$dashboard = 'dealerdashborad';
 									}elseif ($userdata['usertype'] == INVESTOR){
-										$dashboard = 'investordashborad';
+										$dashboard = 'investorDashboard';
 									}
 								?>
 							  <li>
@@ -121,7 +121,21 @@
                                             <div class="mdc-notched-outline__trailing"></div>
                                         </div>
                                     </div> 
-
+                                    <div class="mdc-text-field mdc-text-field--outlined w-100 custom-field my-2"> 
+                                        <select class="mdc-text-field__input" name="user_gender" id="user_gender">
+                                            <option>- - Select Gender - -</option>
+                                            <option <?php if ($getUserdatabyId[0]->gender == MALE){ echo "selected='selected'";}?> value="<?php echo MALE; ?>">Male</option>
+                                            <option <?php if ($getUserdatabyId[0]->gender == FEMALE){ echo "selected='selected'";}?> value="<?php echo FEMALE; ?>"> Female</option>
+                                        </select>
+                                        <div class="mdc-notched-outline">
+                                            <div class="mdc-notched-outline__leading"></div>
+                                            <div class="mdc-notched-outline__notch">
+                                                <label class="mdc-floating-label">Gender</label>
+                                            </div>
+                                            <div class="mdc-notched-outline__trailing"></div>
+                                        </div>
+                                    </div> 
+                                     
  									<div class="mdc-text-field mdc-text-field--outlined w-100 custom-field my-2">
                                        <textarea class="mdc-text-field__input" name="userabout" id="userabout" rows="10"><?php echo $getUserdatabyId[0]->user_about; ?></textarea>
                                         <div class="mdc-notched-outline">

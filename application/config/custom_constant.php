@@ -23,8 +23,6 @@
 	define ("LOGIN_STATUS_ACTIVE",1);
 	define ("LOGIN_STATUS_INACTIVE",2);
 
-
-
 	// User Status 
 	define("ACTIVE",1);
 	define("INACTIVE",2); 
@@ -35,17 +33,16 @@
 	define("DRAFTS",5); 
 	define("STATUS_DELETE",6);
 
-
-
-
 	// user insert type
 	define("FACEBOOK",1);
 	define("TWITTER",2);
 	define("GOOGLE",3);
 	define("SITE_USER",4);
 
-	// real estate transaction type
-	 
+	// user gender 
+	define('MALE',1);
+	define('FEMALE',2);
+		 
 	 
 
 ?>

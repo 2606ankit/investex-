@@ -173,7 +173,7 @@
                                             }
                                             elseif ($this->session->userdata('usertype') == INVESTOR)
                                             {
-                                                $dashboard = 'invstordashboard';
+                                                $dashboard = 'investorDashboard';
                                             }
                                         ?>
                                         <a href="<?php echo SITE_URL.$dashboard; ?>" class="mdc-list-item" role="menuitem">
@@ -230,7 +230,7 @@
                     </div> 
 				</div> 
                 <?php 
-                    if (empty($this->session->userdata('userid'))){
+                    if (empty($this->session->userdata('userid'))){ 
                 ?>
                 <div class="row middle-xs"> 
     				<div class="mdc-menu-surface--anchor"> 

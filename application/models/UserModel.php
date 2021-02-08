@@ -11,7 +11,7 @@
 					->where("password",$userpass)
 					->get();
 			$result = $data->result();
-			//echo $this->db->last_query(); die;
+			 //echo $this->db->last_query(); die;
 			if (!empty($result)){
 				$updateslogintatus = $this->db->where("id",$result[0]->id)->update("investex_user",array("user_login_status"=> LOGIN_STATUS_ACTIVE)); 
 				$selectuser = $this->db->select("*")->from("investex_user")->where("id",$result[0]->id)->get();
@@ -42,6 +42,15 @@
 			}
 
 		}
+		// create Unique Id Start here
+		public function uniqueId($usertype)
+		{
+			$time = substr(md5(strtotime(TODAY_DATE)),-3);
+			$unique = $usertype.'_'.$time;
+			return $unique;
+		}
+
+		// end here
 		// get userdata by User id
 		public function getUserdatabyId($loginid)
 		{
@@ -211,6 +220,124 @@
 			$res = $data->result();
 			return $res;
 			
+		}
+		// end here
+
+		/* =============================
+		 Investor function start here
+		================================*/
+		public function getMatchAllPropertyByInvestorId($cityid,$streetid,$trans_id,$proamount,$return)
+		{
+			$data = $this->db->select("*")
+				->from("user_dealer_property")
+				->where("status",Open_For_Investement)
+				->where("property_street",$streetid)
+				->where("property_city",$cityid)
+				->where("property_transaction_type",$trans_id)
+				->where("property_investment_amount",$proamount)
+				->where("property_estimated_return",$return)
+				->get();
+			$res = $data->result();
+			// echo $this->db->last_query(); die;
+			return json_encode($res);	
+		}
+		//get all proposal start here
+		public function getproposalByInvestorId($investorid)
+		{
+			$data = $this->db->select(
+						 "
+							proposal.investor_id as investor_id,
+							proposal.id as propId,
+							proposal.proposal_name as proposal_name,
+							proposal.proposal_unique_id as proposal_unique_id,
+							proposal.proposal_transaction_type as proposal_transaction_type,
+							proposal.proposal_country as proposal_country,
+							proposal.proposal_city as proposal_city,
+							proposal.proposal_street as proposal_street,
+							proposal.proposal_amount_for_investment as proposal_amount_for_investment,
+							proposal.proposal_estimate_return as proposal_estimate_return,
+							proposal.status as status,
+							proposal.created_date as created_date,
+
+							icity.id as city_id,
+							icity.name as city_name,
+
+							istreet.id as street_id,
+							istreet.name as street_name,
+
+							itrans.id as trans_id,
+							itrans.transaction_name_en as transaction_name_en,
+							itrans.transaction_name_il as transaction_name_il,
+							itrans.status as trans_status,
+						 "
+						)
+					->from("investex_investor_proposal as proposal")
+					->join("city as icity","icity.id = proposal.proposal_city")
+					->join("street as istreet","istreet.id = proposal.proposal_street")
+					->join("investex_transaction_type as itrans","itrans.id = proposal.proposal_transaction_type")
+					->where("proposal.investor_id",$investorid)
+					->get();
+			$res = $data->result();
+			return json_encode($res);
+		}
+		// end here
+		// get proposal data by Id
+		public function getproposalById($proid)
+		{
+			$data = $this->db->select(
+						 "
+							proposal.investor_id as investor_id,
+							proposal.id as propId,
+							proposal.proposal_name as proposal_name,
+							proposal.proposal_unique_id as proposal_unique_id,
+							proposal.proposal_transaction_type as proposal_transaction_type,
+							proposal.proposal_country as proposal_country,
+							proposal.proposal_city as proposal_city,
+							proposal.proposal_street as proposal_street,
+							proposal.proposal_amount_for_investment as proposal_amount_for_investment,
+							proposal.proposal_estimate_return as proposal_estimate_return,
+							proposal.status as status,
+							proposal.created_date as created_date,
+
+							icity.id as city_id,
+							icity.name as city_name,
+
+							istreet.id as street_id,
+							istreet.name as street_name,
+
+							itrans.id as trans_id,
+							itrans.transaction_name_en as transaction_name_en,
+							itrans.transaction_name_il as transaction_name_il,
+							itrans.status as trans_status,
+						 "
+						)
+					->from("investex_investor_proposal as proposal")
+					->join("city as icity","icity.id = proposal.proposal_city")
+					->join("street as istreet","istreet.id = proposal.proposal_street")
+					->join("investex_transaction_type as itrans","itrans.id = proposal.proposal_transaction_type")
+					->where("proposal.id",$proid)
+					->get();
+					//echo $this->db->last_query();
+			$res = $data->result();
+			return json_encode($res);		
+		}
+		// end here
+
+		// match all property accoding to the proposal
+		public function getMatchAllPropertyByProposal($cityid,$streetid,$trans_id,$proamount,$return)
+		{
+			$data = $this->db->select("*")
+				->from("user_dealer_property")
+				->where("status",Open_For_Investement)
+				->where("property_street",$streetid)
+				->where("property_city",$cityid)
+				->where("property_transaction_type",$trans_id)
+				->where("property_investment_amount",$proamount)
+				->where("property_estimated_return",$return)
+				->get();
+			$res = $data->result();
+			// echo $this->db->last_query(); die;
+			return json_encode($res);	
 		}
 		// end here
 	}

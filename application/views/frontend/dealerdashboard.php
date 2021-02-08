@@ -303,17 +303,12 @@
         </div>
 		
         </div>
-       
-    
-		
-							
-							
-							
+        
                             <div class="row border-0 w-100 mt-3 ">
-                                 <input class="search" type="text" class="form-control" placeholder="Search" id="usr"> 
+                                  
 								 <a href="javascript:;" class="detail_table">View In Detail</a>
 								<div class="mdc-data-table border-0 w-100 mt-1">
-                                <table class="table-responsive" aria-label="Dessert calories" style="width: 100%;">
+                                <table id="datatab" class="table-responsive" aria-label="Dessert calories" style="width: 100%;">
                                     <thead>
                                         <tr class="mdc-data-table__header-row">
                                             <th class="mdc-data-table__header-cell">S.No</th>

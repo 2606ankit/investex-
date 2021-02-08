@@ -48,8 +48,9 @@ class User extends CI_Controller {
 	   	}else if ($this->usertype == INVESTOR){
 	   		$investorid = $this->session->userdata('userid');
 	   		
-	   		$this->dealerProperty = $this->UserModel->getMatchAllPropertyByInvestorId($investorid);
+	   		//$this->investorProperty = $this->UserModel->getMatchAllPropertyByInvestorId($investorid);
 	   		//echo 'investor';
+	   		//echo '<pre>'; print_r(json_decode($this->dealerProperty)); die;
 	   	}
 
 	}
@@ -63,14 +64,15 @@ class User extends CI_Controller {
 			$username 		= 	$this->input->post("username");
 			$userpass 		= 	md5($this->input->post("user_pass"));
 			$usedata 	  	= 	$this->UserModel->userlogin($username,$userpass);
-			//print_r($usedata); die;
+			// print_r($usedata); die;
 
-			if (!empty($this->session->userdata())){
+			if (!empty($usedata)){
 				 
 				$loginid = $this->session->userdata('userid');
 	 			if(!empty($loginid)){
 	 				
 	 				$usertype = $this->session->userdata('usertype');
+	 				 echo $usertype; die;
 	 				if ($usertype == DEALER){
 	 					redirect(SITE_URL.'dealerdashboard', 'refresh');
 	 				}elseif($usertype == INVESTOR) {
@@ -82,16 +84,16 @@ class User extends CI_Controller {
 	 			}
 	 			$data = array('error'=>'');
 			}
-			else {
-				 
+			else 
+			{
 				$data = array ('error'=>'Username or Password does not match');
 			}
 		}
-		
+		 //echo '<pre>'; print_r($data); 
 		$this->load->view('frontend/login',$data);
 		}
 		else {
-			redirect(SITE_URL.'index');
+			redirect(SITE_URL.'index','refresh');
 		}
 	}
 	// dealer login start here
@@ -193,11 +195,12 @@ class User extends CI_Controller {
 			$getUserdatabyId = $this->UserModel->getUserdatabyId($loginid);
 			 
 			if (!empty($_POST) && $_POST['first_name']){
-				$first_name = $this->input->post('first_name');
-				$last_name 	= $this->input->post('last_name');
-				$useremail 	= $this->input->post('useremail');
-				$userphone 	= $this->input->post('userphone');
-				$userabout 	= $this->input->post('userabout');
+				$first_name 	= 	$this->input->post('first_name');
+				$last_name 		= 	$this->input->post('last_name');
+				$useremail 		= 	$this->input->post('useremail');
+				$userphone 		= 	$this->input->post('userphone');
+				$userabout 		= 	$this->input->post('userabout');
+				$user_gender	=	$this->input->post('user_gender');
 
 				$targetDir 			= 	FILE_UPLOAD_PATH.'profile_image/';
  	       		$allowTypes 		= 	array('jpg','png','jpeg');
@@ -225,6 +228,7 @@ class User extends CI_Controller {
 									'user_about'	=>	$userabout,
 									'user_phone'	=>	$userphone,
 									'user_image'	=>	$profile_image,
+									'gender'		=>	$user_gender
 								);
 				$updatequery = $this->db->where("id",$loginid)->update("investex_user",$updatearray);
 				if ($updatequery)
@@ -267,7 +271,10 @@ class User extends CI_Controller {
 		 					);
 		 	$insertquery = $this->db->insert("investex_user",$insertarray);
 		 	if ($insertquery){
+
 		 		$insertid = $this->db->insert_id();
+		 		$verifyEmail = $this->AjaxModel->sendVerificationMail($insertid,$useremail);
+		 		echo '<pre>'; print_r($verifyEmail); die;
 		 		$userdata = $this->db->select("*")
 							->from("investex_user")
 							->where("id",$insertid)
@@ -353,10 +360,14 @@ class User extends CI_Controller {
 				}
 
 				//echo '<pre>'; print_r($insertimage); die;
-					$proimage = implode('|',$insertimage);
-				$insertarr = array(
+					$proimage 	= implode('|',$insertimage);
+					$keyun 		= 'PROPERTY_'.$dealerid;
+					$uniqueId 	= $this->UserModel->uniqueId($keyun);
+
+					$insertarr = array(
 
 								'dealer_id'						=>	$dealerid,
+								'property_unique_id'			=>	$keyun,
 								'property_name'					=>	$pro_name, 
 								'property_text'					=>	$pro_text,
 								'property_street'				=>	$streetval,
@@ -567,21 +578,221 @@ class User extends CI_Controller {
 	// function for Investor Dashboard
 	public function investorDashboard()
 	{
-		$this->load->view('frontend/investorDashboard');
+		//echo '<pre>'; print_r($this->session->userdata());
+		if (!empty($this->session->userdata('userid'))){
+			$investorid = $this->session->userdata('userid');
+			$getproposalByInvestorId = $this->UserModel->getproposalByInvestorId($investorid);
+			$data = array(
+							'userdata'			=>	$this->user_data,
+							//'matchproperty'		=>	json_decode($this->investorProperty),
+							'getproposalByInvestorId'	=>	json_decode($getproposalByInvestorId),
+						);
+			//echo '<pre>'; print_r(json_decode($getproposalById)); die;
+			$this->load->view('frontend/investorDashboard',$data);
+		}
+		else {
+			redirect(SITE_URL.'login');
+		}
 	}
 
 	// function for Investor Join
 	public function investorJoin()
 	{
-		$this->load->view('frontend/investorJoin');
+		$loginid = $this->session->userdata('userid');
+		if (empty($loginid)){
+
+		 if (!empty($_POST)){
+		 	//echo '<pre>'; print_r($_POST); die;
+		 	$useremail = $this->input->post('dealer_email');
+		 	$insertarray = array (
+
+		 						"username"		=>	$this->input->post("dealer_username"),
+		 						"password "		=>	md5($this->input->post("dealer_password")),
+		 						"first_name"	=>	$this->input->post("dealer_firstname"),
+		 						"last_name"		=>	$this->input->post("dealer_lastname"),
+		 						"user_email"	=>	$this->input->post("dealer_email"),
+		 						"user_phone"	=>	$this->input->post("dealer_phone"),
+		 						"oauth_provider"=>	SITE_USER,
+		 						"user_type"		=>	INVESTOR,
+		 						"status"		=>	ACTIVE,
+		 						"created_date"	=>	TODAY_DATE
+		 					);
+		 	$insertquery = $this->db->insert("investex_user",$insertarray);
+		 	if ($insertquery){
+		 		if ($this->input->post('keep_me_login') == 'on'){
+		 		$insertid = $this->db->insert_id();
+		 		//$verifyEmail = $this->AjaxModel->sendVerificationMail($insertid,$useremail);
+		 		///echo '<pre>'; print_r($verifyEmail); die;
+		 		$userdata = $this->db->select("*")
+							->from("investex_user")
+							->where("id",$insertid)
+							->get();
+				$result = $userdata->result();			
+				$sessData = array
+						(
+							'fname' 	=> 	$result[0]->first_name,
+							'lname' 	=> 	$result[0]->last_name,
+							'userid'	=> 	$result[0]->id,
+							'username'	=>	$result[0]->username,		
+							'useremail'	=>	$result[0]->user_email,		
+							'usertype'	=>	$result[0]->user_type,
+							'userimage'	=>	$result[0]->user_image,
+							'userphone'	=>	$result[0]->user_phone,
+							'userloginstatus'	=>	$result[0]->user_login_status,
+
+						);
+				$sessiondata = $this->session->set_userdata($sessData);
+				$loginid = $this->session->userdata('userid');
+	 			if(!empty($loginid)){
+	 				//$this->session->set_flashdata('message', '');
+	 				redirect(SITE_URL.'investorDashboard');
+	 			}
+	 		}
+	 		else {
+	 			redirect(SITE_URL.'login');
+	 		}
+				//return $sessiondata;
+		 		//$sendEmail = $this->AjaxModel->sendVerificationMail($insertid,$useremail);
+		 	//	echo '<pre>'; print_r($sendEmail); die;
+		 	}
+		 }
+	 		$this->load->view('frontend/investorJoin');
+
+		}
+		else {
+			redirect (SITE_URL.'index');
+		}
+		 $this->load->view('frontend/investorJoin');
 	}
 
 	// function for Investor Registration
 	public function investorRegistration()
 	{
-		$this->load->view('frontend/investorRegistration');
-	}
+			$this->load->view('frontend/investorRegistration');
 
+	}
+	
+	// insert proposal start here
+	public function proposal()
+	{
+		if (!empty($this->session->userdata('userid'))){
+			$investerId = $this->session->userdata('userid');
+			if (!empty($_POST)){
+
+				//echo '<pre>'; print_r($_POST); die;
+				$key = 'PROPOSAL_'.$investerId;
+				$uniqueId = $this->UserModel->uniqueId($key);
+				$insertarry = array(
+
+					"investor_id"						=>	$investerId,
+					"proposal_unique_id"				=>	$uniqueId,
+					"proposal_name"						=>	$this->input->post('proposal_name'),
+					"proposal_transaction_type"			=>	$this->input->post('pro_transaction_type'),
+					"proposal_country "					=>	$this->input->post('proposal_name'),
+					"proposal_city "					=>	$this->input->post('cityvalue'),
+					"proposal_street "					=>	$this->input->post('streetval'),
+					"proposal_amount_for_investment"	=>	$this->input->post('pro_request_amount'),
+					"proposal_estimate_return"			=>	$this->input->post('pro_estimate_return'),
+					"created_date"						=>	TODAY_DATE,
+				);
+
+				$queryinsert = $this->db->insert("investex_investor_proposal",$insertarry);
+				if ($queryinsert){
+					redirect(SITE_URL.'investorDashboard');
+					$this->session->set_flashdata("success","New Proposal added successfully");
+				}
+				else {
+					$this->session->set_flashdata("error","Not able to add new proposal");	
+				}
+			}
+
+			$data = array(
+						'transaction_type'	=>	$this->transactionType,
+						'allisrealcountry'	=>	$this->isrealcountry,
+					);
+			$this->load->view("frontend/proposal",$data);
+		}
+		else {
+			redirect(SITE_URL.'login');
+		}
+	}
+	// end here
+	public function editproposal()
+	{
+		$propId = base64_decode($this->uri->segment(3));
+		if (!empty($this->session->userdata('userid'))){
+			$getproposalById = $this->UserModel->getproposalById($propId);
+			$investerId = $this->session->userdata('userid');
+			if (!empty($_POST)){
+
+				//echo '<pre>'; print_r($_POST); die;
+				//$key = 'PROPOSAL_'.$investerId;
+				//$uniqueId = $this->UserModel->uniqueId($key);
+				$insertarry = array(
+
+					"investor_id"						=>	$investerId,
+					//"proposal_unique_id"				=>	$uniqueId,
+					"proposal_name"						=>	$this->input->post('proposal_name'),
+					"proposal_transaction_type"			=>	$this->input->post('pro_transaction_type'),
+					"proposal_country "					=>	$this->input->post('proposal_name'),
+					"proposal_city "					=>	$this->input->post('cityvalue'),
+					"proposal_street "					=>	$this->input->post('streetval'),
+					"proposal_amount_for_investment"	=>	$this->input->post('pro_request_amount'),
+					"proposal_estimate_return"			=>	$this->input->post('pro_estimate_return'),
+					"created_date"						=>	TODAY_DATE,
+				);
+
+				$queryinsert = $this->db->where("id",$propId)->update("investex_investor_proposal",$insertarry);
+				if ($queryinsert){
+					redirect(SITE_URL.'investorDashboard');
+					$this->session->set_flashdata("success","New Proposal added successfully");
+				}
+				else {
+					$this->session->set_flashdata("error","Not able to add new proposal");	
+				}
+			}
+			// echo '<pre>'; print_r(json_decode($getproposalById)); die;
+			$data = array(
+						'transaction_type'	=>	$this->transactionType,
+						'allisrealcountry'	=>	$this->isrealcountry,
+						'getproposalById'	=>	json_decode($getproposalById),
+						'propId'			=>	$propId
+					);
+			$this->load->view("frontend/editproposal",$data);
+		}
+		else {
+			redirect(SITE_URL.'login');
+		}
+	}
+	// investor match property start here
+	public function matchproperty()
+	{
+		$propid = base64_decode($this->uri->segment(3));
+		if (!empty($this->session->userdata('userid'))){
+		$getproposaldata = $this->UserModel->getproposalById($propid);
+		$getproposaldatajsn = json_decode($getproposaldata);
+
+		//echo '<pre>'; print_r($getproposaldatajsn); die;
+		$cityid 	 = $getproposaldatajsn[0]->city_id;
+        $streetid 	 = $getproposaldatajsn[0]->street_id;
+        $trans_id 	 = $getproposaldatajsn[0]->trans_id;
+        $proamount 	 = $getproposaldatajsn[0]->proposal_amount_for_investment;
+        $return 	 = $getproposaldatajsn[0]->proposal_estimate_return;	
+	
+		$getproperty = $this->UserModel->getMatchAllPropertyByProposal($cityid,$streetid,$trans_id,$proamount,$return);
+			//echo '<pre>'; print_r(json_decode($getproperty)); die;
+			$data = array(
+					'getproposaldatajsn'	=>	$getproposaldatajsn,
+					'getproperty'			=>	json_decode($getproperty),
+					'userdata'				=>	$this->user_data,
+				);
+			$this->load->view('frontend/matchproperty',$data);
+		}
+		else {
+			redirect(SITE_URL.'login');
+		}
+	}
+	// end here
 	// verify user email when sigh up new user
 	public function verifyemail()
 	{

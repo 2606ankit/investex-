@@ -121,6 +121,9 @@
 
     <!-- Latest compiled JavaScript -->
      
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script> 
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"> 
+
     <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
     <script>
         $(document).ready(function() {
@@ -318,6 +321,18 @@
     })
     </script>
 <?php } ?>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#datatab').DataTable( {
+        "scrollX": true
+    } );
+} );
+  $(document).ready(function() {
+    $('#investor-match-property').DataTable( {
+        "scrollX": true
+    } );
+} );
+</script>
 </body>
 
 </html>
