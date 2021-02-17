@@ -102,5 +102,33 @@ class AjaxController extends CI_Controller {
 		}
 	}
 	// end here
+
+	// proerpty like function start here
+	public function propertylike()
+	{
+		$investorid = $_POST['investorid'];
+		$propertyid = $_POST['propertyid'];
+		$data = $this->AjaxModel->propertylike($propertyid,$investorid);
+		print_r($data);
+	}
+	// end here
+	// property view start here
+	public function propetryview()
+	{
+		$viewpropertyid = $_POST['viewpropertyid'];
+		$viewinvestorid = $_POST['viewinvestorid'];
+		$data = $this->AjaxModel->propetryview($viewpropertyid,$viewinvestorid);
+		print_r($data);
+	}
+	// end here
+
+	// save property start here
+	public function savePropertyByinvestor(){
+		$viewpropertyid = $_POST['propertyid'];
+		$viewinvestorid = $_POST['investorid'];
+		$data = $this->AjaxModel->savePropertyByinvestor($viewpropertyid,$viewinvestorid);
+		print_r($data);
+	}
+	// end here
  }
 ?>

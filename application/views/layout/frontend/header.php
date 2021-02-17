@@ -22,6 +22,9 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"> 
 
 </head>
+     <button id="success_masg" style="display: none;">Success</button>
+    <button id="info_masg" style="display: none;">Info</button>
+    <button id="error_masg" style="display: none;">Error</button>
 
 <body class="mdc-beatle--background">  
     <aside class="mdc-drawer mdc-drawer--modal sidenav">
@@ -183,6 +186,7 @@
                                     </li>
                                     <li role="separator" class="mdc-list-divider m-0"></li>
                                     <li>
+                                        
                                         <a href="<?php echo SITE_URL?>signout" class="mdc-list-item" role="menuitem">
                                             <i class="material-icons mat-icon-sm text-muted">power_settings_new</i> 
                                             <span class="mdc-list-item__text px-3">Sign Out</span>

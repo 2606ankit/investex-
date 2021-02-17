@@ -121,8 +121,10 @@
 
     <!-- Latest compiled JavaScript -->
      
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script> 
+  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script> 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css"> 
+
+
 
     <script src="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.js"></script>
     <script>
@@ -167,8 +169,7 @@
               });
           });
           
-          
-          
+           
           var num = 4;
           function readImage() {
               if (window.File && window.FileList && window.FileReader) {
@@ -223,7 +224,9 @@
       </script>
 
       <!-- property add google map location -->
-
+      <?php 
+        if ($this->router->fetch_method() == 'propertyRegistration'){
+      ?>
     <script>
     $(function() {
       // use below if you want to specify the path for leaflet's images
@@ -269,9 +272,9 @@
       map.addLayer(marker);
     })
     </script>
-
+  <?php } ?>
     <?php 
-        if( $this->router->fetch_method() == 'propertyview'){
+        if( $this->router->fetch_method() == 'propertyview' || $this->router->fetch_method() == 'investorproperty'){
     ?>
     <script>
     $(function() {
@@ -320,7 +323,24 @@
       map.addLayer(marker);
     })
     </script>
-<?php } ?>
+<?php } if ( $this->router->fetch_method() == 'investorproperty'){?>
+    <script>
+      $(document).ready(function(){
+        var viewpropertyid = $("#viewpropertyid").val();
+        var viewinvestorid = $("#viewinvestorid").val();
+        ajax_url = 'http://localhost/investex/index.php/AjaxController/';
+        $.ajax({
+          'type' : 'POST',
+          'url'  : ajax_url+'propetryview',
+          'data'  : {viewpropertyid:viewpropertyid,viewinvestorid:viewinvestorid},
+          success : function(res){
+           // alert(res);
+            $("#proviewlabel").html(res);
+          } 
+        })
+      })
+    </script>
+  ><?php }?>
 <script type="text/javascript">
   $(document).ready(function() {
     $('#datatab').DataTable( {
@@ -333,6 +353,70 @@
     } );
 } );
 </script>
+
+<!-- alert start here--> 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">  
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+ <!-- end here -->
+ <?php 
+ if (!empty($this->session->flashdata('success'))){
+ ?>
+   <script type="text/javascript">
+    $(document).ready(function(){
+      $("#success_masg").click();
+    })   
+   </script>
+<?php }?>
+
+<?php 
+ if (!empty($this->session->flashdata('error'))){
+ ?>
+   <script type="text/javascript">
+    $(document).ready(function(){
+      $("#error_masg").click();
+    })   
+   </script>
+<?php }?>
+
+<?php 
+ if (!empty($this->session->flashdata('info'))){
+ ?>
+   <script type="text/javascript">
+    $(document).ready(function(){
+      $("#info_masg").click();
+    })   
+   </script>
+<?php }?>
+
+ <script type="text/javascript">
+  // success message start here
+   $(document).on('click', '#success_masg', function(e) {
+      swal(
+        'Success',
+        '<?php echo $this->session->flashdata('success');?>',
+        'success'
+      )
+    });
+
+   //information start here
+   $(document).on('click', '#info_masg', function(e) {
+      swal(
+        'Info!',
+        '<?php echo $this->session->flashdata('info');?>',
+        'info'
+      )
+    });
+
+   // end here
+   // error message start here
+    $(document).on('click', '#error_masg', function(e) {
+      swal(
+        'Error!',
+        '<?php echo $this->session->flashdata('error');?>',
+        'error'
+      )
+    });
+ </script>
 </body>
 
 </html>

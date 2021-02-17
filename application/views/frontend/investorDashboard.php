@@ -4,14 +4,12 @@
         $this->load->model("UserModel");
 ?>
     <main>   
-    
     <div class="header-image-wrapper">
             <div class="bg" style="background-image: url('<?php echo ASSETS_URL;?>assets/images/carousel/slide-3.jpg');"></div>
             <div class="mask"></div>            
             <br> <br>
         </div> 
-        
-        
+            
         <div class="px-3 dealer-dashboard">  
             <div class="beatle-container-- row between-xs middle-xs h-100">   
                 <div class="page-drawer-container mt-3 col-md-12">
@@ -76,7 +74,9 @@
                         <div class="mdc-card p-3">
                         
                         
-                            
+                
+    <div style="width:100%;border:1px solid #ddd;border-radius:4px;padding:10px;">l</div>
+                
                             
       <div class="col-md-12">
       
@@ -95,7 +95,7 @@
                     <div class="summary">
                         <h4 class="title">MY PROPOSALS</h4>
                         <div class="info">
-                            <strong class="amount">0</strong>
+                        <strong class="amount"><?php echo count($getproposalByInvestorId); ?></strong>
                             
                         </div>
                     </div>
@@ -121,9 +121,9 @@
                 </div>
                 <div class="widget-summary-col">
                     <div class="summary">
-                        <h4 class="title">MACHING DEALS</h4>
+                        <h4 class="title">MATCHING DEALS</h4>
                         <div class="info">
-                            <strong class="amount">0</strong>
+                        <strong class="amount"><?php echo count($investormatchparoperty); ?></strong>
                             
                         </div>
                     </div>
@@ -174,12 +174,12 @@
                     <div class="summary">
                         <h4 class="title">UNDER CONSIDERATION</h4>
                         <div class="info">
-                            <strong class="amount">0</strong>
+                            <strong class="amount"><?php echo count($getsaveproperty); ?></strong>
                             
                         </div>
                     </div>
                     <div class="summary-footer">
-                        <a href="<?php echo SITE_URL; ?>" class="text-muted text-uppercase">(view all)</a>
+                        <a href="<?php echo SITE_URL; ?>underconsideration" class="text-muted text-uppercase">(view all)</a>
                     </div>
                 </div>
             </div>
@@ -207,7 +207,7 @@
                     <div class="summary">
                         <h4 class="title">MY INVESTMENT</h4>
                         <div class="info">
-                            <strong class="amount">0 $</strong>
+                            <strong class="amount"><?php echo $suminvestement; ?> $</strong>
                             
                         </div>
                     </div>
@@ -234,12 +234,12 @@
                     <div class="summary">
                         <h4 class="title">ESTIMATED RETURNS</h4>
                         <div class="info">
-                            <strong class="amount">0 $</strong>
+                            <strong class="amount"><?php echo $totalinvessum;?> $</strong>
                             
                         </div>
                     </div>
                     <div class="summary-footer">
-                        <a href="<?php echo SITE_URL; ?>" class="text-muted text-uppercase">(view all)</a>
+                        <a href="<?php echo SITE_URL; ?>estimatereturn" class="text-muted text-uppercase">(view all)</a>
                     </div>
                 </div>
             </div>
@@ -312,6 +312,7 @@
                                     <thead>
                                         <tr class="mdc-data-table__header-row">
                                             <th class="mdc-data-table__header-cell">S.No</th>
+                                            <th class="mdc-data-table__header-cell">Proposal Id</th>
                                             <th class="mdc-data-table__header-cell">Type of transaction</th>
                                             <th class="mdc-data-table__header-cell">Countries</th>
                                             <th class="mdc-data-table__header-cell">City</th>
@@ -335,17 +336,18 @@
                                                 $return = $val->proposal_estimate_return;
 
                                                 $matchproperty = $this->UserModel->getMatchAllPropertyByInvestorId($cityid,$streetid,$trans_id,$proamount,$return);
-                                                ///echo '<pre>'; print_r($matchproperty); die;
+                                                // echo '<pre>'; print_r(json_decode($matchproperty)); die;
                                         ?>
                                        <tr class="mdc-data-table__row">
                                             <td class="mdc-data-table__cell"><?php echo $key+1;?></td>
+                                            <td class="mdc-data-table__cell"><a href="javscript:;" target="_blank"> <?php echo $val->proposal_unique_id; ?> </a>  </td>
                                             <td class="mdc-data-table__cell"><a href="javscript:;" target="_blank"> <?php echo $val->transaction_name_en; ?> </a>  </td>
                                             <td class="mdc-data-"><?php echo $val->city_name; ?></td>
                                             <td class="mdc-data-"><?php echo $val->street_name; ?></td>
                                             
                                             <td class="mdc-data-table__cell "><?php echo $val->proposal_amount_for_investment; ?></td>
                                             <td class="mdc-data-table__cell "> ><?php echo $val->proposal_estimate_return; ?> % ומעלה</td>
-                                            <td class="mdc-data-table__cell "> <a href="<?php echo SITE_URL?>matchproperty/<?php echo base64_encode($val->propId); ?>" target="_blank"> <span class="geen_bx"><?php echo count(json_decode($matchproperty)); ?></span></a></td>
+                                            <td class="mdc-data-table__cell "> <a href="<?php echo SITE_URL?>matchproperty/<?php echo base64_encode($val->propId); ?>"> <span class="geen_bx"><?php echo count(json_decode($matchproperty)); ?></span></a></td>
                                             <td class="mdc-data-table__cell">
                                                 <a href="<?php echo SITE_URL?>editproposal/<?php echo base64_encode($val->propId); ?>" class="mdc-icon-button material-icons primary-color">edit</a>
                                                 <a href="javscript:;" data-id="<?php echo $val->propId; ?>" class="mdc-icon-button material-icons warn-color deleteproposal">delete</a>
@@ -358,18 +360,9 @@
                                        ?>
                                     </tbody>
                                 </table>
-                          
-
-                          </div>
-                                
-                                
-                                
-                                
-                                
-                            
-                            
-                            
-                            
+                           
+                            </div>
+                           
                         </div> 
                       
                     </div> 

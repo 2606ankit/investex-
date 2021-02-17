@@ -30,6 +30,7 @@ class User extends CI_Controller {
 
 	   	$this->load->model("AjaxModel");
 	   	$this->load->model("UserModel");
+	   	$this->load->library('facebook'); 
 	   	
 	   	$this->loginuserid   	= 	$this->session->userdata('userid');
 	   	$this->usertype 		= 	$this->session->userdata('usertype');
@@ -41,7 +42,7 @@ class User extends CI_Controller {
 	   	if ($this->usertype == DEALER){
 	   	// get all listing according to the dealer id
 	   		$dealerid = $this->session->userdata('userid');
-
+	   		//echo'<pre>';  print_r($this->session->userdata()); die;
 	   		$this->dealerProperty = $this->UserModel->getPropertyAccToDealerId($dealerid);
 	   		//echo '<pre>'; print_r(json_decode($this->dealerProperty)); die;
 	   		//echo 'dealer';
@@ -57,8 +58,7 @@ class User extends CI_Controller {
 
 	public function login()
 	{
-		$loginid = $this->session->userdata('userid');
-		if (empty($loginid)){
+		 
 		$data = array('error'=>'');
 		if (!empty($_POST)){
 			$username 		= 	$this->input->post("username");
@@ -66,35 +66,35 @@ class User extends CI_Controller {
 			$usedata 	  	= 	$this->UserModel->userlogin($username,$userpass);
 			// print_r($usedata); die;
 
-			if (!empty($usedata)){
+			if (!empty($this->session->userdata('userid'))){
 				 
 				$loginid = $this->session->userdata('userid');
 	 			if(!empty($loginid)){
 	 				
 	 				$usertype = $this->session->userdata('usertype');
-	 				 echo $usertype; die;
+	 				 //echo $usertype; die;
 	 				if ($usertype == DEALER){
-	 					redirect(SITE_URL.'dealerdashboard', 'refresh');
+	 					 
+	 					redirect(SITE_URL.'dealerdashboard');
 	 				}elseif($usertype == INVESTOR) {
-	 					redirect(SITE_URL.'investorDashboard', 'refresh');
+	 					 
+	 					redirect(SITE_URL.'investorDashboard');
 	 				}else{
 	 				//$this->session->set_flashdata('message', '');
+		 					 
 	 					redirect(SITE_URL.'index');
 	 				}
 	 			}
-	 			$data = array('error'=>'');
+	 			//$data = array('error'=>'');
 			}
 			else 
 			{
-				$data = array ('error'=>'Username or Password does not match');
+				$this->session->set_flashdata('error','Username or password does not match');
 			}
 		}
 		 //echo '<pre>'; print_r($data); 
 		$this->load->view('frontend/login',$data);
-		}
-		else {
-			redirect(SITE_URL.'index','refresh');
-		}
+		 
 	}
 	// dealer login start here
 	public function dealerlogin()
@@ -157,6 +157,8 @@ class User extends CI_Controller {
 
 	public function index()
 	{
+		$loginid = $this->session->userdata('userid');
+		//echo '<pre>'; print_r($this->session->userdata()); die;
 		$this->load->view('frontend/index');
 	}
 
@@ -253,9 +255,9 @@ class User extends CI_Controller {
 	{
 		$loginid = $this->session->userdata('userid');
 		if (empty($loginid)){
-		 if (!empty($_POST)){
-		 	//echo '<pre>'; print_r($_POST); die;
+		 if (!empty($_POST)){ 
 		 	$useremail = $this->input->post('dealer_email');
+		 	$keepme = $this->input->post('keepme');
 		 	$insertarray = array (
 
 		 						"username"		=>	$this->input->post("dealer_username"),
@@ -266,41 +268,57 @@ class User extends CI_Controller {
 		 						"user_phone"	=>	$this->input->post("dealer_phone"),
 		 						"oauth_provider"=>	SITE_USER,
 		 						"user_type"		=>	DEALER,
-		 						"status"		=>	ACTIVE,
+		 						"status"		=>	INACTIVE,
 		 						"created_date"	=>	TODAY_DATE
 		 					);
+
 		 	$insertquery = $this->db->insert("investex_user",$insertarray);
 		 	if ($insertquery){
 
 		 		$insertid = $this->db->insert_id();
 		 		$verifyEmail = $this->AjaxModel->sendVerificationMail($insertid,$useremail);
-		 		echo '<pre>'; print_r($verifyEmail); die;
-		 		$userdata = $this->db->select("*")
-							->from("investex_user")
-							->where("id",$insertid)
-							->get();
-				$result = $userdata->result();			
-				$sessData = array
-						(
-							'fname' 	=> 	$result[0]->first_name,
-							'lname' 	=> 	$result[0]->last_name,
-							'userid'	=> 	$result[0]->id,
-							'username'	=>	$result[0]->username,		
-							'useremail'	=>	$result[0]->user_email,		
-							'usertype'	=>	$result[0]->user_type
-						);
-				$sessiondata = $this->session->set_userdata($sessData);
-				$loginid = $this->session->userdata('userid');
-	 			if(!empty($loginid)){
-	 				//$this->session->set_flashdata('message', '');
-	 				redirect(SITE_URL.'');
-	 			}
-				//return $sessiondata;
-		 		//$sendEmail = $this->AjaxModel->sendVerificationMail($insertid,$useremail);
-		 	//	echo '<pre>'; print_r($sendEmail); die;
+		 		//echo '<pre>'; print_r($verifyEmail); die;
+		 		if ($keepme == 'on' && !empty($keepme)){
+
+			 		$userdata = $this->db->select("*")
+								->from("investex_user")
+								->where("id",$insertid)
+								->get();
+					$queryuser = $userdata->result();			
+					$sessData = array
+							(
+								'fname' 			=> 	$queryuser[0]->first_name,
+								'lname' 			=> 	$queryuser[0]->last_name,
+								'userid'			=> 	$queryuser[0]->id,
+								'username'			=>	$queryuser[0]->username,		
+								'useremail'			=>	$queryuser[0]->user_email,		
+								'usertype'			=>	$queryuser[0]->user_type,
+								'userimage'			=>	$queryuser[0]->user_image,
+								'userphone'			=>	$queryuser[0]->user_phone,
+								'userloginstatus'	=>	$queryuser[0]->user_login_status,
+							);
+					$sessiondata = $this->session->set_userdata($sessData);
+					$loginid = $this->session->userdata('userid');
+		 			if(!empty($loginid)){
+		 				$this->session->set_flashdata('info', INFO_REGISTRATION);
+		 				//echo '<pre>'; print_r($_SESSION); die;
+		 				redirect(SITE_URL.'index');
+		 			}
+		 		}
+		 		else
+		 		{
+		 			$this->session->set_flashdata('info', INFO_REGISTRATION);
+		 			redirect(SITE_URL.'index');
+		 		}
+				 
 		 	}
+		 	else
+		 		{
+		 			$this->session->set_flashdata('error', ERROR_REGISTRATION);
+		 		}
 		 }
-	 		$this->load->view('frontend/dealerjoin');
+		  $data['authURL'] =  $this->facebook->login_url(); 
+		 	$this->load->view('frontend/dealerjoin',$data);
 
 		}
 		else {
@@ -313,7 +331,7 @@ class User extends CI_Controller {
 	// function for dealer Registration
 	public function propertyRegistration()
 	{
-		if (!empty($this->loginuserid)){
+		if (!empty($this->loginuserid) && $this->session->userdata('usertype') == DEALER){
 			if (!empty($_POST)){
 				
 
@@ -383,12 +401,18 @@ class User extends CI_Controller {
 								'property_image'				=>	$proimage,
 								'status'						=>	$property_status,
 								'created_date'					=>	TODAY_DATE
-
 							);
 
 				$insertquery = $this->db->insert("user_dealer_property",$insertarr);
 				if ($insertquery){
+					$mailtype 	=	'property';
+					$sendMail = $this->AjaxModel->sendMailProperty($type);
+					$this->session->set_flashdata('success', PROPERTY_ADD_SUCCESS);
 					redirect(SITE_URL.'dealerdashboard');
+				}
+				else {
+					$this->session->set_flashdata('error', PROPERTY_ADD_ERROR);
+					redirect(SITE_URL.'propertyRegistration');
 				}
 			}
 
@@ -406,7 +430,7 @@ class User extends CI_Controller {
 	public function editproperty()
 	{
 		$proid = base64_decode($this->uri->segment(3));
-		if (!empty($this->session->userdata('userid'))){
+		if (!empty($this->session->userdata('userid')) && $this->session->userdata('usertype') == DEALER){
 			$getprodata = $this->UserModel->getpropertybyId($proid);
 
 			$data = array(
@@ -488,8 +512,12 @@ class User extends CI_Controller {
 				//echo '<pre>'; print_r($insertarr); die;
 				$insertquery = $this->db->where("id",$proid)->update("user_dealer_property",$insertarr);
 				if ($insertquery){
+					$this->session->set_flashdata("success",PROPERTY_EDIT_SUCCESS);
 					redirect(SITE_URL.'dealerdashboard');
-					$this->session->set_flashdata("success","Property updated successfully");
+				}
+				else {
+					$this->session->set_flashdata("success",PROPERTY_EDIT_ERROR);
+					redirect(SITE_URL.'editproperty/'.base64_encode($proid));
 				}
 			}
 			$this->load->view('frontend/editproperty',$data);
@@ -505,7 +533,7 @@ class User extends CI_Controller {
 	// Delaer Listing Start here
 	public function dealerproperty()
 	{
-		if (!empty($this->loginuserid)){
+		if (!empty($this->loginuserid) && $this->session->userdata('usertype') == DEALER){
 
 			$data = array(
 					'allproperty' => $this->dealerProperty,
@@ -522,7 +550,7 @@ class User extends CI_Controller {
 	// get dealer dashboard start here
 	public function dealerdashboard()
 	{
-		if (!empty($this->session->userdata('userid'))){
+		if (!empty($this->session->userdata('userid')) && $this->session->userdata('usertype') == DEALER){
 			$allproperty = json_decode($this->dealerProperty);
 			$getOpenStatuspro = array ();
 			$getOpenStatusInvestement = array();
@@ -553,13 +581,12 @@ class User extends CI_Controller {
 	{
 		
 	 
-		if (!empty($this->user_data)){
+		if (!empty($this->user_data) && $this->session->userdata('usertype') == DEALER){
 			$proid = base64_decode($this->uri->segment(3));
 			$propertydata = $this->UserModel->getpropertybyId($proid);
 			 //echo '<pre>'; print_r(); die;
 			if (empty(json_decode($propertydata))){
 				redirect(SITE_URL.'dealerdashboard');
-			 
 			}
 			else {
 				$data = array(
@@ -579,18 +606,52 @@ class User extends CI_Controller {
 	public function investorDashboard()
 	{
 		//echo '<pre>'; print_r($this->session->userdata());
-		if (!empty($this->session->userdata('userid'))){
+		if (!empty($this->session->userdata('userid')) && $this->session->userdata('usertype') == INVESTOR){
+
+			$testmail = $this->AjaxModel->sendMatchPropertyMailToInvestor();
+			//echo '<pre>'; print_r($testmail); die;
+
 			$investorid = $this->session->userdata('userid');
 			$getproposalByInvestorId = $this->UserModel->getproposalByInvestorId($investorid);
+			  //echo '<pre>'; print_r(json_decode($getproposalByInvestorId)); die;
+			$invessum = json_decode($getproposalByInvestorId);
+			$suminve = array();
+			$investormatchparoperty = array();
+			$percetage = array();
+			foreach ($invessum as $key=>$val){
+				$suminve[] 	 =	$val->proposal_amount_for_investment;
+				$percetage[] = 	($val->proposal_estimate_return/100)*$val->proposal_amount_for_investment;
+				$cityid = $val->city_id;
+                $streetid = $val->street_id;
+                $trans_id = $val->trans_id;
+                $proamount = $val->proposal_amount_for_investment;
+                $return = $val->proposal_estimate_return;
+
+                $matchproperty = $this->UserModel->getMatchAllPropertyByInvestorId($cityid,$streetid,$trans_id,$proamount,$return);
+                $matcharr = json_decode($matchproperty);
+                if (!empty($matcharr)){
+                	$investormatchparoperty = $matcharr;
+                }
+			}
+			//  echo '<pre>'; print_r(json_decode($matchpropertycount)); die;
+			$totalinvessum = array_sum($percetage);
+			$suminvestement = array_sum($suminve);
+			$getsaveproperty = $this->UserModel->getsavepropertyByuInvestorId($investorid);
 			$data = array(
 							'userdata'			=>	$this->user_data,
 							//'matchproperty'		=>	json_decode($this->investorProperty),
 							'getproposalByInvestorId'	=>	json_decode($getproposalByInvestorId),
+							'suminvestement'			=>	$suminvestement,
+							'totalinvessum'				=>	$totalinvessum,
+							'getsaveproperty'			=>	$getsaveproperty,
+							'investormatchparoperty'	=>	$investormatchparoperty
 						);
-			//echo '<pre>'; print_r(json_decode($getproposalById)); die;
+		
+
 			$this->load->view('frontend/investorDashboard',$data);
 		}
 		else {
+		    $this->session->set_flashdata('info', INFO_REGISTRATION);
 			redirect(SITE_URL.'login');
 		}
 	}
@@ -601,68 +662,50 @@ class User extends CI_Controller {
 		$loginid = $this->session->userdata('userid');
 		if (empty($loginid)){
 
-		 if (!empty($_POST)){
-		 	//echo '<pre>'; print_r($_POST); die;
-		 	$useremail = $this->input->post('dealer_email');
-		 	$insertarray = array (
+			 if (!empty($_POST)){
+			 	//echo '<pre>'; print_r($_POST); die;
+			 	$useremail = $this->input->post('dealer_email');
+			 	$insertarray = array (
 
-		 						"username"		=>	$this->input->post("dealer_username"),
-		 						"password "		=>	md5($this->input->post("dealer_password")),
-		 						"first_name"	=>	$this->input->post("dealer_firstname"),
-		 						"last_name"		=>	$this->input->post("dealer_lastname"),
-		 						"user_email"	=>	$this->input->post("dealer_email"),
-		 						"user_phone"	=>	$this->input->post("dealer_phone"),
-		 						"oauth_provider"=>	SITE_USER,
-		 						"user_type"		=>	INVESTOR,
-		 						"status"		=>	ACTIVE,
-		 						"created_date"	=>	TODAY_DATE
-		 					);
-		 	$insertquery = $this->db->insert("investex_user",$insertarray);
-		 	if ($insertquery){
-		 		if ($this->input->post('keep_me_login') == 'on'){
-		 		$insertid = $this->db->insert_id();
-		 		//$verifyEmail = $this->AjaxModel->sendVerificationMail($insertid,$useremail);
-		 		///echo '<pre>'; print_r($verifyEmail); die;
-		 		$userdata = $this->db->select("*")
-							->from("investex_user")
-							->where("id",$insertid)
-							->get();
-				$result = $userdata->result();			
-				$sessData = array
-						(
-							'fname' 	=> 	$result[0]->first_name,
-							'lname' 	=> 	$result[0]->last_name,
-							'userid'	=> 	$result[0]->id,
-							'username'	=>	$result[0]->username,		
-							'useremail'	=>	$result[0]->user_email,		
-							'usertype'	=>	$result[0]->user_type,
-							'userimage'	=>	$result[0]->user_image,
-							'userphone'	=>	$result[0]->user_phone,
-							'userloginstatus'	=>	$result[0]->user_login_status,
+			 						"username"		=>	$this->input->post("dealer_username"),
+			 						"password "		=>	md5($this->input->post("dealer_password")),
+			 						"first_name"	=>	$this->input->post("dealer_firstname"),
+			 						"last_name"		=>	$this->input->post("dealer_lastname"),
+			 						"user_email"	=>	$this->input->post("dealer_email"),
+			 						"user_phone"	=>	$this->input->post("dealer_phone"),
+			 						"oauth_provider"=>	SITE_USER,
+			 						"user_type"		=>	INVESTOR,
+			 						"status"		=>	INACTIVE,
+			 						"created_date"	=>	TODAY_DATE
+			 					);
+			 		$insertquery = $this->db->insert("investex_user",$insertarray);
+				 	if ($insertquery){
+				 		$insertid = $this->db->insert_id();
+				 		$user_email = $this->input->post("dealer_email");
+				 		$verifyEmail = $this->AjaxModel->sendVerificationMail($insertid,$user_email);
+				 		//echo '<pre>'; print_r($verifyEmail); die;
+			 				$this->session->set_flashdata('info', INFO_REGISTRATION);
+			 				//$this->session->set_flashdata('message', '');
+			 				redirect(SITE_URL.'investorDashboard');
+			 		}
+			 		else {
+			 			$this->session->set_flashdata('error', ERROR_REGISTRATION);
+			 			redirect(SITE_URL.'investorJoin');
+			 		}
+					//return $sessiondata;
+			 		//$sendEmail = $this->AjaxModel->sendVerificationMail($insertid,$useremail);
+			 	//	echo '<pre>'; print_r($sendEmail); die;
+			 	}
 
-						);
-				$sessiondata = $this->session->set_userdata($sessData);
-				$loginid = $this->session->userdata('userid');
-	 			if(!empty($loginid)){
-	 				//$this->session->set_flashdata('message', '');
-	 				redirect(SITE_URL.'investorDashboard');
-	 			}
-	 		}
-	 		else {
-	 			redirect(SITE_URL.'login');
-	 		}
-				//return $sessiondata;
-		 		//$sendEmail = $this->AjaxModel->sendVerificationMail($insertid,$useremail);
-		 	//	echo '<pre>'; print_r($sendEmail); die;
-		 	}
-		 }
-	 		$this->load->view('frontend/investorJoin');
-
+		  	$data['authURL'] =  $this->facebook->login_url();
+	 		$this->load->view('frontend/investorJoin',$data);
+ 		// google client id => 319972561095-1mhhfn2alb836k3jrt7tvqa5ojr5squt.apps.googleusercontent.com
+	 		// client secret => F-KstEgVR7vUTxfEvkm87P4B
 		}
 		else {
 			redirect (SITE_URL.'index');
 		}
-		 $this->load->view('frontend/investorJoin');
+		 //$this->load->view('frontend/investorJoin');
 	}
 
 	// function for Investor Registration
@@ -675,7 +718,7 @@ class User extends CI_Controller {
 	// insert proposal start here
 	public function proposal()
 	{
-		if (!empty($this->session->userdata('userid'))){
+		if (!empty($this->session->userdata('userid'))  && $this->session->userdata('usertype') == INVESTOR){
 			$investerId = $this->session->userdata('userid');
 			if (!empty($_POST)){
 
@@ -686,9 +729,9 @@ class User extends CI_Controller {
 
 					"investor_id"						=>	$investerId,
 					"proposal_unique_id"				=>	$uniqueId,
-					"proposal_name"						=>	$this->input->post('proposal_name'),
+					//"proposal_name"						=>	$this->input->post('proposal_name'),
 					"proposal_transaction_type"			=>	$this->input->post('pro_transaction_type'),
-					"proposal_country "					=>	$this->input->post('proposal_name'),
+					"proposal_country "					=>	$this->input->post('cityvalue'),
 					"proposal_city "					=>	$this->input->post('cityvalue'),
 					"proposal_street "					=>	$this->input->post('streetval'),
 					"proposal_amount_for_investment"	=>	$this->input->post('pro_request_amount'),
@@ -698,11 +741,12 @@ class User extends CI_Controller {
 
 				$queryinsert = $this->db->insert("investex_investor_proposal",$insertarry);
 				if ($queryinsert){
+
 					redirect(SITE_URL.'investorDashboard');
-					$this->session->set_flashdata("success","New Proposal added successfully");
+					$this->session->set_flashdata("success",PROPOSAL_ADD_SUCCESS);
 				}
 				else {
-					$this->session->set_flashdata("error","Not able to add new proposal");	
+					$this->session->set_flashdata("error",PROPOSAL_ADD_ERROR);	
 				}
 			}
 
@@ -720,7 +764,7 @@ class User extends CI_Controller {
 	public function editproposal()
 	{
 		$propId = base64_decode($this->uri->segment(3));
-		if (!empty($this->session->userdata('userid'))){
+		if (!empty($this->session->userdata('userid'))  && $this->session->userdata('usertype') == INVESTOR){
 			$getproposalById = $this->UserModel->getproposalById($propId);
 			$investerId = $this->session->userdata('userid');
 			if (!empty($_POST)){
@@ -731,24 +775,24 @@ class User extends CI_Controller {
 				$insertarry = array(
 
 					"investor_id"						=>	$investerId,
-					//"proposal_unique_id"				=>	$uniqueId,
-					"proposal_name"						=>	$this->input->post('proposal_name'),
+					//"proposal_unique_id"				=>	$uniqueId, 
 					"proposal_transaction_type"			=>	$this->input->post('pro_transaction_type'),
 					"proposal_country "					=>	$this->input->post('proposal_name'),
 					"proposal_city "					=>	$this->input->post('cityvalue'),
 					"proposal_street "					=>	$this->input->post('streetval'),
 					"proposal_amount_for_investment"	=>	$this->input->post('pro_request_amount'),
 					"proposal_estimate_return"			=>	$this->input->post('pro_estimate_return'),
-					"created_date"						=>	TODAY_DATE,
+					"updated_date"						=>	TODAY_DATE,
 				);
 
 				$queryinsert = $this->db->where("id",$propId)->update("investex_investor_proposal",$insertarry);
 				if ($queryinsert){
 					redirect(SITE_URL.'investorDashboard');
-					$this->session->set_flashdata("success","New Proposal added successfully");
+					$this->session->set_flashdata("success",PROPOSAL_EDIT_SUCCESS);
 				}
 				else {
-					$this->session->set_flashdata("error","Not able to add new proposal");	
+					$this->session->set_flashdata("error",PROPOSAL_EDIT_ERROR);
+					redirect(SITE_URL.'editproposal/'.base64_encode($propId));	
 				}
 			}
 			// echo '<pre>'; print_r(json_decode($getproposalById)); die;
@@ -768,9 +812,10 @@ class User extends CI_Controller {
 	public function matchproperty()
 	{
 		$propid = base64_decode($this->uri->segment(3));
-		if (!empty($this->session->userdata('userid'))){
+		if (!empty($this->session->userdata('userid'))  && $this->session->userdata('usertype') == INVESTOR){
 		$getproposaldata = $this->UserModel->getproposalById($propid);
 		$getproposaldatajsn = json_decode($getproposaldata);
+		$investorid = $this->session->userdata('userid');
 
 		//echo '<pre>'; print_r($getproposaldatajsn); die;
 		$cityid 	 = $getproposaldatajsn[0]->city_id;
@@ -779,8 +824,9 @@ class User extends CI_Controller {
         $proamount 	 = $getproposaldatajsn[0]->proposal_amount_for_investment;
         $return 	 = $getproposaldatajsn[0]->proposal_estimate_return;	
 	
-		$getproperty = $this->UserModel->getMatchAllPropertyByProposal($cityid,$streetid,$trans_id,$proamount,$return);
-			//echo '<pre>'; print_r(json_decode($getproperty)); die;
+		$getproperty = $this->UserModel->getMatchAllPropertyByProposal($cityid,$streetid,$trans_id,$proamount,$return,$investorid);
+		//$sendMatchPropertyMail = $this->AjaxModel->sendMatchPropertyMail($getproperty);
+			// echo '<pre>'; print_r(json_decode($getproperty)); die;
 			$data = array(
 					'getproposaldatajsn'	=>	$getproposaldatajsn,
 					'getproperty'			=>	json_decode($getproperty),
@@ -793,19 +839,118 @@ class User extends CI_Controller {
 		}
 	}
 	// end here
+	// invstor property start here
+	public function investorproperty()
+	{
+		//echo $this->session->userdata('userid'); die;
+		 if (!empty($this->session->userdata('userid'))  && $this->session->userdata('usertype') == INVESTOR ){
+
+			$proid = base64_decode($this->uri->segment(3));
+			$propertydata = $this->UserModel->getpropertybyId($proid);
+
+		//	echo '<pre>'; print_r(json_decode($propertydata)); die;
+			$investorid = $this->session->userdata('userid');
+			$getlikeofproperty = $this->UserModel->getPropertyLike($proid);
+			$getviewofproperty = $this->UserModel->getPropertyView($proid);
+			$getsaveproperty = $this->UserModel->getsaveproperty($proid,$investorid);
+
+			if (empty(json_decode($propertydata))){
+				redirect(SITE_URL.'investorDashboard');
+			}
+			else {
+				$data = array(
+						'userdata'			=>	 	$this->user_data,
+						'propertybyId'		=>	 	json_decode($propertydata),
+						'getlikeofproperty'	=>		$getlikeofproperty,
+						'getviewofproperty'	=>		$getviewofproperty,
+						'getsaveproperty'	=>		$getsaveproperty,
+					);
+		 	 //echo '<pre>'; print_r(json_decode($propertydata)); die;
+				$this->load->view('frontend/investorproperty',$data);
+			}
+
+		}
+		else
+		{  
+			redirect(SITE_URL.'login');
+		}
+	}
+	// end here
+	// investor estimate resturn list start here
+	public function estimatereturn()
+	{
+		//$propid = base64_decode($this->uri->segment(3));
+		if (!empty($this->session->userdata('userid'))  && $this->session->userdata('usertype') == INVESTOR){
+		$investorid = $this->session->userdata('userid');
+		$getproposaldata = $this->UserModel->getproposalByInvestorId($investorid);
+		$getproposaldatajsn = json_decode($getproposaldata);
+		
+
+		  //echo '<pre>'; print_r($getproposaldatajsn); die;
+		$cityid 	 = $getproposaldatajsn[0]->city_id;
+        $streetid 	 = $getproposaldatajsn[0]->street_id;
+        $trans_id 	 = $getproposaldatajsn[0]->trans_id;
+        $proamount 	 = $getproposaldatajsn[0]->proposal_amount_for_investment;
+        $return 	 = $getproposaldatajsn[0]->proposal_estimate_return;	
+	
+		$getproperty = $this->UserModel->getMatchAllPropertyByProposal($cityid,$streetid,$trans_id,$proamount,$return,$investorid);
+		// echo '<pre>'; print_r(json_decode($getproperty)); die;
+			$data = array(
+					'getproposaldatajsn'	=>	$getproposaldatajsn,
+					'getproperty'			=>	json_decode($getproperty),
+					'userdata'				=>	$this->user_data,
+				);
+			$this->load->view('frontend/estimatereturn',$data);
+		}
+		else {
+			redirect(SITE_URL.'login');
+		}
+	}
+	// end here
+	public function matchdeal()
+	{
+
+	}
+
+	// UNDER CONSIDERATION start here
+	public function underconsideration()
+	{
+		if (!empty($this->session->userdata('userid'))  && $this->session->userdata('usertype') == INVESTOR){
+			$invId = $this->session->userdata('userid');
+			$getcondirationpro = $this->UserModel->getCondirationProByInvestorId($invId);
+			//echo '<pre>'; print_r(json_decode($getcondirationpro)); die;
+			$data = array(
+					'userdata'				=>	$this->user_data,
+					'getcondirationpro'		=>	json_decode($getcondirationpro)
+				);
+			$this->load->view('frontend/underconsideration',$data);
+		}
+		else {
+			rediect(SITE_URL.'index');
+		}
+	}
+	// end here
 	// verify user email when sigh up new user
 	public function verifyemail()
 	{
 		$userid = base64_decode($this->uri->segment(3));
-		$email  = $this->uri->segment(4);
+		 //$userid = $this->uri->segment(3);
+		 $email  = $this->uri->segment(4);
 
 		$data = $this->AjaxModel->verifyemail($userid,$email);
-		if ($data == TRUE){
+		//echo '<pre>'; print_r($data);
+		if (!empty($this->session->userdata('userid')))
+		{
 			$loginid = $this->session->userdata('userid');
- 			if(!empty($loginid)){
- 				$this->session->set_flashdata('message', '');
- 				redirect(SITE_URL.'dashboard');
- 			}
+			$usertype = $this->session->userdata('usertype');
+			if ($usertype ==  DEALER){
+ 				$this->session->set_flashdata('success', SUCCESS_MAIL_VERIFY);
+ 				redirect(SITE_URL.'dealerdashboard');
+			}
+			else if ($usertype == INVESTOR){
+ 				$this->session->set_flashdata('success', SUCCESS_MAIL_VERIFY);
+ 				redirect(SITE_URL.'investorDashboard');
+			}
 		}
 	}
 

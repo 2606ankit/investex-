@@ -1,6 +1,7 @@
 <?php 
 	$this->load->view('layout/frontend/header');
    // echo '<pre>'; print_r($userdata); die;
+    $this->load->model("UserModel");
 ?>
 
 <main>   
@@ -326,14 +327,15 @@
                                     			foreach ($allproperty as $key=>$val)
                                     			{
                                     				$date = date("d-M-Y",strtotime($val->created_date));
-                                    				$like = '0';	
-                                    				$view = '0';	
+                                    				 	
                                     				if ($val->status == Open_For_Investement){
                                     					$status = '<label style="color:green !important;">Open For Investement<label>';
                                     				}else if ($val->status == Close_for_Investment){
                                     					$status = '<label>Close for Investment</label>';
                                     				}else if ($val->status == DRAFTS){ $status = '<label style="color:red !important;">Draft</label>'; }
-												 
+                                                    $proid = $val->proId;
+                                                $prolike = $this->UserModel->getPropertyLike($proid);
+												$proview = $this->UserModel->getPropertyView($proid);
                                     	?>
                                       <tr class="mdc-data-table__row">
                                           <td class="mdc-data-table__cell"><?php echo $key+1;?></td>
@@ -342,8 +344,8 @@
                                           </td>
                                           <td class="mdc-data-table__cell"><?php echo $val->cityname.' '.$val->street_name; ?></td>
                                           <td class="mdc-data-table__cell"><?php echo $date?></td>
-										  <td class="mdc-data-table__cell"><?php echo $like; ?> </td>
-								 		  <td class="mdc-data-table__cell"><?php echo $view; ?></td>
+										  <td class="mdc-data-table__cell"><?php echo count($prolike); ?> </td>
+								 		  <td class="mdc-data-table__cell"><?php echo count($proview); ?></td>
 										  <td class="mdc-data-table__cell"><?php echo $status; ?></td>
 									    </tr>
 									    <?php 

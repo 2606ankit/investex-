@@ -312,4 +312,41 @@ $(document).ready(function(){
 			} 
  	 	})	
  	 //
+
+ 	 // property like functionality start here
+ 	 $(".property_like").click(function(){
+ 	 	var property_like = $(this);
+ 	 	var investorid = property_like.attr('data-id');
+ 	 	var propertyid = property_like.attr('data-proid');
+
+ 	 	$.ajax({
+ 	 		type : 'POST',
+ 	 		url : ajax_url+'propertylike',
+ 	 		data : {investorid:investorid,propertyid:propertyid},
+ 	 		success :  function(res)
+ 	 		{
+ 	 			$("#likepro").html(res);
+ 	 		}
+ 	 	})
+ 	 })
+ 	 // end here
+ 	 // save property for future start here
+ 	 $(".saveproperty").click(function(){
+ 	 	var saveproperty = $(this);
+ 	 	var investorid = saveproperty.attr('data-id');
+ 	 	var propertyid = saveproperty.attr('data-proid');
+ 	 	 
+ 	 	$.ajax({
+ 	 		type : 'POST',
+ 	 		url : ajax_url+'savePropertyByinvestor',
+ 	 		data : {investorid:investorid,propertyid:propertyid},
+ 	 		success :  function(res)
+ 	 		{
+ 	 			//var test = 'you save this property successfully';
+ 	 			$("#savepro").html(res);
+ 	 		}
+ 	 	})
+
+ 	 })
+ 	 // end here
 })

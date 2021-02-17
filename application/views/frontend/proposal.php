@@ -26,7 +26,7 @@
                         <form action="<?php echo SITE_URL?>proposal" name="add_proposal" id="add_proposal" class="row" method="post">
 					 
 						
-									<div class="col-xs-12 p-2">  
+									<!--<div class="col-xs-12 p-2">  
                                         <div class="mdc-text-field mdc-text-field--outlined">
                                             <input class="mdc-text-field__input" name="proposal_name" id="proposal_name">
                                             <div class="mdc-notched-outline">
@@ -37,7 +37,7 @@
                                                 <div class="mdc-notched-outline__trailing"></div>
                                             </div>
                                         </div> 
-                                    </div> 		
+                                    </div> 	-->	
 						
                                
                         			<div class="col-xs-12 col-sm-12 p-2">

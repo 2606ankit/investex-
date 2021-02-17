@@ -34,7 +34,6 @@ label.error {
 	    </div>
 	</div>
 
-		
         <div class="px-3">  
             <div class="beatle-container">  
                 <div class="row center-xs middle-xs my-5"> 
@@ -46,7 +45,7 @@ label.error {
                         <form action="<?php echo SITE_URL?>dealerjoin" method="post" name="dealer_join" id="dealer_join"> 
 
 		                       <div class="text-center py-3">
-							     <a href="javascript:void(0);" class="mdc-fab mdc-fab--mini primary facebook_bg">
+							     <a href="<?php echo $authURL; ?>" class="mdc-fab mdc-fab--mini primary facebook_bg">
                                         <span class="mdc-fab__ripple"></span>
                                         <svg class="material-icons mat-icon-md" viewBox="0 0 24 24">
                                             <path d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z" />
@@ -55,7 +54,7 @@ label.error {
                                  
 
      								
-                                    <a href="javascript:void(0);" class="mdc-fab mdc-fab--mini primary google_bg">
+                                    <a href="javascript:;" class="mdc-fab mdc-fab--mini primary google_bg">
                                         <span class="mdc-fab__ripple"></span>
                                         <svg class="material-icons mat-icon-md" viewBox="0 0 24 24">
                                             <path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z" />
@@ -98,7 +97,7 @@ label.error {
                                 </div>
                             </div>  
 							
-							<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
+							<!--<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
                                 <input class="mdc-text-field__input" type="text" id="dealer_miles" name="dealer_miles">
                                 <div class="mdc-notched-outline">
@@ -108,7 +107,7 @@ label.error {
                                     </div>
                                     <div class="mdc-notched-outline__trailing"></div>
                                 </div>
-                            </div>  
+                            </div>  -->
 							
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
@@ -171,7 +170,7 @@ label.error {
 							
 						   <div class="mdc-form-field mt-3 w-100">
                                 <div class="mdc-checkbox">
-                                    <input type="checkbox" class="mdc-checkbox__native-control" id="keep"/>
+                                    <input type="checkbox" class="mdc-checkbox__native-control" id="keepme" name="keepme" />
                                     <div class="mdc-checkbox__background">
                                         <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
                                             <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>

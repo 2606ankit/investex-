@@ -1,5 +1,6 @@
 <?php 
     $this->load->view('layout/frontend/header');
+  	$this->load->model("UserModel");
 ?>
 <main>   
 	
@@ -81,6 +82,7 @@
                                         <tr class="mdc-data-table__header-row">
                                             <th class="mdc-data-table__header-cell">S.No</th>
                                         
+                                            <th class="mdc-data-table__header-cell">Dealer Name</th>
                                             <th class="mdc-data-table__header-cell">Property Name</th>
                                             <th class="mdc-data-table__header-cell">Location</th>
 											<th class="mdc-data-table__header-cell">Upload Date</th>
@@ -93,12 +95,18 @@
                                        		if (!empty($getproperty)){
                                        			foreach ($getproperty as $key=>$val){
                                        			$createddate = date('d-M-Y',strtotime($val->created_date));
+                                       			$cityid   = $val->property_city;
+                                       			$streetid = $val->property_street;
+
+                                       			$street = $this->UserModel->getstreetbyid($streetid);
+                                       			$city = $this->UserModel->getcitybyid($cityid);
                                    		?>
                                         
                                       <tr class="mdc-data-table__row">
                                             <td class="mdc-data-table__cell">1</td>
-                                            <td class="mdc-data-table__cell"><a href="<?php echo SITE_URL?>propertyview/<?php echo base64_encode($val->id); ?>" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal mdc-ripple-upgraded"><?php echo $val->property_name; ?></a></td>
-                                            <td class="mdc-data-table__cell"><?php echo $val->property_street.','.$val->property_city; ?></td>
+                                            <td class="mdc-data-table__cell"><?php echo $val->first_name.' '.$val->last_name; ?></td>
+                                            <td class="mdc-data-table__cell"><a href="<?php echo SITE_URL?>investorproperty/<?php echo base64_encode($val->id); ?>" class="mdc-button mdc-ripple-surface mdc-ripple-surface--primary normal mdc-ripple-upgraded"><?php echo $val->property_name; ?></a></td>
+                                            <td class="mdc-data-table__cell"><?php echo $city[0]->name.','.$street[0]->name; ?></td>
                                             <td class="mdc-data-table__cell"><?php echo $createddate?></td>
 											<td class="mdc-data-table__cell"><?php echo $val->property_investment_amount; ?> $ </td>
 											 

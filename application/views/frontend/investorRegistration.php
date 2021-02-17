@@ -29,20 +29,20 @@
 		
 		
 							<div class="col-xs-12 col-sm-12 p-2 profile_upoad">
-   <div class="small-12 medium-2 large-2 columns">
-     <div class="circle">
-       <!-- User Profile Image -->
-       <img class="profile-pic" src="assets/images/agents/a-2.jpg">
+                               <div class="small-12 medium-2 large-2 columns">
+                                 <div class="circle">
+                                   <!-- User Profile Image -->
+                                   <img class="profile-pic" src="assets/images/agents/a-2.jpg">
 
-       <!-- Default Image -->
-       <!-- <i class="fa fa-user fa-5x"></i> -->
-     </div>
-     <div class="p-image">
-       <i class="fa fa-camera upload-button"></i>
-        <input class="file-upload" type="file" accept="image/*"/>
-     </div>
-  </div>
-</div>
+                                   <!-- Default Image -->
+                                   <!-- <i class="fa fa-user fa-5x"></i> -->
+                                 </div>
+                                 <div class="p-image">
+                                   <i class="fa fa-camera upload-button"></i>
+                                    <input class="file-upload" type="file" accept="image/*"/>
+                                 </div>
+                              </div>
+                            </div>
 						
 				<div class="col-xs-12 p-2">  
                                         <div class="mdc-text-field mdc-text-field--outlined">

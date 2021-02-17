@@ -8,6 +8,9 @@
 	
 	define ('FRONTEND_URL',SERVER_URL);
 	define ('SITE_URL',SERVER_URL.'index.php/user/');
+	define ('AUTH_FB_URL',SERVER_URL.'index.php/User_authentication/');
+
+
 	define ('ASSETS_URL',SERVER_URL.'assets/');
 	define ('TODAY_DATE',date("Y-m-d H:i:s"));
 	define ('SITE_TITLE','Investex');
@@ -43,6 +46,29 @@
 	define('MALE',1);
 	define('FEMALE',2);
 		 
+	// property like and view type
+	define("PROLIKE",1);
+	define("PROVIEW",2);
 	 
+
+	// Error and Scusses Message Start here
+	define ('INFO_REGISTRATION','You have successfully register.Verification mail has been sent to your email');
+	define ('ERROR_REGISTRATION','Problem to insert data please insert another value');
+
+	define('SUCCESS_MAIL_VERIFY','Welcome ! Thanks for verify your email');
+
+	define ('PROPERTY_ADD_SUCCESS','You have successfully insert your property');
+	define ('PROPERTY_ADD_ERROR','Unable to insert new property! Please try again !');
+	define ('PROPERTY_EDIT_SUCCESS','You have successfully update your property');
+	define ('PROPERTY_EDIT_ERROR','Unable to update property. Please try again !');
+	
+	define ('PROPOSAL_ADD_SUCCESS','Your proposal insert successfully');
+	define ('PROPOSAL_ADD_ERROR','Unable to insert new proposal! Please try again.');
+
+	define ('PROPOSAL_EDIT_SUCCESS','You have successfully update your proposal');
+	define ('PROPOSAL_EDIT_ERROR','Unable to update proposal! Please try again.');
+
+
+	// end here
 
 ?>

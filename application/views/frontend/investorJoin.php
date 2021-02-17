@@ -47,7 +47,7 @@ label.error {
                         <form action="<?php echo SITE_URL?>investorjoin" method="post" name="dealer_join" id="dealer_join"> 
 
                                <div class="text-center py-3">
-                                 <a href="javascript:void(0);" class="mdc-fab mdc-fab--mini primary facebook_bg">
+                                 <a href="<?php echo $authURL; ?>" class="mdc-fab mdc-fab--mini primary facebook_bg">
                                         <span class="mdc-fab__ripple"></span>
                                         <svg class="material-icons mat-icon-md" viewBox="0 0 24 24">
                                             <path d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z" />
@@ -99,7 +99,7 @@ label.error {
                                 </div>
                             </div>  
                             
-                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
+                            <!--<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
                                 <input class="mdc-text-field__input" type="text" id="dealer_miles" name="dealer_miles">
                                 <div class="mdc-notched-outline">
@@ -109,7 +109,7 @@ label.error {
                                     </div>
                                     <div class="mdc-notched-outline__trailing"></div>
                                 </div>
-                            </div>  
+                            </div>  -->
                             
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
@@ -135,17 +135,17 @@ label.error {
                                 </div>
                             </div>  
 
-                            <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
+                            <!--<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              
                                 <input class="mdc-text-field__input" type="text" id="dealer_invested_amount" name="dealer_invested_amount" required="required">
                                 <div class="mdc-notched-outline">
                                     <div class="mdc-notched-outline__leading"></div>
                                     <div class="mdc-notched-outline__notch">
-                                        <label class="mdc-floating-label">Invested Amount</label>
+                                        <label class="mdc-floating-label">Investment Amount</label>
                                     </div>
                                     <div class="mdc-notched-outline__trailing"></div>
                                 </div>
-                            </div>  
+                            </div>  -->
                             
                             <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon w-100 mt-3 custom-field ">
                              

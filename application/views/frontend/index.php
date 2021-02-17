@@ -1,6 +1,7 @@
 <?php 
 	$this->load->view('layout/frontend/header');
 ?>
+
    <main class="content-offset-to-top"> 
         <div class="header-image-wrapper">
             <div class="bg bg-anime"></div>
@@ -28,7 +29,7 @@
                 </div>
             </div>
         </div>  
-    
+     
 		<div class="section mt-10 ">
 			 <div class="px-3">  
 	            <div class="beatle-container margin_bottom_40"> 
