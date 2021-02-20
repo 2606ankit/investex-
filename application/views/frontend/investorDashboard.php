@@ -305,7 +305,7 @@
         
                             <div class="row border-0 w-100 mt-3 po_rel">
                               
-                                 <!--<a href="investor-dashboard-detail.html" class="detail_table">View In Detail</a>-->
+                                 <a href="<?php echo SITE_URL?>proposal" class="detail_table">Add Proposal</a>
                                 <div class="mdc-data-table border-0 w-100 mt-1">
                                 
                                 <table id="proposal-list" class="display nowrap" style="width:100%">
@@ -340,8 +340,8 @@
                                         ?>
                                        <tr class="mdc-data-table__row">
                                             <td class="mdc-data-table__cell"><?php echo $key+1;?></td>
-                                            <td class="mdc-data-table__cell"><a href="javscript:;" target="_blank"> <?php echo $val->proposal_unique_id; ?> </a>  </td>
-                                            <td class="mdc-data-table__cell"><a href="javscript:;" target="_blank"> <?php echo $val->transaction_name_en; ?> </a>  </td>
+                                            <td class="mdc-data-table__cell"><a href="javascript:;" target="_blank"> <?php echo $val->proposal_unique_id; ?> </a>  </td>
+                                            <td class="mdc-data-table__cell"><a href="javascript:;" target="_blank"> <?php echo $val->transaction_name_en; ?> </a>  </td>
                                             <td class="mdc-data-"><?php echo $val->city_name; ?></td>
                                             <td class="mdc-data-"><?php echo $val->street_name; ?></td>
                                             
@@ -350,7 +350,7 @@
                                             <td class="mdc-data-table__cell "> <a href="<?php echo SITE_URL?>matchproperty/<?php echo base64_encode($val->propId); ?>"> <span class="geen_bx"><?php echo count(json_decode($matchproperty)); ?></span></a></td>
                                             <td class="mdc-data-table__cell">
                                                 <a href="<?php echo SITE_URL?>editproposal/<?php echo base64_encode($val->propId); ?>" class="mdc-icon-button material-icons primary-color">edit</a>
-                                                <a href="javscript:;" data-id="<?php echo $val->propId; ?>" class="mdc-icon-button material-icons warn-color deleteproposal">delete</a>
+                                                <a href="javascript:;" data-id="<?php echo $val->propId; ?>" class="mdc-icon-button material-icons warn-color deleteproposal">delete</a>
                                                  
                                             </td>
                                         </tr>

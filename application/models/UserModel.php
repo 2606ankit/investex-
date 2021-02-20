@@ -139,6 +139,52 @@
 			return json_encode($res);		
 		}
 		// end here
+		// get protperty according to the delaer id 
+		public function getPropertyAccToDealerIdOpenStatus($dealerid)
+		{
+			$data = $this->db->select("
+
+									property.id as proId,
+									property.dealer_id as dealer_id,
+									property.property_name as property_name,
+									property.property_text as property_text,
+									property.property_details as property_details,
+									property.property_image as property_image,
+									property.property_address as property_address,
+									property.property_latitude as property_latitude,
+									property.property_longtitue as property_longtitue,
+									property.property_street as property_street,
+									property.property_city as property_city,
+									property.property_transaction_type as property_transaction_type,
+									property.property_price as property_price,
+									property.property_investment_amount as property_investment_amount,
+									property.property_estimated_return as property_estimated_return,
+									property.status as status,
+									property.created_date as created_date,
+
+									city_tab.id as cityid,
+									city_tab.name as cityname,
+
+									street_tab.id as strid,
+									street_tab.name as street_name,
+
+									tran.id as transation_id,
+									tran.transaction_name_en as transaction_name_en,
+									tran.transaction_name_il as transaction_name_il
+
+								")
+					->from("user_dealer_property as property")
+					->join("city as city_tab","city_tab.id = property.property_city")
+					->join("street as street_tab","street_tab.id = property.property_street")
+					->join("investex_transaction_type as tran","tran.id = property.property_transaction_type")
+					->where("property.dealer_id",$dealerid)
+					->where("property.status ",Open_For_Investement)
+					->get();
+			$res = $data->result();
+			return json_encode($res);		
+		}
+		// end here
+		
 
 		// get property according to the property id
 		public function getpropertybyId($proid)
@@ -374,6 +420,50 @@
 		}
 		// end here
 
+		// get all proerty match by proposal
+		public function getPropertyMatchByProposal($cityid,$streetid,$trans_id,$proamount,$return,$proid)
+		{
+
+			$data = $this->db->select("
+						iuser.status as userstatus,
+						iuser.id as user_id,
+						iuser.first_name as first_name,
+						iuser.last_name as last_name,
+						iuser.status as user_status,
+
+						pro.id as id,
+						pro.proposal_transaction_type as proposal_transaction_type,
+						pro.proposal_country as proposal_country,
+						pro.proposal_city as proposal_city,
+						pro.proposal_street as proposal_street,
+						pro.proposal_amount_for_investment as proposal_amount_for_investment,
+						pro.proposal_estimate_return as proposal_estimate_return,
+						pro.status as status, 
+						pro.investor_id as investor_id, 
+
+					 	property.id as proid,
+				")
+				->from("investex_investor_proposal as pro")
+				->join("investex_user as iuser","iuser.id = pro.investor_id")
+				//->join("investex_transaction_type as itrans","itrans.id = pro.property_city")
+				->join("user_dealer_property as property","property.id = '".$proid."'")
+				//->where("",$proid)
+				->where("pro.status !=",STATUS_DELETE)
+				->where("pro.proposal_street",$streetid)
+				->where("pro.proposal_city",$cityid)
+				->where("pro.proposal_transaction_type",$trans_id)
+				->where("pro.proposal_amount_for_investment",$proamount)
+				->where("pro.proposal_estimate_return",$return)
+				->get();
+			$res = $data->result();
+			 // echo $this->db->last_query(); die;
+			return json_encode($res);	
+		 
+		}
+		// end here
+
+		
+
 		//get porperty like start here
 		public function getPropertyLike($proid)
 		{
@@ -425,6 +515,35 @@
 
 		}
 		//end here
+		// get save job by investor id and property id
+		public function getsavepropertyByuPropertyId($propertyId)
+		{
+			$selectquery = $this->db->select("*")
+									->from("property_status_by_investor")
+									->where("property_id",$propertyId)
+									->where("status",ACTIVE)
+									->get();
+					$ressel = $selectquery->result();
+					return $ressel;
+
+		}
+		//end here
+
+		// total property cosidration by dealer id
+		// get save job by investor id and property id
+		public function getSavePropertyByDealerid($dealerid)
+		{
+			$selectquery = $this->db->select("*")
+									->from("property_status_by_investor")
+									->where("dealer_id",$dealerid)
+									->where("status",ACTIVE)
+									->get();
+					$ressel = $selectquery->result();
+					return $ressel;
+
+		}
+		//end here
+		// end here
 
 		// get condiration property by invester id
 		public function getCondirationProByInvestorId($invId)

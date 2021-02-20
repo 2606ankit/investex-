@@ -11,6 +11,7 @@
 	define ('AUTH_FB_URL',SERVER_URL.'index.php/User_authentication/');
 
 
+	define ('USERS_ASSETS_URL',SERVER_URL.'assets/new_design/');
 	define ('ASSETS_URL',SERVER_URL.'assets/');
 	define ('TODAY_DATE',date("Y-m-d H:i:s"));
 	define ('SITE_TITLE','Investex');
@@ -35,6 +36,18 @@
 	define("Close_for_Investment",4);
 	define("DRAFTS",5); 
 	define("STATUS_DELETE",6);
+	define("ALL_STATUS",7);
+	define("INVESTOR_MATCH",8);
+
+	// investor list constant
+	define('ESTIMATE_RETURN',9);
+	define('INVESTMENT',10);
+	define('INVESTED_PROPETY',11);
+	define('UNDER_CONSIDRATION',12);
+	define('MATCH_DEAL',13);
+	define('ALL_PROPOSAL',14);
+	
+
 
 	// user insert type
 	define("FACEBOOK",1);

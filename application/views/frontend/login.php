@@ -96,12 +96,8 @@
                             </div>  -->   
                         
                         <div class="row end-xs middle-xs"> 
-                            <a href="reset-password.html" class="mdc-button normal mar_0_a">
-                                <span class="mdc-button__ripple"></span>
-                                <i class="material-icons mdc-button__icon">vpn_key</i>
-                                <span class="mdc-button__label">Reset Password</span> 
-                            </a> 
- <a href="forget-password.html" class="mdc-button normal mar_0_a">
+                           
+                            <a href="<?php echo SITE_URL; ?>forgetpassword" class="mdc-button normal mar_0_a">
                                 <span class="mdc-button__ripple"></span>
                                 <i class="material-icons mdc-button__icon">vpn_key</i>
                                 <span class="mdc-button__label">Forget Password</span> 

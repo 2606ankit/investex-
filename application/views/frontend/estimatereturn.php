@@ -102,8 +102,8 @@
 
                                        			$street = $this->UserModel->getstreetbyid($streetid);
                                        			$city = $this->UserModel->getcitybyid($cityid);
-       			$suminve 	 =	$val->property_investment_amount;
-				$percetage = 	($val->property_estimated_return/100)*$val->property_investment_amount;
+                                       			$suminve 	 =	$val->property_investment_amount;
+                                				$percetage = 	($val->property_estimated_return/100)*$val->property_investment_amount;
 
                                    		?>
                                         

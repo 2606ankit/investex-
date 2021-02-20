@@ -155,9 +155,72 @@ class User extends CI_Controller {
     	redirect(SITE_URL.'index');
 	}
 
+	public function sendmailtodealerinvestor()
+	{
+
+		
+		$testmail = $this->AjaxModel->sendMatchPropertyMailToInvestor();
+		if (!empty($testmail))
+		{
+			$finalmaildata = array_map("unserialize", array_unique(array_map("serialize", $testmail)));
+			// echo '<pre>'; print_r($finalmaildata); die;
+			$getMailDataforDealer  		= array();
+			$getMailDataforInvestor  	= array();
+
+			foreach ($finalmaildata as $key=>$val){
+				$getMailDataforDealer[] = array(
+							'proposal_name'						=>	$val->proposal_name,
+							'proposal_unique_id'				=>	$val->proposal_unique_id,
+							'cityname'							=>	$val->cityname,
+							'name'								=>	$val->name,
+							'proposal_amount_for_investment'	=>	$val->proposal_amount_for_investment,
+							'proposal_estimate_return'			=>	$val->proposal_estimate_return,
+							'investor_user_email'				=>	$val->investor_user_email,
+							'investor_first_name'				=>	$val->investor_first_name,
+							'investor_last_name'				=>	$val->investor_last_name,
+							'investor_id'						=>  $val->inv_id,
+							'dealer_user_email'					=>	$val->dealer_user_email,
+							'dealer_first_name'					=>	$val->dealer_first_name,
+							'dealer_last_name'					=>	$val->dealer_last_name,
+
+						);	
+			}
+
+			foreach ($finalmaildata as $key=>$val){
+
+				$getMailDataforInvestor[] = array(
+							'property_name'					=>	$val->property_name,
+							'property_details'				=>	$val->property_details,
+							'property_image'				=>	$val->property_image,
+							'cityname'						=>	$val->cityname,
+							'name'							=>	$val->name,
+							'property_price'				=>	$val->property_price,
+							'property_investment_amount'	=>	$val->property_investment_amount,
+							'property_estimated_return'		=>	$val->property_estimated_return,
+							'dealer_id'						=>	$val->dealer_id,
+							'investor_user_email'				=>	$val->investor_user_email,
+							'investor_first_name'				=>	$val->investor_first_name,
+							'investor_last_name'				=>	$val->investor_last_name,
+							'investor_id'						=>  $val->inv_id,
+							'dealer_user_email'					=>	$val->dealer_user_email,
+							'dealer_first_name'					=>	$val->dealer_first_name,
+							'dealer_last_name'					=>	$val->dealer_last_name,
+						);	
+			}
+
+		 $mailForMatchDealerMatch = $this->AjaxModel->mailForMatchDealerMatch($getMailDataforDealer);
+		 
+	 	 $mailForMatchInvestorMatch = $this->AjaxModel->mailForMatchInvestorMatch($getMailDataforInvestor);
+		}
+
+	}
+
 	public function index()
 	{
 		$loginid = $this->session->userdata('userid');
+
+		$this->sendmailtodealerinvestor();
+
 		//echo '<pre>'; print_r($this->session->userdata()); die;
 		$this->load->view('frontend/index');
 	}
@@ -188,6 +251,50 @@ class User extends CI_Controller {
 		}
 	}
 	// end here
+
+	// foreget passwrod start here
+	public function forgetpassword()
+	{
+		if (!empty($_POST) && !empty($_POST['forgetpassword'])){
+			$email = $this->input->post('foregetemail');
+			$seletemail = $this->db->select("user_email,id")
+							->from("investex_user")
+							->where("user_email",$email)
+							->get();
+			$dataselect =	$seletemail->result();
+			if (!empty($dataselect))
+			{
+				$userid = $dataselect[0]->id;
+				$sendemail = $this->AjaxModel->sendforgetemail($email,$userid);
+				if ($sendemail){
+				    $this->session->set_flashdata('success','Change password link has been sent to your register email id');
+				}
+			} 	
+			else {
+				$this->session->set_flashdata('error','Email id does not match');
+			}			
+
+		}
+		 
+		$this->load->view('frontend/forgetpassword');
+	}
+	// end here
+	// change password 
+	public function forgetchange()
+	{
+		$email = base64_decode($this->uri->segment(3));
+
+		if (!empty($_POST)){
+			$passwrod = $this->input->post('userpassword');
+			$update = $this->db->where("user_email",$email)->update("investex_user",array('password'=>md5($passwrod)));
+			if ($update){
+				$this->session->set_flashdata('success','your password has been successfully! Please login Investex');
+			}
+		}	
+		$this->load->view('frontend/changepassword');
+	}
+	// end here
+
 	// user profile edit start here
 	public function userprofile()
 	{
@@ -417,10 +524,12 @@ class User extends CI_Controller {
 			}
 
 			$data = array(
+						'userdata'			=>	$this->user_data,
 						'transaction_type'	=>	$this->transactionType,
 						'allisrealcountry'	=>	$this->isrealcountry
 					);
 
+			//$this->load->view('users/property_registration',$data);
 			$this->load->view('frontend/property_registration',$data);
 		}else {
 			redirect(SITE_URL.'dealerlogin');
@@ -561,19 +670,92 @@ class User extends CI_Controller {
 					$getOpenStatusInvestement[] = $val->property_investment_amount ;
 				}
 			} 
+			$dealerid = $this->session->userdata('userid');
+			$getSavePropertyByDealerid = $this->UserModel->getSavePropertyByDealerid($dealerid);
+			$getmatchinvestor = $this->AjaxModel->MatchInvestorAccToDealerId($dealerid);
 			//echo '<pre>'; print_r($this->user_data); die;
 			$data = array(
 						'userdata'					=>	 	$this->user_data,
 						'allproperty'				=>	 	$allproperty,
 						'getOpenStatuspro'			=>		$getOpenStatuspro,
-						'getOpenStatusInvestement'	=>		$getOpenStatusInvestement
+						'getOpenStatusInvestement'	=>		$getOpenStatusInvestement,
+						'allcosidration'			=>		$getSavePropertyByDealerid,
+						'getmatchinvestor'			=>		$getmatchinvestor
 					);
-			$this->load->view('frontend/dealerdashboard',$data);
+			//$this->load->view('frontend/dealerdashboard',$data);
+			$this->load->view('users/dealerdashboard',$data);
 		}
 		else {
 			redirect(SITE_URL.'login');
 		}
 	}
+	// end here
+
+	// view property list start here
+	public function viewlist()
+	{
+		if (!empty($this->loginuserid) && $this->session->userdata('usertype') == DEALER){
+			$propertydata = '';
+			//echo '<pre>'; print_r(json_decode($this->dealerProperty)); die;
+			$finaldata = array();
+			$segment = base64_decode($this->uri->segment(3));
+			if ($segment == ALL_STATUS){
+				$propertydata = json_decode($this->dealerProperty);	
+			}
+			else if ($segment == Open_For_Investement){
+				$propertydata = json_decode($this->UserModel->getPropertyAccToDealerIdOpenStatus($this->loginuserid));
+			}
+			else if ($segment == INVESTOR_MATCH)
+			{
+				$testdata = $this->AjaxModel->MatchInvestorAccToDealerId($this->loginuserid);
+				//$propertydata = array_map("unserialize", array_unique(array_map("serialize", $testdata)));
+				foreach ($testdata as $key => $val) {
+					
+					$finaldata[] = (object) array(
+
+							'dealer_id'						=>	$val->dealer_id,
+							'property_name'					=>	$val->property_name,
+							'property_text'					=>	$val->property_text,
+							'property_details'				=>	$val->property_details,
+							'property_image'				=>	$val->property_image,
+							'property_address'				=>	$val->property_address,
+							'property_latitude'				=>	$val->property_latitude,
+							'property_longtitue'			=>	$val->property_longtitue,
+							'property_street'				=>	$val->property_street,
+							'property_city'					=>	$val->property_city,
+							'property_transaction_type'		=>	$val->property_transaction_type,
+							'property_price'				=>	$val->property_price,
+							'property_investment_amount'	=>	$val->property_investment_amount,
+							'property_estimated_return'		=>	$val->property_estimated_return,
+							'status'						=>	$val->status,
+							'created_date'					=>	$val->created_date,
+							'cityname'						=>	$val->cityname,
+							'property_city'					=>	$val->property_city,
+							'street_name'					=>	$val->street_name,
+							'created_date'					=>	$val->created_date,
+							'proId'							=>	$val->proId,
+										 
+						); 
+				}
+
+				$propertydata = array_map("unserialize", array_unique(array_map("serialize", $finaldata)));
+			}
+			
+			   //echo '<pre>'; print_r($propertydata); die;
+			$data = array(
+					'allproperty' => 	$propertydata,
+					'userdata'	  =>	 	$this->user_data,
+				);
+			//$this->load->view('frontend/viewlist',$data);
+			$this->load->view('users/viewlist',$data);
+		}
+		else
+		{
+			redirect(SITE_URL.'index');
+		}
+		
+	}
+
 	// end here
 
 	// get property details view  start here
@@ -584,7 +766,14 @@ class User extends CI_Controller {
 		if (!empty($this->user_data) && $this->session->userdata('usertype') == DEALER){
 			$proid = base64_decode($this->uri->segment(3));
 			$propertydata = $this->UserModel->getpropertybyId($proid);
-			 //echo '<pre>'; print_r(); die;
+			$propertyinvestortest = $this->AjaxModel->MatchInvestorAccToPropertyid($proid);
+			 
+			$propertyinvestor = array_map("unserialize", array_unique(array_map("serialize", $propertyinvestortest)));
+
+			//echo '<pre>'; print_r($propertyinvestor); die;
+			 
+		/*$geocodeFromLatLong = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($lat).','.trim($lng).'&sensor=true_or_false&key=AIzaSyDQnKp7tex1GCFOdK89c47UC5uvgK_zFH4');*/
+		 
 			if (empty(json_decode($propertydata))){
 				redirect(SITE_URL.'dealerdashboard');
 			}
@@ -592,9 +781,11 @@ class User extends CI_Controller {
 				$data = array(
 						'userdata'		=>	 $this->user_data,
 						'propertybyId'	=>	 json_decode($propertydata),
+						'propertyinvestor'	=>	$propertyinvestor,
 					);
 		//	 echo '<pre>'; print_r(json_decode($propertydata)); die;
-				$this->load->view('frontend/propertyview',$data);
+				//$this->load->view('frontend/propertyview',$data);
+				$this->load->view('users/propertyview',$data);
 			}
 		}
 		else {
@@ -608,7 +799,7 @@ class User extends CI_Controller {
 		//echo '<pre>'; print_r($this->session->userdata());
 		if (!empty($this->session->userdata('userid')) && $this->session->userdata('usertype') == INVESTOR){
 
-			$testmail = $this->AjaxModel->sendMatchPropertyMailToInvestor();
+			
 			//echo '<pre>'; print_r($testmail); die;
 
 			$investorid = $this->session->userdata('userid');
@@ -648,14 +839,38 @@ class User extends CI_Controller {
 						);
 		
 
-			$this->load->view('frontend/investorDashboard',$data);
+			//$this->load->view('frontend/investorDashboard',$data);
+			$this->load->view('users/investorDashboard',$data);
 		}
 		else {
-		    $this->session->set_flashdata('info', INFO_REGISTRATION);
+		   // $this->session->set_flashdata('info', INFO_REGISTRATION);
 			redirect(SITE_URL.'login');
 		}
 	}
+	// investor listing start here
+	public function list()
+	{
+		if (!empty($this->session->userdata('userid')) && $this->session->userdata('usertype') == INVESTOR){
+			$title = '';
+			$investorid = $this->session->userdata('userid');
+			$totalProposal = json_decode($this->UserModel->getproposalByInvestorId($investorid));
+			$data = array(
+							'userdata'			=>	$this->user_data,
+							'title'				=>	$title,
+							'totalProposal'		=>	$totalProposal
+							//'matchproperty'		=>	json_decode($this->investorProperty),
+						);
+		
 
+			//$this->load->view('frontend/investorDashboard',$data);
+			$this->load->view('users/list',$data);
+		}
+		else {
+			//$this->session->set_flashdata('info', INFO_REGISTRATION);
+			redirect(SITE_URL.'login');
+		}
+	}
+	// end here
 	// function for Investor Join
 	public function investorJoin()
 	{
@@ -753,8 +968,10 @@ class User extends CI_Controller {
 			$data = array(
 						'transaction_type'	=>	$this->transactionType,
 						'allisrealcountry'	=>	$this->isrealcountry,
+						'userdata'			=>	$this->user_data,
 					);
-			$this->load->view("frontend/proposal",$data);
+			//$this->load->view("frontend/proposal",$data);
+			$this->load->view("users/proposal",$data);
 		}
 		else {
 			redirect(SITE_URL.'login');
@@ -848,7 +1065,7 @@ class User extends CI_Controller {
 			$proid = base64_decode($this->uri->segment(3));
 			$propertydata = $this->UserModel->getpropertybyId($proid);
 
-		//	echo '<pre>'; print_r(json_decode($propertydata)); die;
+		 //	echo '<pre>'; print_r(json_decode($propertydata)); die;
 			$investorid = $this->session->userdata('userid');
 			$getlikeofproperty = $this->UserModel->getPropertyLike($proid);
 			$getviewofproperty = $this->UserModel->getPropertyView($proid);
@@ -884,7 +1101,7 @@ class User extends CI_Controller {
 		$investorid = $this->session->userdata('userid');
 		$getproposaldata = $this->UserModel->getproposalByInvestorId($investorid);
 		$getproposaldatajsn = json_decode($getproposaldata);
-		
+		$title = '';
 
 		  //echo '<pre>'; print_r($getproposaldatajsn); die;
 		$cityid 	 = $getproposaldatajsn[0]->city_id;
@@ -894,13 +1111,18 @@ class User extends CI_Controller {
         $return 	 = $getproposaldatajsn[0]->proposal_estimate_return;	
 	
 		$getproperty = $this->UserModel->getMatchAllPropertyByProposal($cityid,$streetid,$trans_id,$proamount,$return,$investorid);
+		$totalProposal = json_decode($this->UserModel->getproposalByInvestorId($investorid));
 		// echo '<pre>'; print_r(json_decode($getproperty)); die;
 			$data = array(
 					'getproposaldatajsn'	=>	$getproposaldatajsn,
 					'getproperty'			=>	json_decode($getproperty),
 					'userdata'				=>	$this->user_data,
+					'title'					=>	$title,
+					'totalProposal'			=>	$totalProposal
 				);
-			$this->load->view('frontend/estimatereturn',$data);
+
+			//$this->load->view('frontend/estimatereturn',$data);
+			$this->load->view('users/estimatereturn',$data);
 		}
 		else {
 			redirect(SITE_URL.'login');
@@ -918,12 +1140,17 @@ class User extends CI_Controller {
 		if (!empty($this->session->userdata('userid'))  && $this->session->userdata('usertype') == INVESTOR){
 			$invId = $this->session->userdata('userid');
 			$getcondirationpro = $this->UserModel->getCondirationProByInvestorId($invId);
+			$totalProposal = json_decode($this->UserModel->getproposalByInvestorId($invId));
+			$title = 'Under Considration';
 			//echo '<pre>'; print_r(json_decode($getcondirationpro)); die;
 			$data = array(
 					'userdata'				=>	$this->user_data,
-					'getcondirationpro'		=>	json_decode($getcondirationpro)
+					'getcondirationpro'		=>	json_decode($getcondirationpro),
+					'title'					=>	$title,
+					'totalProposal'			=>	$totalProposal
 				);
-			$this->load->view('frontend/underconsideration',$data);
+			$this->load->view('users/underconsideration',$data);
+			//$this->load->view('frontend/underconsideration',$data);
 		}
 		else {
 			rediect(SITE_URL.'index');

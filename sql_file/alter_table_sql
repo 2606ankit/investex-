@@ -7,3 +7,12 @@ ALTER TABLE `investex_user` ADD `user_investment_amount` INT(11) NOT NULL AFTER 
 ==========
 
 ALTER TABLE `user_dealer_property` ADD `property_unique_id` VARCHAR(100) NOT NULL AFTER `dealer_id`; 
+
+18-feb-2021
+=============
+
+ALTER TABLE `property_status_by_investor` ADD `dealer_id` INT(11) NOT NULL AFTER `property_id`; 
+
+19-feb-2021
+----------
+ALTER TABLE `user_dealer_property` ADD `property_country` INT(11) NOT NULL AFTER `property_city`;

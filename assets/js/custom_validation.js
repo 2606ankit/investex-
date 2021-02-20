@@ -92,6 +92,40 @@ $(document).ready(function(){
 	  });
   	//end here
 
+  	// change password
+  	 $("#change_password").validate({
+
+	    rules: {
+	      userpassword : {
+	        required: true,
+	        minlength : 8,
+	       },
+	      conuserpassword : {
+	       	equalTo: "#userpassword",
+	       },
+	    },
+	    messages : {
+		   
+		  userpassword: {
+		    required: "Password Should not be blank",
+			minlength: "Password Should have minimum 8 digit",
+		  },
+		 
+		  conuserpassword: {
+		    required: "Password Should not be blank",
+			equalto: "Password does not match",
+		  },
+		},
+		// errorElement: 'div',
+		// errorLabelContainer: '.errorTxt'
+		errorPlacement: function(label, element) {
+        label.addClass('arrow');
+        label.insertAfter(element);
+	    },
+	    wrapper: 'span'
+	  });
+  	// end here
+
   	$("#add_pro").validate({
 
 	    rules: {
@@ -335,11 +369,12 @@ $(document).ready(function(){
  	 	var saveproperty = $(this);
  	 	var investorid = saveproperty.attr('data-id');
  	 	var propertyid = saveproperty.attr('data-proid');
+ 	 	var dealerid = saveproperty.attr('data-dealerid');
  	 	 
  	 	$.ajax({
  	 		type : 'POST',
  	 		url : ajax_url+'savePropertyByinvestor',
- 	 		data : {investorid:investorid,propertyid:propertyid},
+ 	 		data : {investorid:investorid,propertyid:propertyid,dealerid:dealerid},
  	 		success :  function(res)
  	 		{
  	 			//var test = 'you save this property successfully';

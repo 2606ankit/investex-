@@ -115,6 +115,7 @@
     <script  src="<?php echo ASSETS_URL?>js/ie10-viewport-bug-workaround.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
      <script  src="<?php echo ASSETS_URL?>js/custom_validation.js"></script>
+     <script  src="<?php echo ASSETS_URL?>js/ajaxcall.js"></script>
 
       <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://npmcdn.com/leaflet@0.7.7/dist/leaflet.css">

@@ -62,11 +62,11 @@
 				    $config['mailtype'] 	= 'html';  
 				    $config['priority'] 	= '1'; 			   
 				    $this->email->initialize($config);
-				   	$mailmessage = $this->load->view('template/email',$data,TRUE);
+				   	$mailmessage = $this->load->view('template/confrim_mail',$data,TRUE);
 					// echo '<pre>'; print_r($mailmessage); die;
-				  	 $this->email->from($from_email, 'Your Name'); 
+				  	 $this->email->from($from_email, 'Investex'); 
 			         $this->email->to($useremail);
-			         $this->email->subject('Email Test'); 
+			         $this->email->subject('Investex:Verification Mail'); 
 			         $this->email->message($mailmessage); 
 		         
 
@@ -81,7 +81,173 @@
 		         }
 		}
 		// end here
-		// send match property mail to invstor and dealer
+		//send foreget pasword mail start here
+		public function sendforgetemail($seletemail,$userid)
+		{
+			$from_email = ADMIN_EMAIL;
+			$data	=	(object) array('userid'=>$userid,'useremail'=>$seletemail);
+				   
+				$this->load->library('email');
+ 				    $config['protocol'] = 'sendmail';                                                         
+				    $config['charset']    	= 'utf-8';
+				    $config['newline']    	= "\r\n";
+				    $config['mailtype'] 	= 'html';  
+				    $config['priority'] 	= '1'; 			   
+				    $this->email->initialize($config);
+				   	$mailmessage = $this->load->view('template/forgetpassword',$data,TRUE);
+					// echo '<pre>'; print_r($mailmessage); die;
+				  	 $this->email->from($from_email, 'Investex'); 
+			         $this->email->to($useremail);
+			         $this->email->subject('Investex:Forgegt Password'); 
+			         $this->email->message($mailmessage); 
+		         
+
+		         //Send mail 
+		         if($this->email->send()) 
+		         {
+		         	return TRUE;
+		         	//echo $this->email->print_debugger();
+		         }
+		         else {
+		         	return $this->email->print_debugger();
+		         }
+		}
+		// end here
+//<a class="btn btn-success btn-sm" target="_blank" href="https://m.beatleanalytics.com/index.php/beatleAdmin/directlogin/LalitK"> LOGIN </a>
+		// send mail to dealer if propsal match 
+		public function mailForMatchDealerMatch($getMailDataforDealer)
+		{
+			$from_email = ADMIN_EMAIL;
+			$data1	=	$getMailDataforDealer;
+		  	$data = array_map("unserialize", array_unique(array_map("serialize", $data1)));
+		  	//echo '<pre>'; print_r($data); die;
+
+			$maildata = array();
+			foreach ($data as $key=>$val){
+				$maildata['dealermail'][]	=	array(
+											'dealer_user_email' => $val['dealer_user_email'],
+											'dealer_first_name'	=>	$val['dealer_first_name'],
+											'dealer_last_name'	=>	$val['dealer_last_name']
+										);
+
+				$maildata['investorProposaldata'][] = array(
+
+					'proposal_unique_id'				=>	$val['proposal_unique_id'],
+					'cityname'							=>	$val['cityname'],
+					'name'								=>	$val['name'],
+					'proposal_amount_for_investment'	=>	$val['proposal_amount_for_investment'],
+					'proposal_estimate_return'			=>	$val['proposal_estimate_return'],
+					'investor_user_email'				=>	$val['investor_user_email'],
+					'investor_first_name'				=>	$val['investor_first_name'],
+					'investor_last_name'				=>	$val['investor_last_name'],
+					
+								);
+ 			}
+ 			$unquedealerdata 	= array_map("unserialize", array_unique(array_map("serialize", $maildata['dealermail'])));
+
+ 			$uniqueProposaldata =  array_map("unserialize", array_unique(array_map("serialize", $maildata['investorProposaldata'])));
+ 			$maindata = array('prodata'=>$uniqueProposaldata);
+			 //echo '<pre>'; print_r($uniqueProposaldata); die;
+
+					$this->load->library('email');
+ 				    $config['protocol'] = 'sendmail';                                                         
+				    $config['charset']    	= 'utf-8';
+				    $config['newline']    	= "\r\n";
+				    $config['mailtype'] 	= 'html';  
+				    $config['priority'] 	= '1'; 			   
+				    $this->email->initialize($config);
+
+				   	$dealermessgae = $this->load->view('template/email',$maindata,TRUE);
+
+					 //echo '<pre>'; print_r($dealermessgae); die;
+						foreach ($unquedealerdata as $k=>$v){
+						  	 $this->email->from($from_email, 'Investex'); 
+					         $this->email->to($v['dealer_user_email']);
+					         $this->email->subject('Investex:Proposal Match'); 
+					         $this->email->message($dealermessgae);
+				         } 
+		         	 
+		         //Send mail 
+		         if($this->email->send()) 
+		         {
+		         	return TRUE;
+		         	//echo $this->email->print_debugger();
+		         }
+		         else {
+		         	return $this->email->print_debugger();
+		         }
+		}
+		// end here
+
+		// send mail to dealer if propsal match 
+		public function mailForMatchInvestorMatch($getMailDataforInvestor)
+		{
+			$from_email = ADMIN_EMAIL;
+			$data1	=	$getMailDataforInvestor;
+		  	$data = array_map("unserialize", array_unique(array_map("serialize", $data1)));
+		  	// echo '<pre>'; print_r($data); die;
+
+			$maildata = array();
+			foreach ($data as $key=>$val){
+				$maildata['investormail'][]	=	array(
+											'investor_user_email' => $val['investor_user_email'],
+											'investor_first_name'	=>	$val['investor_first_name'],
+											'investor_last_name'	=>	$val['investor_last_name']
+										);
+
+				$maildata['dealetPorpertydata'][] = array(
+
+					'property_name'					=>	$val['property_name'],
+					'property_details'				=>	$val['property_details'],
+					'property_image'				=>	$val['property_image'],
+					'cityname'						=>	$val['cityname'],
+					'name'							=>	$val['name'],
+					'property_price'				=>	$val['property_price'],
+					'property_investment_amount'	=>	$val['property_investment_amount'],
+					'property_estimated_return'		=>	$val['property_estimated_return'],
+					'dealer_id'						=>	$val['dealer_id']
+					
+								);
+ 			}
+ 			$unquedealerdata 	= array_map("unserialize", array_unique(array_map("serialize", $maildata['investormail'])));
+
+ 			$uniquepropertydata =  array_map("unserialize", array_unique(array_map("serialize", $maildata['dealetPorpertydata'])));
+
+ 			$maindata = array('prodata'=>$uniquepropertydata);
+			 //echo '<pre>'; print_r($uniqueProposaldata); die;
+
+					$this->load->library('email');
+ 				    $config['protocol'] = 'sendmail';                                                         
+				    $config['charset']    	= 'utf-8';
+				    $config['newline']    	= "\r\n";
+				    $config['mailtype'] 	= 'html';  
+				    $config['priority'] 	= '1'; 			   
+				    $this->email->initialize($config);
+
+				   	$investormessgae = $this->load->view('template/investoremail',$maindata,TRUE);
+
+					// echo '<pre>'; print_r($investormessgae); die;
+
+						foreach ($unquedealerdata as $k=>$v){
+						  	 $this->email->from($from_email, 'Investex'); 
+					         $this->email->to($v['investor_user_email']);
+					         $this->email->subject('Investex:Property Match'); 
+					         $this->email->message($investormessgae);
+				         } 
+		         	 
+		         //Send mail 
+		         if($this->email->send()) 
+		         {
+		         	return TRUE;
+		         	//echo $this->email->print_debugger();
+		         }
+		         else {
+		         	return $this->email->print_debugger();
+		         }
+		}
+		// end here
+
+		// get match property invstor and dealer
 		public function sendMatchPropertyMailToInvestor()
 		{
 			$data = $this->db->select("
@@ -102,6 +268,74 @@
 							property.property_price as property_price,
 							property.property_investment_amount as property_investment_amount,
 							property.property_estimated_return as property_estimated_return,
+							property.status as property_status,
+
+							proposal.investor_id as investor_id,
+							proposal.proposal_name as proposal_name,
+							proposal.proposal_unique_id as proposal_unique_id,
+							proposal.proposal_transaction_type as proposal_transaction_type,
+							proposal.proposal_country as proposal_country,
+							proposal.proposal_city as proposal_city,
+							proposal.proposal_street as proposal_street,
+							proposal.proposal_amount_for_investment as proposal_amount_for_investment ,
+							proposal.proposal_estimate_return as proposal_estimate_return,
+							proposal.status as proposal_status,
+
+							iuser.id as inv_id,
+							iuser.user_email as investor_user_email,
+							iuser.first_name as investor_first_name,
+							iuser.last_name as investor_last_name,
+
+							iduser.id as del_id,
+							iduser.user_email as dealer_user_email,
+							iduser.first_name as dealer_first_name,
+							iduser.last_name as dealer_last_name,
+
+							icity.id as city_id,
+							icity.name as cityname,
+
+							istr.id as street_id,
+							istr.name as name,
+
+						")
+					->from("user_dealer_property as property")
+					->join("investex_investor_proposal as proposal","proposal.proposal_transaction_type = property.property_transaction_type AND proposal.proposal_city = property.property_city AND proposal.proposal_street = property.property_street AND proposal.proposal_amount_for_investment = property.property_investment_amount AND proposal.proposal_estimate_return = property.property_estimated_return")
+
+					->join("investex_user as iuser","iuser.id = proposal.investor_id")
+					->join("investex_user as iduser","iduser.id = property.dealer_id")
+					->join("city as icity","proposal.proposal_city = icity.id")
+					->join("street as istr","proposal.proposal_street = istr.id")
+					->where("property.status !=",DRAFTS)
+					->get();
+				$res = $data->result();
+				return $res; 
+ 				 
+		}
+		// end here
+		// get match property invstor and dealer
+		public function MatchInvestorAccToDealerId($dealerid)
+		{
+			$data = $this->db->select("
+
+							property.dealer_id as dealer_id,
+							property.property_unique_id as property_unique_id,
+							property.property_name as property_name,
+							property.property_text as property_text,
+							property.property_details as property_details,
+							property.property_image as property_image,
+							property.property_address as property_address,
+							property.property_latitude as property_latitude,
+							property.property_longtitue as property_longtitue,
+
+							property.property_street as property_street,
+							property.property_city as property_city,
+							property.property_transaction_type as property_transaction_type,
+							property.property_price as property_price,
+							property.property_investment_amount as property_investment_amount,
+							property.property_estimated_return as property_estimated_return,
+							property.status as status,
+							property.id as proId,
+							property.created_date as created_date,
 
 
 							proposal.investor_id as investor_id,
@@ -116,27 +350,103 @@
 							proposal.status as proposal_status,
 
 							iuser.id as inv_id,
-							iuser.user_email as user_email,
-							iuser.first_name as first_name,
-							iuser.last_name as last_name,
+							iuser.user_email as investor_user_email,
+							iuser.first_name as investor_first_name,
+							iuser.last_name as investor_last_name,
+
+							iduser.id as del_id,
+							iduser.user_email as dealer_user_email,
+							iduser.first_name as dealer_first_name,
+							iduser.last_name as dealer_last_name,
 
 							icity.id as city_id,
 							icity.name as cityname,
 
 							istr.id as street_id,
-							istr.name as name,
+							istr.name as street_name,
 
 						")
 					->from("user_dealer_property as property")
 					->join("investex_investor_proposal as proposal","proposal.proposal_transaction_type = property.property_transaction_type AND proposal.proposal_city = property.property_city AND proposal.proposal_street = property.property_street AND proposal.proposal_amount_for_investment = property.property_investment_amount AND proposal.proposal_estimate_return = property.property_estimated_return")
 
 					->join("investex_user as iuser","iuser.id = proposal.investor_id")
+					->join("investex_user as iduser","iduser.id = property.dealer_id")
 					->join("city as icity","proposal.proposal_city = icity.id")
 					->join("street as istr","proposal.proposal_street = istr.id")
+					->where("property.status !=",DRAFTS)
+					->where("property.dealer_id",$dealerid)
 					->get();
 				$res = $data->result();
 				return $res; 
- 				
+ 				 
+		}
+		// end here
+		// get investor by property id
+		public function MatchInvestorAccToPropertyid($proid)
+		{
+			$data = $this->db->select("
+
+							property.dealer_id as dealer_id,
+							property.property_unique_id as property_unique_id,
+							property.property_name as property_name,
+							property.property_text as property_text,
+							property.property_details as property_details,
+							property.property_image as property_image,
+							property.property_address as property_address,
+							property.property_latitude as property_latitude,
+							property.property_longtitue as property_longtitue,
+
+							property.property_street as property_street,
+							property.property_city as property_city,
+							property.property_transaction_type as property_transaction_type,
+							property.property_price as property_price,
+							property.property_investment_amount as property_investment_amount,
+							property.property_estimated_return as property_estimated_return,
+							property.status as status,
+							property.id as proId,
+							property.created_date as created_date,
+
+
+							proposal.investor_id as investor_id,
+							proposal.proposal_name as proposal_name,
+							proposal.proposal_unique_id as proposal_unique_id,
+							proposal.proposal_transaction_type as proposal_transaction_type,
+							proposal.proposal_country as proposal_country,
+							proposal.proposal_city as proposal_city,
+							proposal.proposal_street as proposal_street,
+							proposal.proposal_amount_for_investment as proposal_amount_for_investment ,
+							proposal.proposal_estimate_return as proposal_estimate_return,
+							proposal.status as proposal_status,
+
+							iuser.id as inv_id,
+							iuser.user_email as investor_user_email,
+							iuser.first_name as investor_first_name,
+							iuser.last_name as investor_last_name,
+
+							iduser.id as del_id,
+							iduser.user_email as dealer_user_email,
+							iduser.first_name as dealer_first_name,
+							iduser.last_name as dealer_last_name,
+
+							icity.id as city_id,
+							icity.name as cityname,
+
+							istr.id as street_id,
+							istr.name as street_name,
+
+						")
+					->from("user_dealer_property as property")
+					->join("investex_investor_proposal as proposal","proposal.proposal_transaction_type = property.property_transaction_type AND proposal.proposal_city = property.property_city AND proposal.proposal_street = property.property_street AND proposal.proposal_amount_for_investment = property.property_investment_amount AND proposal.proposal_estimate_return = property.property_estimated_return")
+
+					->join("investex_user as iuser","iuser.id = proposal.investor_id")
+					->join("investex_user as iduser","iduser.id = property.dealer_id")
+					->join("city as icity","proposal.proposal_city = icity.id")
+					->join("street as istr","proposal.proposal_street = istr.id")
+					->where("property.status !=",DRAFTS)
+					->where("property.id",$proid)
+					->get();
+				$res = $data->result();
+				return $res; 
  				 
 		}
 		// end here
@@ -354,7 +664,7 @@
 		// end here
 
 		// save property by investir start here
-		public function savePropertyByinvestor($viewpropertyid,$viewinvestorid)
+		public function savePropertyByinvestor($viewpropertyid,$viewinvestorid,$dealerid)
 		{
 			$data = $this->db->select("*")
 					->from("property_status_by_investor")
@@ -366,6 +676,7 @@
 				$insert = array(
 							"property_id"	=>	$viewpropertyid,
 							"investor_id"	=>	$viewinvestorid,
+							"dealer_id"		=>	$dealerid,
 							"status"		=>	ACTIVE,
 							"created_date"	=>	TODAY_DATE,
 						);

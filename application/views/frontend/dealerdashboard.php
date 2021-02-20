@@ -101,7 +101,7 @@
                         </div>
                     </div>
                     <div class="summary-footer">
-                        <a href="javascript:;" class="text-muted text-uppercase">(view all)</a>
+                        <a href="<?php echo SITE_URL?>viewlist/<?php echo base64_encode(ALL_STATUS); ?>" class="text-muted text-uppercase">(view all)</a>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                     <div class="summary-footer">
-                        <a href="javascript:;" class="text-muted text-uppercase">(view all)</a>
+                        <a href="<?php echo SITE_URL?>viewlist/<?php echo base64_encode(Open_For_Investement); ?>" class="text-muted text-uppercase">(view all)</a>
                     </div>
                 </div>
             </div>
@@ -233,12 +233,12 @@
 					                    <div class="summary">
 					                        <h4 class="title">INVESTORS MATCHED</h4>
 					                        <div class="info">
-					                            <strong class="amount">0</strong>
+					                            <strong class="amount"><?php echo count($getmatchinvestor);?></strong>
 					                            
 					                        </div>
 					                    </div>
 					                    <div class="summary-footer">
-					                        <a href="javascript:;" class="text-muted text-uppercase">(view all)</a>
+					                        <a href="<?php echo SITE_URL?>viewlist/<?php echo base64_encode(INVESTOR_MATCH)?>" class="text-muted text-uppercase">(view all)</a>
 					                    </div>
 					                </div>
 					            </div>
@@ -259,7 +259,7 @@
 					                    <div class="summary">
 					                        <h4 class="title">UNDER CONSIDERATION</h4>
 					                        <div class="info">
-					                            <strong class="amount">0</strong>
+					                            <strong class="amount"><?php echo count($allcosidration); ?></strong>
 					                            
 					                        </div>
 					                    </div>
@@ -307,7 +307,17 @@
         
                             <div class="row border-0 w-100 mt-3 ">
                                   
-								 <a href="javascript:;" class="detail_table">View In Detail</a>
+                                 
+								 
+                                 <div style="padding:10px; border:1px solid #ddd; border:4px;width:100%;">
+                                     <div style="width:20%; float: left;">
+                                         <a href="<?php echo SITE_URL?>propertyRegistration" class="detail_table">Add Property</a>
+                                     </div>
+                                     <div style="width:20%; float: left;">
+                                         <a href="<?php echo SITE_URL?>viewlist/<?php echo base64_encode(ALL_STATUS); ?>" class="detail_table">View In Detail</a>
+                                     </div>
+                                 </div>
+
 								<div class="mdc-data-table border-0 w-100 mt-1">
                                 <table id="datatab" class="table-responsive" aria-label="Dessert calories" style="width: 100%;">
                                     <thead>

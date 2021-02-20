@@ -126,7 +126,9 @@ class AjaxController extends CI_Controller {
 	public function savePropertyByinvestor(){
 		$viewpropertyid = $_POST['propertyid'];
 		$viewinvestorid = $_POST['investorid'];
-		$data = $this->AjaxModel->savePropertyByinvestor($viewpropertyid,$viewinvestorid);
+		$dealerid = $_POST['dealerid'];
+
+		$data = $this->AjaxModel->savePropertyByinvestor($viewpropertyid,$viewinvestorid,$dealerid);
 		print_r($data);
 	}
 	// end here

@@ -26,7 +26,7 @@
                         <a href="javascript:;" data-id="<?php echo $userdata['userid']; ?>"  data-proid="<?php echo  $propertybyId[0]->proId; ?>" class="property_like"><div class="like_b w115" ><i class="fa fa-heart " aria-hidden="true" ></i><lable id="likepro"><?php echo count($getlikeofproperty); ?></lable></div></a>		
                 
                         <?php if (empty($getsaveproperty)){?>
-                           <a href="javascript:;" data-id="<?php echo $userdata['userid']; ?>"  data-proid="<?php echo  $propertybyId[0]->proId; ?>" class="saveproperty"> <div class="view w115"> <i class="fa fa-dashboard" aria-hidden="true"></i><label id="savepro"></label></div> </a>    
+                           <a href="javascript:;" data-id="<?php echo $userdata['userid']; ?>"  data-proid="<?php echo  $propertybyId[0]->proId; ?>" data-dealerid="<?php echo $propertybyId[0]->dealer_id?>" class="saveproperty"> <div class="view w115"> <i class="fa fa-dashboard" aria-hidden="true"></i><label id="savepro"></label></div> </a>    
                        <?php } ?>
 						  
 
